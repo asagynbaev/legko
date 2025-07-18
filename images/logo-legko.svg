@@ -1,0 +1,19 @@
+<svg width="140" height="40" viewBox="0 0 140 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Текст LEGKO -->
+  <g fill="#8263E8">
+    <!-- L -->
+    <path d="M8 6h4v20h12v4H8V6z"/>
+    <!-- E -->
+    <path d="M28 6h16v4H32v4h10v4H32v4h12v4H28V6z"/>
+    <!-- G -->
+    <path d="M48 6h16v4H52v16h12v-6h-6v-4h10v14H48V6z"/>
+    <!-- K -->
+    <path d="M68 6h4v8l8-8h5l-8 8 8 12h-5l-6-9v9h-4V6z"/>
+    <!-- O (спираль) -->
+    <g transform="translate(90, 8)">
+      <circle cx="12" cy="12" r="12" fill="none" stroke="#8263E8" stroke-width="2"/>
+      <path d="M12 4 C16 4 20 8 20 12 C20 16 16 20 12 20 C8 20 4 16 4 12 C4 10 5 8 7 7 C8 6 10 6 11 7 C12 8 12 9 11 10 C10 11 9 11 9 10" 
+            fill="none" stroke="#8263E8" stroke-width="2.5" stroke-linecap="round"/>
+    </g>
+  </g>
+</svg> 

@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legko - Найдите своего психолога за 5 минут</title>
+    <meta name="description" content="Быстрый и удобный поиск психологов онлайн. Подберем специалиста под ваши потребности. Конфиденциально и профессионально.">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://legko.live/">
+    <meta property="og:title" content="Legko - Найдите своего психолога за 5 минут">
+    <meta property="og:description" content="Быстрый и удобный поиск психологов онлайн. Подберем специалиста под ваши потребности.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav container">
+            <div class="nav__brand">
+                <div class="logo">
+                    <img src="images/Group_12_3.webp" alt="Legko - поиск психологов" class="logo__image">
+                </div>
+            </div>
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li class="nav__item">
+                        <a href="#how-it-works" class="nav__link">Как это работает</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="#benefits" class="nav__link">Преимущества</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="#specialists" class="nav__link">Специалисты</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="#faq" class="nav__link">FAQ</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="nav__actions">
+                <a href="#" class="btn btn--outline">Войти</a>
+                <a href="#" class="btn btn--primary">Найти психолога</a>
+            </div>
+            <div class="nav__toggle" id="nav-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero__container container">
+            <div class="hero__content">
+                <div class="hero__badge">
+                    <span class="modern-badge">
+                        <span class="badge-icon">✨</span>
+                        15 000+ успешных сессий
+                    </span>
+                </div>
+                <h1 class="hero__title">
+                    Найдите <span class="gradient-text">идеального психолога</span> за 2 минуты
+                </h1>
+                <p class="hero__description">
+                    Профессиональная психологическая помощь онлайн. 
+                    Подберем специалиста под ваши потребности быстро и безопасно.
+                </p>
+                <div class="hero__cta">
+                    <div class="cta-buttons">
+                        <a href="#" class="btn btn--primary btn--modern">
+                            Найти психолога
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                        <a href="#how-it-works" class="btn btn--ghost btn--modern">
+                            Как это работает
+                        </a>
+                    </div>
+                    <div class="hero__stats">
+                        <div class="stat-item">
+                            <span class="stat-number">4.9</span>
+                            <span class="stat-label">рейтинг</span>
+                        </div>
+                        <div class="stat-divider"></div>
+                        <div class="stat-item">
+                            <span class="stat-number">2000+</span>
+                            <span class="stat-label">клиентов</span>
+                        </div>
+                        <div class="stat-divider"></div>
+                        <div class="stat-item">
+                            <span class="stat-number">24/7</span>
+                            <span class="stat-label">поддержка</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero__visual">
+                <div class="hero__image-container">
+                    <div class="hero__mascot-wrapper">
+                        <img src="images/пушистик радость.png" alt="Legko помощник" class="hero__mascot-modern">
+                    </div>
+                    <div class="floating-elements">
+                        <div class="floating-card modern-card card-1">
+                            <div class="card-icon">💬</div>
+                            <span>Онлайн сессии</span>
+                        </div>
+                        <div class="floating-card modern-card card-2">
+                            <div class="card-icon">🔒</div>
+                            <span>Конфиденциально</span>
+                        </div>
+                        <div class="floating-card modern-card card-3">
+                            <div class="card-icon">⚡</div>
+                            <span>Быстрый подбор</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero__bg-modern">
+            <div class="modern-gradient modern-gradient--1"></div>
+            <div class="modern-gradient modern-gradient--2"></div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Как найти психолога на Legko</h2>
+                <p class="section-subtitle">Простой процесс от заявки до первой сессии</p>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-line"></div>
+                
+                <div class="timeline-item timeline-item--left">
+                    <div class="timeline-marker">
+                        <div class="timeline-number">1</div>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="timeline-icon">
+                            <i class="fas fa-clipboard-list"></i>
+                        </div>
+                        <h3 class="timeline-title">Заполните анкету</h3>
+                        <p class="timeline-description">Ответьте на несколько вопросов о ваших потребностях, предпочтениях и проблемах, которые хотите решить</p>
+                        <div class="timeline-meta">
+                            <span class="timeline-time">
+                                <i class="fas fa-clock"></i>
+                                2-3 минуты
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item timeline-item--right">
+                    <div class="timeline-marker">
+                        <div class="timeline-number">2</div>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="timeline-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h3 class="timeline-title">Выберите психолога</h3>
+                        <p class="timeline-description">Сервис автоматически подберет вам 3-5 подходящих терапевтов на основе ваших ответов</p>
+                        <div class="timeline-meta">
+                            <span class="timeline-time">
+                                <i class="fas fa-magic"></i>
+                                Мгновенно
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item timeline-item--left">
+                    <div class="timeline-marker">
+                        <div class="timeline-number">3</div>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="timeline-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <h3 class="timeline-title">Выберите дату и время</h3>
+                        <p class="timeline-description">Забронируйте время сессии и произведите оплату в удобное для вас время</p>
+                        <div class="timeline-meta">
+                            <span class="timeline-time">
+                                <i class="fas fa-calendar"></i>
+                                24/7 доступно
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item timeline-item--right">
+                    <div class="timeline-marker">
+                        <div class="timeline-number">4</div>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="timeline-icon">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <h3 class="timeline-title">Начните психотерапию</h3>
+                        <p class="timeline-description">Мы вышлем вам чек-лист перед первой консультацией и ссылку для подключения</p>
+                        <div class="timeline-meta">
+                            <span class="timeline-time">
+                                <i class="fas fa-heart"></i>
+                                50 минут сессия
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item timeline-item--left">
+                    <div class="timeline-marker">
+                        <div class="timeline-number">5</div>
+                    </div>
+                    <div class="timeline-card">
+                        <div class="timeline-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h3 class="timeline-title">Мы всегда на связи</h3>
+                        <p class="timeline-description">На любом этапе вы можете задать вопрос, поменять психотерапевта и оставить отзыв</p>
+                        <div class="timeline-meta">
+                            <span class="timeline-time">
+                                <i class="fas fa-shield-alt"></i>
+                                Поддержка 24/7
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-cta">
+                <div class="timeline-cta-content">
+                    <h3>Готовы начать?</h3>
+                    <p>Найдите своего психолога уже сегодня</p>
+                    <a href="#" class="btn btn--primary btn--large">
+                        <i class="fas fa-rocket"></i>
+                        Начать поиск психолога
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- First Session Info -->
+    <section class="first-session">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Чего ждать от первой сессии?</h2>
+                <p class="section-subtitle">Знание того, что произойдет, поможет вам чувствовать себя более уверенно</p>
+            </div>
+            <div class="session-content">
+                <div class="session-visual">
+                    <div class="session-mockup">
+                        <div class="mockup-header">
+                            <div class="mockup-controls">
+                                <div class="control"></div>
+                                <div class="control"></div>
+                                <div class="control"></div>
+                            </div>
+                            <span class="mockup-title">Видеосессия с психологом</span>
+                        </div>
+                        <div class="mockup-content">
+                            <div class="video-participant">
+                                <img src="images/пушистик обьятия.png" alt="Психолог" class="participant-avatar">
+                                <span class="participant-name">Ваш психолог</span>
+                            </div>
+                            <div class="video-participant video-participant--you">
+                                <img src="images/пушистик радость.png" alt="Вы" class="participant-avatar">
+                                <span class="participant-name">Вы</span>
+                            </div>
+                        </div>
+                        <div class="mockup-footer">
+                            <div class="session-duration">
+                                <i class="fas fa-clock"></i>
+                                <span>50 минут</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="session-steps">
+                    <h3 class="session-steps-title">Что происходит на первой сессии:</h3>
+                    <div class="session-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Познакомитесь с терапевтом</h4>
+                            <p>Психолог расскажет о себе, своем подходе и ответит на ваши вопросы о процессе терапии</p>
+                        </div>
+                    </div>
+                    <div class="session-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Уточните запрос и наметите план</h4>
+                            <p>Вместе определите цели терапии и составите план работы под ваши потребности</p>
+                        </div>
+                    </div>
+                    <div class="session-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Поделитесь эмоциями и чувствами</h4>
+                            <p>В безопасной обстановке расскажите о том, что вас беспокоит, без страха осуждения</p>
+                        </div>
+                    </div>
+                    <div class="session-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h4>Получите поддержку и понимание</h4>
+                            <p>Почувствуете облегчение и получите первые инсайты о своей ситуации</p>
+                        </div>
+                    </div>
+                    <div class="session-guarantee">
+                        <div class="guarantee-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="guarantee-content">
+                            <h4>Гарантия комфорта</h4>
+                            <p>Если психолог вам не подошел — мы подберем другого специалиста <strong>бесплатно</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits -->
+    <section class="benefits" id="benefits">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Почему выбирают Legko</h2>
+                <p class="section-subtitle">Мы делаем психологическую помощь доступной и удобной</p>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-card__icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 class="benefit-card__title">Быстрый подбор</h3>
+                    <p class="benefit-card__description">
+                        Найдем подходящего психолога за 5 минут на основе ваших ответов
+                    </p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-card__icon">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                    <h3 class="benefit-card__title">Проверенные специалисты</h3>
+                    <p class="benefit-card__description">
+                        Все психологи проходят строгий отбор и имеют соответствующее образование
+                    </p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-card__icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3 class="benefit-card__title">Полная конфиденциальность</h3>
+                    <p class="benefit-card__description">
+                        Ваши данные под надежной защитой, анонимность гарантирована
+                    </p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-card__icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3 class="benefit-card__title">Удобное расписание</h3>
+                    <p class="benefit-card__description">
+                        Бронируйте сессии в любое удобное время, включая вечера и выходные
+                    </p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-card__icon">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <h3 class="benefit-card__title">Прозрачные цены</h3>
+                    <p class="benefit-card__description">
+                        Никаких скрытых платежей, цены указаны заранее
+                    </p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-card__icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3 class="benefit-card__title">Поддержка 24/7</h3>
+                    <p class="benefit-card__description">
+                        Наша команда поддержки всегда готова помочь с любыми вопросами
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problems We Solve -->
+    <section class="problems">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">"Legko" для тех, кто хочет...</h2>
+                <p class="section-subtitle">Более 50 направлений работы с профессиональными психологами</p>
+            </div>
+
+            <!-- Popular Problems -->
+            <div class="problems-popular">
+                <h3 class="problems-section-title">🔥 Самые популярные запросы</h3>
+                <div class="problems-grid">
+                    <div class="problem-card problem-card--featured">
+                        <div class="problem-card__icon">
+                            <img src="images/пушистик грусть.png" alt="Тревога" class="mascot-icon">
+                        </div>
+                        <h4 class="problem-card__title">Тревога и беспокойство</h4>
+                        <p class="problem-card__description">Избавление от ненужных мыслей и чувств, а также навязчивого "что скажут люди"</p>
+                        <div class="problem-card__tags">
+                            <span class="tag">Панические атаки</span>
+                            <span class="tag">Фобии</span>
+                            <span class="tag">ОКР</span>
+                        </div>
+                    </div>
+                    <div class="problem-card problem-card--featured">
+                        <div class="problem-card__icon">
+                            <img src="images/пушистик снеснение.png" alt="Депрессия" class="mascot-icon">
+                        </div>
+                        <h4 class="problem-card__title">Нет энергии и сил</h4>
+                        <p class="problem-card__description">Вернуть энергию и силы, выявление сильных и слабых сторон, принятие себя</p>
+                        <div class="problem-card__tags">
+                            <span class="tag">Депрессия</span>
+                            <span class="tag">Апатия</span>
+                            <span class="tag">Усталость</span>
+                        </div>
+                    </div>
+                    <div class="problem-card problem-card--featured">
+                        <div class="problem-card__icon">
+                            <img src="images/пушистик удивление.png" alt="Отношения" class="mascot-icon">
+                        </div>
+                        <h4 class="problem-card__title">Сложности в отношениях</h4>
+                        <p class="problem-card__description">Гармоничные отношения с детьми, родителями и даже с семьей мужа/жены</p>
+                        <div class="problem-card__tags">
+                            <span class="tag">Развод</span>
+                            <span class="tag">Ревность</span>
+                            <span class="tag">Семейные конфликты</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- All Categories -->
+            <div class="problems-categories">
+                <h3 class="problems-section-title">📋 Все направления работы</h3>
+                <div class="categories-grid">
+                    <div class="category-group">
+                        <h4 class="category-title">💭 Эмоциональное состояние</h4>
+                        <div class="category-items">
+                                                         <div class="category-item">
+                                 <img src="images/пушистик грусть.png" alt="Тревога" class="category-icon">
+                                 <span>Тревога и беспокойство</span>
+                             </div>
+                             <div class="category-item">
+                                 <img src="images/пушистик снеснение.png" alt="Депрессия" class="category-icon">
+                                 <span>Депрессия</span>
+                             </div>
+                             <div class="category-item">
+                                 <img src="images/пушистик радость.png" alt="Стресс" class="category-icon">
+                                 <span>Эмоциональное выгорание</span>
+                             </div>
+                             <div class="category-item">
+                                 <img src="images/пушистик расслабление.png" alt="Панические атаки" class="category-icon">
+                                 <span>Панические атаки</span>
+                             </div>
+                        </div>
+                    </div>
+
+                    <div class="category-group">
+                        <h4 class="category-title">❤️ Отношения</h4>
+                        <div class="category-items">
+                                                         <div class="category-item">
+                                 <img src="images/пушистик влюбленность.png" alt="Построить отношения" class="category-icon">
+                                 <span>Построить отношения</span>
+                             </div>
+                             <div class="category-item">
+                                 <img src="images/пушистик обьятия.png" alt="Семейные конфликты" class="category-icon">
+                                 <span>Наладить отношения с семьей</span>
+                             </div>
+                             <div class="category-item">
+                                 <img src="images/пушистик удивление.png" alt="Развод" class="category-icon">
+                                 <span>Переживание развода</span>
+                             </div>
+                             <div class="category-item">
+                                 <img src="images/пушистик грусть.png" alt="Обида на родителей" class="category-icon">
+                                 <span>Обида на папу/маму</span>
+                             </div>
+                        </div>
+                    </div>
+
+                    <div class="category-group">
+                        <h4 class="category-title">🎯 Личностный рост</h4>
+                        <div class="category-items">
+                                                         <div class="category-item">
+                                 <img src="images/пушистик самолюбование.png" alt="Самооценка" class="category-icon">
+                                 <span>Проблемы с самооценкой</span>
+                             </div>
+                             <div class="category-item">
+                                 <img src="images/пушистик нежность.png" alt="Найти себя" class="category-icon">
+                                 <span>Найти себя и любимое занятие</span>
+                             </div>
+                             <div class="category-item">
+                                 <img src="images/пушистик радость.png" alt="Раскрыть потенциал" class="category-icon">
+                                 <span>Раскрыть свой потенциал</span>
+                             </div>
+                             <div class="category-item">
+                                 <img src="images/пушистик самолюбование.png" alt="Разобраться в себе" class="category-icon">
+                                 <span>Разобраться в себе</span>
+                             </div>
+                        </div>
+                    </div>
+
+                    <div class="category-group">
+                        <h4 class="category-title">💼 Карьера и деньги</h4>
+                        <div class="category-items">
+                                                         <div class="category-item">
+                                 <img src="images/пушистик снеснение.png" alt="Не нравится работа" class="category-icon">
+                                 <span>Не нравится работа</span>
+                             </div>
+                             <div class="category-item">
+                                 <img src="images/пушистик самолюбование.png" alt="Карьерный рост" class="category-icon">
+                                 <span>Как вырасти в доходе</span>
+                             </div>
+                             <div class="category-item">
+                                 <img src="images/пушистик радость.png" alt="Выгорание" class="category-icon">
+                                 <span>Профессиональное выгорание</span>
+                             </div>
+                             <div class="category-item">
+                                 <img src="images/пушистик грусть.png" alt="Стресс на работе" class="category-icon">
+                                 <span>Стресс на работе</span>
+                             </div>
+                        </div>
+                    </div>
+
+                    <div class="category-group">
+                        <h4 class="category-title">🌟 Жизненные кризисы</h4>
+                        <div class="category-items">
+                                                         <div class="category-item">
+                                 <img src="images/пушистик удивление.png" alt="Кризис среднего возраста" class="category-icon">
+                                 <span>Кризис среднего возраста</span>
+                             </div>
+                             <div class="category-item">
+                                 <img src="images/пушистик грусть.png" alt="Проработать травмы" class="category-icon">
+                                 <span>Проработать травмы</span>
+                             </div>
+                             <div class="category-item">
+                                 <img src="images/пушистик снеснение.png" alt="Выйти из кризиса" class="category-icon">
+                                 <span>Выйти из кризисной ситуации</span>
+                             </div>
+                             <div class="category-item">
+                                 <img src="images/пушистик обьятия.png" alt="Старший ребенок" class="category-icon">
+                                 <span>Гармоничные отношения с детьми</span>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="problems-cta">
+                    <div class="problems-cta-content">
+                        <h4>Не нашли свою проблему?</h4>
+                        <p>У нас есть специалисты по <strong>50+ направлениям</strong>. Расскажите о своей ситуации, и мы подберем подходящего психолога</p>
+                        <a href="#" class="btn btn--primary">
+                            <i class="fas fa-comment-dots"></i>
+                            Получить бесплатную консультацию
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Specialists -->
+    <section class="specialists" id="specialists">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Наши психологи</h2>
+                <p class="section-subtitle">Высококвалифицированные специалисты с опытом от 5 лет</p>
+            </div>
+            <div class="specialists-content">
+                <div class="specialists-info">
+                    <div class="criteria">
+                        <div class="criteria-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            <div>
+                                <h4>Высшее образование</h4>
+                                <p>Диплом психолога или смежной специальности</p>
+                            </div>
+                        </div>
+                        <div class="criteria-item">
+                            <i class="fas fa-certificate"></i>
+                            <div>
+                                <h4>Дополнительное обучение</h4>
+                                <p>Сертификаты по различным терапевтическим методам</p>
+                            </div>
+                        </div>
+                        <div class="criteria-item">
+                            <i class="fas fa-chart-line"></i>
+                            <div>
+                                <h4>Практический опыт</h4>
+                                <p>Минимум 5 лет работы с клиентами</p>
+                            </div>
+                        </div>
+                        <div class="criteria-item">
+                            <i class="fas fa-users"></i>
+                            <div>
+                                <h4>Супервизия</h4>
+                                <p>Регулярная работа с супервизором</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="specialists-visual">
+                    <div class="specialists-cards">
+                        <div class="specialist-preview">
+                            <div class="specialist-avatar">
+                                <img src="images/пушистик обьятия.png" alt="Специалист" class="mascot-icon">
+                            </div>
+                            <h4>Алтынай Муратбек кызы</h4>
+                            <p>Клинический психолог</p>
+                            <div class="rating">
+                                <span>4.9</span>
+                                <div class="stars">⭐⭐⭐⭐⭐</div>
+                            </div>
+                        </div>
+                        <div class="specialist-preview">
+                            <div class="specialist-avatar">
+                                <img src="images/пушистик самолюбование.png" alt="Специалист" class="mascot-icon">
+                            </div>
+                            <h4>Дария Рыспаева</h4>
+                            <p>Нарративный терапевт</p>
+                            <div class="rating">
+                                <span>4.8</span>
+                                <div class="stars">⭐⭐⭐⭐⭐</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Отзывы клиентов</h2>
+                <p class="section-subtitle">Истории людей, которые нашли помощь</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"Долго искала психолога, который бы понимал мои проблемы. На Legko нашла идеального специалиста буквально за несколько минут. Очень благодарна!"</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="images/пушистик влюбленность.png" alt="Акылай" class="mascot-icon">
+                        </div>
+                        <div class="author-info">
+                            <h4>Акылай</h4>
+                            <span>Бишкек</span>
+                        </div>
+                    </div>
+                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"Удобная платформа, профессиональные психологи. Помогли справиться с тревогой. Рекомендую всем, кто сомневается - просто попробуйте!"</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="images/пушистик радость.png" alt="Бектур" class="mascot-icon">
+                        </div>
+                        <div class="author-info">
+                            <h4>Бектур</h4>
+                            <span>Бишкек</span>
+                        </div>
+                    </div>
+                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"Спасибо Legko за возможность получить качественную психологическую помощь онлайн. Это действительно изменило мою жизнь к лучшему."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">
+                            <img src="images/пушистик нежность.png" alt="Жанара" class="mascot-icon">
+                        </div>
+                        <div class="author-info">
+                            <h4>Жанара</h4>
+                            <span>Бишкек</span>
+                        </div>
+                    </div>
+                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq" id="faq">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Часто задаваемые вопросы</h2>
+                <p class="section-subtitle">Ответы на популярные вопросы о нашем сервисе</p>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Как проходят онлайн-сессии?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Сессии проходят по видеосвязи через защищенную платформу. Вам нужен только компьютер или телефон с доступом в интернет. Длительность одной сессии - 50 минут.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Сколько стоят консультации?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Стоимость варьируется от 2000 до 5000 рублей за сессию в зависимости от опыта психолога. Точную цену вы увидите в профиле специалиста.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Можно ли поменять психолога?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Конечно! Если специалист вам не подошел, мы подберем другого психолога бесплатно. Важно найти того, с кем вам будет комфортно работать.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Гарантируется ли конфиденциальность?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Абсолютно. Все данные защищены согласно закону о персональных данных. Психологи связаны профессиональной этикой и не разглашают информацию о клиентах.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Что если мне не поможет терапия?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Терапия - это процесс, который требует времени. Если после нескольких сессий вы не видите прогресса, мы поможем найти другого специалиста или метод терапии.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">Готовы начать путь к лучшей жизни?</h2>
+                <p class="cta-description">
+                    Сделайте первый шаг к изменениям. Найдите своего психолога уже сегодня.
+                </p>
+                <a href="#" class="btn btn--primary btn--large">
+                    <i class="fas fa-arrow-right"></i>
+                    Найти психолога
+                </a>
+                <p class="cta-note">Первая консультация со скидкой 20%</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-main">
+                    <div class="footer-brand">
+                        <div class="logo">
+                            <img src="images/Group_12_3.png.webp" alt="Legko - поиск психологов" class="logo__image logo__image--footer">
+                        </div>
+                        <p>Делаем психологическую помощь доступной и удобной для каждого</p>
+                    </div>
+                    <div class="footer-links">
+                        <div class="footer-column">
+                            <h4>Сервис</h4>
+                            <ul>
+                                <li><a href="#">Найти психолога</a></li>
+                                <li><a href="#">Как это работает</a></li>
+                                <li><a href="#">Цены</a></li>
+                                <li><a href="#">Специализации</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-column">
+                            <h4>Поддержка</h4>
+                            <ul>
+                                <li><a href="#">FAQ</a></li>
+                                <li><a href="#">Связаться с нами</a></li>
+                                <li><a href="#">Техподдержка</a></li>
+                                <li><a href="#">Статьи</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-column">
+                            <h4>Информация</h4>
+                            <ul>
+                                <li><a href="#">О нас</a></li>
+                                <li><a href="#">Политика конфиденциальности</a></li>
+                                <li><a href="#">Условия использования</a></li>
+                                <li><a href="#">Для психологов</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                    </div>
+                    <p>&copy; 2024 Legko. Все права защищены.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Sticky CTA Bar -->
+    <div class="sticky-cta" id="sticky-cta">
+        <div class="sticky-cta-content">
+            <div class="sticky-cta-text">
+                <strong>Готовы начать?</strong>
+                <span>Подберем психолога за 2 минуты</span>
+            </div>
+            <a href="#" class="btn btn--primary btn-sticky">
+                <i class="fas fa-user-md"></i>
+                Найти психолога
+            </a>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/script.js"></script>
+</body>
+</html> 
