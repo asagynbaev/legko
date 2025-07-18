@@ -79,10 +79,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Header scroll effect and Sticky CTA
+    // Header scroll effect
     const header = document.querySelector('.header');
-    const stickyCta = document.getElementById('sticky-cta');
-    let lastScrollTop = 0;
     
     window.addEventListener('scroll', function() {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
@@ -95,18 +93,6 @@ document.addEventListener('DOMContentLoaded', function() {
             header.style.background = 'rgba(255, 255, 255, 0.95)';
             header.style.boxShadow = 'none';
         }
-        
-        // Sticky CTA effects
-        if (stickyCta) {
-            // Show sticky CTA after scrolling past hero section
-            if (scrollTop > window.innerHeight * 0.8) {
-                stickyCta.classList.add('show');
-            } else {
-                stickyCta.classList.remove('show');
-            }
-        }
-        
-        lastScrollTop = scrollTop;
     });
     
     // Intersection Observer for animations
@@ -126,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Observe elements for animation
     const animateElements = document.querySelectorAll(`
-        .timeline-item,
+        .timeline-step,
         .benefit-card,
         .problem-card,
         .testimonial-card,
@@ -135,39 +121,38 @@ document.addEventListener('DOMContentLoaded', function() {
     `);
     
     animateElements.forEach((element, index) => {
-        // Set initial state for timeline items
-        if (element.classList.contains('timeline-item')) {
-            const card = element.querySelector('.timeline-card');
-            const marker = element.querySelector('.timeline-marker');
+        // Set initial state for timeline steps
+        if (element.classList.contains('timeline-step')) {
+            const card = element.querySelector('.step-card');
+            const marker = element.querySelector('.step-marker');
             
             if (card) {
                 card.style.opacity = '0';
-                card.style.transform = element.classList.contains('timeline-item--left') 
-                    ? 'translateX(-50px)' : 'translateX(50px)';
-                card.style.transition = `opacity 0.8s ease ${index * 0.2}s, transform 0.8s ease ${index * 0.2}s`;
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = `opacity 0.2s ease ${index * 0.02}s, transform 0.2s ease ${index * 0.02}s`;
             }
             
             if (marker) {
                 marker.style.opacity = '0';
-                marker.style.transform = 'translateX(-50%) scale(0.5)';
-                marker.style.transition = `opacity 0.6s ease ${index * 0.2 + 0.1}s, transform 0.6s ease ${index * 0.2 + 0.1}s`;
+                marker.style.transform = marker.style.transform + ' scale(0.5)';
+                marker.style.transition = `opacity 0.15s ease ${index * 0.02 + 0.01}s, transform 0.15s ease ${index * 0.02 + 0.01}s`;
             }
             
             // Custom observer for timeline
             const timelineObserver = new IntersectionObserver(function(entries) {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        const card = entry.target.querySelector('.timeline-card');
-                        const marker = entry.target.querySelector('.timeline-marker');
+                        const card = entry.target.querySelector('.step-card');
+                        const marker = entry.target.querySelector('.step-marker');
                         
                         if (card) {
                             card.style.opacity = '1';
-                            card.style.transform = 'translateX(0)';
+                            card.style.transform = 'translateY(0)';
                         }
                         
                         if (marker) {
                             marker.style.opacity = '1';
-                            marker.style.transform = 'translateX(-50%) scale(1)';
+                            marker.style.transform = marker.style.transform.replace('scale(0.5)', 'scale(1)');
                         }
                         
                         timelineObserver.unobserve(entry.target);
@@ -181,11 +166,11 @@ document.addEventListener('DOMContentLoaded', function() {
             element.style.opacity = '0';
             element.style.transform = 'translateY(30px)';
             
-            // Faster animation for specialists and testimonials
+            // Fast animation for all elements
             if (element.classList.contains('specialist-preview') || element.classList.contains('testimonial-card')) {
-                element.style.transition = `opacity 0.5s ease ${index * 0.05}s, transform 0.5s ease ${index * 0.05}s`;
+                element.style.transition = `opacity 0.15s ease ${index * 0.01}s, transform 0.15s ease ${index * 0.01}s`;
             } else {
-                element.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+                element.style.transition = `opacity 0.2s ease ${index * 0.02}s, transform 0.2s ease ${index * 0.02}s`;
             }
             
             // Observe for intersection
@@ -438,6 +423,162 @@ document.addEventListener('DOMContentLoaded', function() {
             trackClick(elementText);
         });
     });
+    
+    // How It Works Section Animations
+    function initHowItWorksAnimations() {
+        const processSteps = document.querySelectorAll('.process-step');
+        const guaranteeCard = document.querySelector('.guarantee-card');
+        
+        // Intersection Observer for step animations
+        const stepObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    // Add staggered animation delay
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                        
+                        // Animate step number
+                        const stepNumber = entry.target.querySelector('.step-number');
+                        if (stepNumber) {
+                            stepNumber.style.animation = 'stepNumberPulse 0.6s ease-out';
+                        }
+                        
+                        // Animate progress line
+                        const progressLine = entry.target.querySelector('.step-progress-line');
+                        if (progressLine) {
+                            progressLine.style.animation = 'progressLineGrow 0.8s ease-out 0.3s forwards';
+                        }
+                    }, index * 200);
+                }
+            });
+        }, {
+            threshold: 0.3,
+            rootMargin: '-50px'
+        });
+        
+        // Apply initial styles and observe steps
+        processSteps.forEach((step, index) => {
+            step.style.opacity = '0';
+            step.style.transform = 'translateY(30px)';
+            step.style.transition = 'all 0.6s ease-out';
+            stepObserver.observe(step);
+        });
+        
+        // Guarantee card hover animation
+        if (guaranteeCard) {
+            guaranteeCard.addEventListener('mouseenter', () => {
+                guaranteeCard.style.transform = 'translateY(-4px) scale(1.02)';
+                guaranteeCard.style.boxShadow = '0 16px 48px rgba(130, 99, 232, 0.15)';
+            });
+            
+            guaranteeCard.addEventListener('mouseleave', () => {
+                guaranteeCard.style.transform = 'translateY(0) scale(1)';
+                guaranteeCard.style.boxShadow = 'none';
+            });
+        }
+        
+        // Add click interactions for process steps
+        processSteps.forEach((step, index) => {
+            const stepContent = step.querySelector('.step-content');
+            const stepNumber = step.querySelector('.step-number');
+            
+            if (stepContent && stepNumber) {
+                stepContent.addEventListener('click', () => {
+                    // Add ripple effect
+                    createRippleEffect(stepContent, event);
+                    
+                    // Track interaction
+                    trackClick(`Process Step ${index + 1}`, 'step_click');
+                });
+                
+                // Add keyboard accessibility
+                stepContent.setAttribute('tabindex', '0');
+                stepContent.setAttribute('role', 'button');
+                stepContent.setAttribute('aria-label', `Шаг ${index + 1}: ${step.querySelector('.step-title')?.textContent}`);
+                
+                stepContent.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        stepContent.click();
+                    }
+                });
+            }
+        });
+    }
+    
+    // Create ripple effect on click
+    function createRippleEffect(element, event) {
+        const ripple = document.createElement('span');
+        const rect = element.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = event.clientX - rect.left - size / 2;
+        const y = event.clientY - rect.top - size / 2;
+        
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = x + 'px';
+        ripple.style.top = y + 'px';
+        ripple.style.position = 'absolute';
+        ripple.style.borderRadius = '50%';
+        ripple.style.background = 'rgba(130, 99, 232, 0.3)';
+        ripple.style.transform = 'scale(0)';
+        ripple.style.animation = 'rippleEffect 0.6s ease-out';
+        ripple.style.pointerEvents = 'none';
+        
+        element.style.position = 'relative';
+        element.style.overflow = 'hidden';
+        element.appendChild(ripple);
+        
+        setTimeout(() => {
+            ripple.remove();
+        }, 600);
+    }
+    
+    // Add dynamic CSS animations
+    function addProcessAnimationStyles() {
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes stepNumberPulse {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.1); }
+                100% { transform: scale(1); }
+            }
+            
+            @keyframes progressLineGrow {
+                0% { 
+                    height: 0; 
+                    opacity: 0; 
+                }
+                100% { 
+                    height: 60px; 
+                    opacity: 1; 
+                }
+            }
+            
+            @keyframes rippleEffect {
+                0% { transform: scale(0); opacity: 1; }
+                100% { transform: scale(1); opacity: 0; }
+            }
+            
+            .process-step:hover .step-number {
+                animation: stepNumberPulse 0.6s ease-out;
+            }
+            
+            .step-content:hover::before {
+                background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
+            }
+            
+            .step-content:focus {
+                outline: 2px solid var(--primary-color);
+                outline-offset: 2px;
+            }
+        `;
+        document.head.appendChild(style);
+    }
+    
+    // Initialize animations when DOM is ready
+    initHowItWorksAnimations();
+    addProcessAnimationStyles();
     
     console.log('Legko website initialized successfully! 🎉');
 }); 

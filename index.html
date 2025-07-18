@@ -29,7 +29,7 @@
         <nav class="nav container">
             <div class="nav__brand">
                 <div class="logo">
-                    <img src="images/Group_12_3.webp" alt="Legko - поиск психологов" class="logo__image">
+                    <img src="images/Group_12_3.png.webp" alt="Legko - поиск психологов" class="logo__image">
                 </div>
             </div>
             <div class="nav__menu" id="nav-menu">
@@ -47,6 +47,10 @@
                         <a href="#faq" class="nav__link">FAQ</a>
                     </li>
                 </ul>
+                <div class="nav__mobile-actions">
+                    <a href="#" class="btn btn--outline btn--mobile">Войти</a>
+                    <a href="#" class="btn btn--primary btn--mobile">Найти психолога</a>
+                </div>
             </div>
             <div class="nav__actions">
                 <a href="#" class="btn btn--outline">Войти</a>
@@ -135,118 +139,105 @@
     <section class="how-it-works" id="how-it-works">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Как найти психолога на Legko</h2>
-                <p class="section-subtitle">Простой процесс от заявки до первой сессии</p>
+                <div class="section-badge">
+                    <span class="modern-badge">
+                        <span class="badge-icon">🚀</span>
+                        Простой процесс
+                    </span>
+                </div>
+                <h2 class="section-title">Как найти <span class="gradient-text">своего психолога</span> на Legko</h2>
+                <p class="section-subtitle">4 простых шага до первой сессии</p>
             </div>
             
-            <div class="timeline">
-                <div class="timeline-line"></div>
-                
-                <div class="timeline-item timeline-item--left">
-                    <div class="timeline-marker">
-                        <div class="timeline-number">1</div>
-                    </div>
-                    <div class="timeline-card">
-                        <div class="timeline-icon">
-                            <i class="fas fa-clipboard-list"></i>
+            <div class="process-flow">
+                <div class="process-steps">
+                    <div class="process-step" data-step="1">
+                        <div class="step-visual">
+                            <div class="step-number-wrapper">
+                                <div class="step-number">01</div>
+                            </div>
+                            <div class="step-progress-line"></div>
                         </div>
-                        <h3 class="timeline-title">Заполните анкету</h3>
-                        <p class="timeline-description">Ответьте на несколько вопросов о ваших потребностях, предпочтениях и проблемах, которые хотите решить</p>
-                        <div class="timeline-meta">
-                            <span class="timeline-time">
-                                <i class="fas fa-clock"></i>
-                                2-3 минуты
-                            </span>
+                        <div class="step-content">
+                            <div class="step-badge">2 минуты</div>
+                            <h3 class="step-title">Заполните анкету</h3>
+                            <p class="step-description">Ответьте на вопросы о ваших потребностях и предпочтениях</p>
+                        </div>
+                    </div>
+
+                    <div class="process-step" data-step="2">
+                        <div class="step-visual">
+                            <div class="step-number-wrapper">
+                                <div class="step-number">02</div>
+                            </div>
+                            <div class="step-progress-line"></div>
+                        </div>
+                        <div class="step-content">
+                            <div class="step-badge">Мгновенно</div>
+                            <h3 class="step-title">Получите подборку</h3>
+                            <p class="step-description">Система найдет подходящих психологов под ваши критерии</p>
+                        </div>
+                    </div>
+
+                    <div class="process-step" data-step="3">
+                        <div class="step-visual">
+                            <div class="step-number-wrapper">
+                                <div class="step-number">03</div>
+                            </div>
+                            <div class="step-progress-line"></div>
+                        </div>
+                        <div class="step-content">
+                            <div class="step-badge">24/7</div>
+                            <h3 class="step-title">Забронируйте сессию</h3>
+                            <p class="step-description">Выберите психолога и удобное время для встречи</p>
+                        </div>
+                    </div>
+
+                    <div class="process-step" data-step="4">
+                        <div class="step-visual">
+                            <div class="step-number-wrapper">
+                                <div class="step-number">04</div>
+                            </div>
+                        </div>
+                        <div class="step-content">
+                            <div class="step-badge">50 минут</div>
+                            <h3 class="step-title">Начинайте терапию</h3>
+                            <p class="step-description">Подключайтесь к сессии через безопасную платформу и получайте профессиональную помощь</p>
+                            <div class="step-features">
+                                <span class="feature-item">
+                                    <i class="fas fa-check"></i>
+                                    HD качество связи
+                                </span>
+                                <span class="feature-item">
+                                    <i class="fas fa-check"></i>
+                                    Полная конфиденциальность
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="timeline-item timeline-item--right">
-                    <div class="timeline-marker">
-                        <div class="timeline-number">2</div>
-                    </div>
-                    <div class="timeline-card">
-                        <div class="timeline-icon">
-                            <i class="fas fa-search"></i>
+                <div class="process-guarantee">
+                    <div class="guarantee-card">
+                        <div class="guarantee-icon">
+                            <i class="fas fa-shield-alt"></i>
                         </div>
-                        <h3 class="timeline-title">Выберите психолога</h3>
-                        <p class="timeline-description">Сервис автоматически подберет вам 3-5 подходящих терапевтов на основе ваших ответов</p>
-                        <div class="timeline-meta">
-                            <span class="timeline-time">
-                                <i class="fas fa-magic"></i>
-                                Мгновенно
-                            </span>
+                        <div class="guarantee-content">
+                            <h4>Гарантия совместимости</h4>
+                            <p>Если психолог не подошел — подберем нового <strong>бесплатно</strong> или вернем деньги</p>
                         </div>
-                    </div>
-                </div>
-
-                <div class="timeline-item timeline-item--left">
-                    <div class="timeline-marker">
-                        <div class="timeline-number">3</div>
-                    </div>
-                    <div class="timeline-card">
-                        <div class="timeline-icon">
-                            <i class="fas fa-calendar-check"></i>
-                        </div>
-                        <h3 class="timeline-title">Выберите дату и время</h3>
-                        <p class="timeline-description">Забронируйте время сессии и произведите оплату в удобное для вас время</p>
-                        <div class="timeline-meta">
-                            <span class="timeline-time">
-                                <i class="fas fa-calendar"></i>
-                                24/7 доступно
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="timeline-item timeline-item--right">
-                    <div class="timeline-marker">
-                        <div class="timeline-number">4</div>
-                    </div>
-                    <div class="timeline-card">
-                        <div class="timeline-icon">
-                            <i class="fas fa-video"></i>
-                        </div>
-                        <h3 class="timeline-title">Начните психотерапию</h3>
-                        <p class="timeline-description">Мы вышлем вам чек-лист перед первой консультацией и ссылку для подключения</p>
-                        <div class="timeline-meta">
-                            <span class="timeline-time">
-                                <i class="fas fa-heart"></i>
-                                50 минут сессия
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="timeline-item timeline-item--left">
-                    <div class="timeline-marker">
-                        <div class="timeline-number">5</div>
-                    </div>
-                    <div class="timeline-card">
-                        <div class="timeline-icon">
-                            <i class="fas fa-headset"></i>
-                        </div>
-                        <h3 class="timeline-title">Мы всегда на связи</h3>
-                        <p class="timeline-description">На любом этапе вы можете задать вопрос, поменять психотерапевта и оставить отзыв</p>
-                        <div class="timeline-meta">
-                            <span class="timeline-time">
-                                <i class="fas fa-shield-alt"></i>
-                                Поддержка 24/7
-                            </span>
-                        </div>
+                        <div class="guarantee-badge">100%</div>
                     </div>
                 </div>
             </div>
 
-            <div class="timeline-cta">
-                <div class="timeline-cta-content">
-                    <h3>Готовы начать?</h3>
-                    <p>Найдите своего психолога уже сегодня</p>
-                    <a href="#" class="btn btn--primary btn--large">
-                        <i class="fas fa-rocket"></i>
-                        Начать поиск психолога
-                    </a>
-                </div>
+            <div class="process-cta">
+                <a href="#" class="btn btn--primary btn--modern btn--large">
+                    <i class="fas fa-rocket"></i>
+                    Начать поиск психолога
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+                <p class="cta-note">Первая консультация — <strong>всего 2990 ₽</strong> вместо 4500 ₽</p>
             </div>
         </div>
     </section>
@@ -567,9 +558,10 @@
                     <div class="problems-cta-content">
                         <h4>Не нашли свою проблему?</h4>
                         <p>У нас есть специалисты по <strong>50+ направлениям</strong>. Расскажите о своей ситуации, и мы подберем подходящего психолога</p>
-                        <a href="#" class="btn btn--primary">
+                        <a href="#" class="btn btn--primary btn--problems-cta">
                             <i class="fas fa-comment-dots"></i>
-                            Получить бесплатную консультацию
+                            <span class="btn-text-full">Получить бесплатную консультацию</span>
+                            <span class="btn-text-short">Бесплатная консультация</span>
                         </a>
                     </div>
                 </div>
@@ -831,19 +823,7 @@
         </div>
     </footer>
 
-    <!-- Sticky CTA Bar -->
-    <div class="sticky-cta" id="sticky-cta">
-        <div class="sticky-cta-content">
-            <div class="sticky-cta-text">
-                <strong>Готовы начать?</strong>
-                <span>Подберем психолога за 2 минуты</span>
-            </div>
-            <a href="#" class="btn btn--primary btn-sticky">
-                <i class="fas fa-user-md"></i>
-                Найти психолога
-            </a>
-        </div>
-    </div>
+
 
     <!-- Scripts -->
     <script src="js/script.js"></script>
