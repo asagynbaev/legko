@@ -36,7 +36,7 @@ const HowItWorks = () => (
             <div className="step-content">
               <div className="step-badge">Мгновенно</div>
               <h3 className="step-title">Получите подборку</h3>
-              <p className="step-description">Система найдет подходящих психологов под ваши критерии</p>
+              <p className="step-description">Система найдет подходящих психологов под Ваши критерии</p>
             </div>
           </div>
           <div className="process-step" data-step="3">
