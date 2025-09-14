@@ -9,7 +9,7 @@ import Problems from '../components/Problems';
 import Specialists from '../components/Specialists';
 import Testimonials from '../components/Testimonials';
 import FAQ from '../components/FAQ';
-import CTASection from '../components/CTASection.tsx';
+import CTASection from '../components/CTASection';
 import CTABottom from '../components/CTABottom';
 import Footer from '../components/Footer';
 
