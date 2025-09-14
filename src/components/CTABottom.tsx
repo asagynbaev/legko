@@ -10,7 +10,7 @@ const CTABottom = () => (
           <i className="fas fa-arrow-right"></i>
           Найти психолога
         </a>
-        <p className="cta-note">Первая консультация со скидкой 20%</p>
+        <p className="cta-note">Первая консультация со скидкой 10%</p>
       </div>
     </div>
   </section>

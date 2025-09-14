@@ -45,7 +45,7 @@ const Footer = () => (
             <a href="#"><i className="fab fa-instagram"></i></a>
             <a href="#"><i className="fab fa-vk"></i></a>
           </div>
-          <p>&copy; 2024 Legko. Все права защищены.</p>
+          <p>&copy; 2025 Legko. Все права защищены.</p>
         </div>
       </div>
     </div>
