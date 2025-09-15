@@ -9,7 +9,6 @@ import Problems from '../components/Problems';
 import Specialists from '../components/Specialists';
 import Testimonials from '../components/Testimonials';
 import FAQ from '../components/FAQ';
-import CTASection from '../components/CTASection';
 import CTABottom from '../components/CTABottom';
 import Footer from '../components/Footer';
 
@@ -23,10 +22,6 @@ export default function Home() {
             <meta property="og:url" content="https://legko.live/" />
             <meta property="og:title" content="Legko - Найдите своего психолога за 5 минут" />
             <meta property="og:description" content="Быстрый и удобный поиск психологов онлайн. Подберем специалиста под ваши потребности." />
-            <link rel="preconnect" href="https://fonts.googleapis.com" />
-            <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-            <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
             <script src="/js/legko-main.js" defer></script>
         </Head>
         <header className="header">

@@ -10,7 +10,7 @@ const Testimonials = () => (
       <div className="testimonials-grid">
         <div className="testimonial-card">
           <div className="testimonial-content">
-            <p>"Долго искала психолога, который бы понимал мои проблемы. На Legko нашла идеального специалиста буквально за несколько минут. Очень благодарна!"</p>
+            <p>&ldquo;Долго искала психолога, который бы понимал мои проблемы. На Legko нашла идеального специалиста буквально за несколько минут. Очень благодарна!&rdquo;</p>
           </div>
           <div className="testimonial-author">
             <div className="author-avatar">
@@ -25,7 +25,7 @@ const Testimonials = () => (
         </div>
         <div className="testimonial-card">
           <div className="testimonial-content">
-            <p>"Удобная платформа, профессиональные психологи. Помогли справиться с тревогой. Рекомендую всем, кто сомневается - просто попробуйте!"</p>
+            <p>&ldquo;Удобная платформа, профессиональные психологи. Помогли справиться с тревогой. Рекомендую всем, кто сомневается - просто попробуйте!&rdquo;</p>
           </div>
           <div className="testimonial-author">
             <div className="author-avatar">
@@ -40,7 +40,7 @@ const Testimonials = () => (
         </div>
         <div className="testimonial-card">
           <div className="testimonial-content">
-            <p>"Спасибо Legko за возможность получить качественную психологическую помощь онлайн. Это действительно изменило мою жизнь к лучшему."</p>
+            <p>&ldquo;Спасибо Legko за возможность получить качественную психологическую помощь онлайн. Это действительно изменило мою жизнь к лучшему.&rdquo;</p>
           </div>
           <div className="testimonial-author">
             <div className="author-avatar">

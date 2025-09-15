@@ -4,7 +4,7 @@ const Problems = () => (
   <section className="problems">
     <div className="container">
       <div className="section-header">
-        <h2 className="section-title">"Legko" для тех, кто хочет...</h2>
+        <h2 className="section-title">&ldquo;Legko&rdquo; для тех, кто хочет...</h2>
         <p className="section-subtitle">Более 50 направлений работы с профессиональными психологами</p>
       </div>
       {/* Popular Problems */}
@@ -16,7 +16,7 @@ const Problems = () => (
               <Image src="/images/пушистик грусть.png" alt="Тревога" width={60} height={60} className="mascot-icon" />
             </div>
             <h4 className="problem-card__title">Тревога и беспокойство</h4>
-            <p className="problem-card__description">Избавление от ненужных мыслей и чувств, а также навязчивого "что скажут люди"</p>
+            <p className="problem-card__description">Избавление от ненужных мыслей и чувств, а также навязчивого &ldquo;что скажут люди&rdquo;</p>
             <div className="problem-card__tags">
               <span className="tag">Панические атаки</span>
               <span className="tag">Фобии</span>

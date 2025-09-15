@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 const Footer = () => (
   <footer className="footer">
     <div className="container">
@@ -5,7 +7,7 @@ const Footer = () => (
         <div className="footer-main">
           <div className="footer-brand">
             <div className="logo">
-              <img src="/images/Group_12_3.png.webp" alt="Legko - поиск психологов" className="logo__image logo__image--footer" />
+              <Image src="/images/Group_12_3.png.webp" alt="Legko - поиск психологов" width={120} height={40} className="logo__image logo__image--footer" />
             </div>
             <p>Делаем психологическую помощь доступной и удобной для каждого</p>
           </div>
