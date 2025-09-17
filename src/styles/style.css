@@ -1367,6 +1367,7 @@ body {
     color: var(--text-secondary);
 }
 
+/* Ensure specialist-avatar is a square and mascot-icon covers it fully */
 .specialists-visual {
     position: relative;
 }
@@ -2359,7 +2360,7 @@ body {
 .mascot-icon {
     width: 60px;
     height: 60px;
-    object-fit: contain;
+    object-fit: fill;
     border-radius: 50%;
     transition: transform 0.3s ease;
 }
@@ -2391,7 +2392,7 @@ body {
 .author-avatar img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
     border-radius: 50%;
 }
 
