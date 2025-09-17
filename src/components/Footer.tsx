@@ -43,9 +43,9 @@ const Footer = () => (
         </div>
         <div className="footer-bottom">
           <div className="footer-social">
-            <a href="#"><i className="fab fa-telegram"></i></a>
-            <a href="#"><i className="fab fa-instagram"></i></a>
-            <a href="#"><i className="fab fa-vk"></i></a>
+            <a href="https://t.me/legko_psychology"><i className="fab fa-telegram"></i></a>
+            <a href="https://www.instagram.com/legko.psychology"><i className="fab fa-instagram"></i></a>
+            <a href="https://wa.me/996509339333"><i className="fab fa-whatsapp"></i></a>
           </div>
           <p>&copy; 2025 Legko. Все права защищены.</p>
         </div>

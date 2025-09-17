@@ -31,7 +31,7 @@ const FirstSession = () => (
             <div className="mockup-footer">
               <div className="session-duration">
                 <i className="fas fa-clock"></i>
-                <span>50 минут</span>
+                <span>60 минут</span>
               </div>
             </div>
           </div>
