@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 const Footer = () => (
   <footer className="footer">
@@ -6,9 +7,11 @@ const Footer = () => (
       <div className="footer-content">
         <div className="footer-main">
           <div className="footer-brand">
-            <div className="logo">
-              <Image src="/images/Group_12_3.png.webp" alt="Legko - поиск психологов" width={120} height={40} className="logo__image logo__image--footer" />
-            </div>
+            <Link href="/" legacyBehavior>
+              <a className="logo">
+                <Image src="/images/Group_12_3.png.webp" alt="Legko - поиск психологов" width={120} height={40} className="logo__image logo__image--footer" />
+              </a>
+            </Link>
             <p>Делаем психологическую помощь доступной и удобной для каждого</p>
           </div>
           <div className="footer-links">
@@ -34,8 +37,8 @@ const Footer = () => (
               <h4>Информация</h4>
               <ul>
                 <li><a href="#">О нас</a></li>
-                <li><a href="#">Политика конфиденциальности</a></li>
-                <li><a href="#">Условия использования</a></li>
+                <li><a href="#privacy-policy">Политика конфиденциальности</a></li>
+                <li><a href="#terms-of-use">Условия использования</a></li>
                 <li><a href="#">Для психологов</a></li>
               </ul>
             </div>
@@ -43,9 +46,14 @@ const Footer = () => (
         </div>
         <div className="footer-bottom">
           <div className="footer-social">
-            <a href="https://t.me/legko_psychology"><i className="fab fa-telegram"></i></a>
-            <a href="https://www.instagram.com/legko.psychology"><i className="fab fa-instagram"></i></a>
-            <a href="https://wa.me/996509339333"><i className="fab fa-whatsapp"></i></a>
+            <a href="https://t.me/legko_psychology" title="Написать в Telegram">
+              <i className="fab fa-telegram"></i>
+              <span>Telegram</span>
+            </a>
+            <a href="https://wa.me/996509339333" title="Написать в WhatsApp">
+              <i className="fab fa-whatsapp"></i>
+              <span>WhatsApp</span>
+            </a>
           </div>
           <p>&copy; 2025 Legko. Все права защищены.</p>
         </div>

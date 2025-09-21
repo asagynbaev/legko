@@ -57,15 +57,33 @@ const Specialists = () => {
                     </div>
                     <div className="specialists-visual">
                         <div className="specialists-cards">
-                            {staff.slice(0, 2).map((item) => (
-                                <SpecialistCard
-                                    key={item.id}
-                                    avatar={item.photo || "/images/пушистик обьятия.png"}
-                                    name={item.name}
-                                    title={item.speciality}
-                                    rating={item.rating || 5}
-                                />
-                            ))}
+                            {staff.length > 0 ? (
+                                staff.slice(0, 2).map((item) => (
+                                    <SpecialistCard
+                                        key={item.id}
+                                        avatar={item.photo || "/images/пушистик обьятия.png"}
+                                        name={item.name}
+                                        title={item.speciality}
+                                        rating={item.rating || 5}
+                                    />
+                                ))
+                            ) : (
+                                // Заглушки пока API не загрузился
+                                <>
+                                    <SpecialistCard
+                                        avatar="/images/пушистик обьятия.png"
+                                        name="Айдана Мадишова"
+                                        title="Психолог"
+                                        rating={5}
+                                    />
+                                    <SpecialistCard
+                                        avatar="/images/пушистик самолюбование.png"
+                                        name="Алина Сасаза"
+                                        title="Психолог"
+                                        rating={5}
+                                    />
+                                </>
+                            )}
                         </div>
                     </div>
                 </div>

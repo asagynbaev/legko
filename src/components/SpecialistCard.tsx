@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { useState } from 'react';
 
 interface SpecialistCardProps {
     avatar: string;
@@ -7,18 +8,64 @@ interface SpecialistCardProps {
     rating: number;
 }
 
-const SpecialistCard = ({ avatar, name, title, rating }: SpecialistCardProps) => (
-    <div className="specialist-preview">
-        <div className="specialist-avatar">
-            <Image src={avatar} alt="Специалист" width={60} height={60} className="mascot-icon" />
+const SpecialistCard = ({ avatar, name, title, rating }: SpecialistCardProps) => {
+    const [imageError, setImageError] = useState(false);
+    
+    const getInitials = (name: string) => {
+        const words = name.trim().split(' ');
+        if (words.length >= 2) {
+            return (words[0][0] + words[1][0]).toUpperCase();
+        } else if (words.length === 1) {
+            return words[0][0].toUpperCase();
+        }
+        return 'П';
+    };
+
+    const renderStars = (rating: number) => {
+        const stars = [];
+        for (let i = 1; i <= 5; i++) {
+            stars.push(
+                <i 
+                    key={i} 
+                    className={`fas fa-star ${i <= rating ? 'text-yellow-400' : 'text-gray-300'}`}
+                />
+            );
+        }
+        return stars;
+    };
+
+    return (
+        <div className="specialist-preview">
+            <div className="specialist-photo-preview">
+                {avatar && !imageError ? (
+                    <Image 
+                        src={avatar} 
+                        alt={name} 
+                        width={80} 
+                        height={80} 
+                        className="specialist-avatar-preview" 
+                        onError={() => setImageError(true)}
+                    />
+                ) : (
+                    <div className="specialist-avatar-initials-preview">
+                        {getInitials(name)}
+                    </div>
+                )}
+            </div>
+            <div className="specialist-info-preview">
+                <h4>{name}</h4>
+                <p className="specialist-title-preview">{title}</p>
+                <div className="rating-preview">
+                    <div className="stars-preview">
+                        {renderStars(rating || 5)}
+                    </div>
+                    <span className="rating-text-preview">
+                        {(rating || 5).toFixed(1)} (50+ отзывов)
+                    </span>
+                </div>
+            </div>
         </div>
-        <h4>{name}</h4>
-        <p>{title}</p>
-        <div className="rating">
-            <span>{rating.toFixed(1)}</span>
-            <div className="stars">⭐⭐⭐⭐⭐</div>
-        </div>
-    </div>
-);
+    );
+};
 
 export default SpecialistCard;

@@ -162,6 +162,28 @@ const Problems = () => (
               </div>
             </div>
           </div>
+
+          <div className="category-group">
+            <h4 className="category-title">🧠 Ментальное здоровье</h4>
+            <div className="category-items">
+              <div className="category-item">
+                <Image src="/images/пушистик грусть.png" alt="Тревожные расстройства" width={40} height={40} className="category-icon" />
+                <span>Тревожные расстройства</span>
+              </div>
+              <div className="category-item">
+                <Image src="/images/пушистик снеснение.png" alt="Биполярное расстройство" width={40} height={40} className="category-icon" />
+                <span>Работа с настроением</span>
+              </div>
+              <div className="category-item">
+                <Image src="/images/пушистик расслабление.png" alt="Расстройства сна" width={40} height={40} className="category-icon" />
+                <span>Проблемы со сном</span>
+              </div>
+              <div className="category-item">
+                <Image src="/images/пушистик радость.png" alt="Зависимости" width={40} height={40} className="category-icon" />
+                <span>Работа с зависимостями</span>
+              </div>
+            </div>
+          </div>
         </div>
         <div className="problems-cta">
           <div className="problems-cta-content">

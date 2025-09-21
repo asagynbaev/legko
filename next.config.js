@@ -8,5 +8,10 @@ module.exports = {
         pathname: '/images/user-photos/**',
       },
     ],
+    domains: ['img.booka.kg'],
+    dangerouslyAllowSVG: true,
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    // Отключаем оптимизацию для внешних изображений, если возникают проблемы
+    unoptimized: false,
   },
 };
