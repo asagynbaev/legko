@@ -4,7 +4,13 @@ import SpecialistCard from './SpecialistCard';
 import { getStaffByBusinessId } from '../api/api';
 
 const Specialists = () => {
-    const [staff, setStaff] = useState<any[]>([]);
+    const [staff, setStaff] = useState<Array<{
+        id: string;
+        name: string;
+        photo?: string;
+        speciality: string;
+        rating?: number;
+    }>>([]);
     useEffect(() => {
         getStaffByBusinessId()
             .then((res) => {

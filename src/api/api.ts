@@ -16,7 +16,7 @@ export async function apiGet(endpoint: string) {
     return response.json();
 }
 
-export async function apiPost(endpoint: string, body: any) {
+export async function apiPost(endpoint: string, body: Record<string, unknown>) {
     const response = await fetch(`${BASE_URL}${endpoint}`, {
         method: "POST",
         headers: {
@@ -30,7 +30,9 @@ export async function apiPost(endpoint: string, body: any) {
     return response.json();
 }
 
-export default {
+const api = {
     apiGet,
     apiPost
 };
+
+export default api;

@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 const CTABottom = () => (
   <section className="cta-bottom-section">
     <div className="cta-background-pattern"></div>
@@ -27,11 +29,11 @@ const CTABottom = () => (
           </div>
           
           <div className="cta-buttons-group">
-            <a href="/staff" className="btn btn--cta-primary">
+            <Link href="/staff" className="btn btn--cta-primary">
               <i className="fas fa-search"></i>
               <span>Найти психолога</span>
               <div className="btn-shine"></div>
-            </a>
+            </Link>
             <a href="https://wa.me/996509339333" className="btn btn--cta-secondary" target="_blank" rel="noopener noreferrer">
               <i className="fab fa-whatsapp"></i>
               <span>Написать в WhatsApp</span>
