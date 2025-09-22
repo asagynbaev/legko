@@ -11,7 +11,9 @@ module.exports = {
     domains: ['img.booka.kg'],
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
-    // Отключаем оптимизацию для внешних изображений, если возникают проблемы
-    unoptimized: false,
+    // Улучшенная обработка внешних изображений
+    unoptimized: true,
+    loader: 'custom',
+    loaderFile: './src/utils/imageLoader.js',
   },
 };

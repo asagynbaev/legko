@@ -10,6 +10,10 @@ interface SpecialistCardProps {
 
 const SpecialistCard = ({ avatar, name, title, rating }: SpecialistCardProps) => {
     const [imageError, setImageError] = useState(false);
+    const [imageLoading, setImageLoading] = useState(true);
+    
+    // Проверяем, является ли аватар внешним изображением
+    const isExternalImage = avatar && avatar.includes('img.booka.kg');
     
     const getInitials = (name: string) => {
         const words = name.trim().split(' ');
@@ -38,14 +42,41 @@ const SpecialistCard = ({ avatar, name, title, rating }: SpecialistCardProps) =>
         <div className="specialist-preview">
             <div className="specialist-photo-preview">
                 {avatar && !imageError ? (
-                    <Image 
-                        src={avatar} 
-                        alt={name} 
-                        width={80} 
-                        height={80} 
-                        className="specialist-avatar-preview" 
-                        onError={() => setImageError(true)}
-                    />
+                    <div className="image-container">
+                        {imageLoading && (
+                            <div className="image-loader">
+                                <div className="loader-spinner"></div>
+                            </div>
+                        )}
+                        {isExternalImage ? (
+                            <img 
+                                src={avatar} 
+                                alt={name} 
+                                width={80} 
+                                height={80} 
+                                className={`specialist-avatar-preview ${imageLoading ? 'loading' : 'loaded'}`}
+                                onLoad={() => setImageLoading(false)}
+                                onError={() => {
+                                    setImageError(true);
+                                    setImageLoading(false);
+                                }}
+                                style={{ borderRadius: '50%', objectFit: 'cover' }}
+                            />
+                        ) : (
+                            <Image 
+                                src={avatar} 
+                                alt={name} 
+                                width={80} 
+                                height={80} 
+                                className={`specialist-avatar-preview ${imageLoading ? 'loading' : 'loaded'}`}
+                                onLoad={() => setImageLoading(false)}
+                                onError={() => {
+                                    setImageError(true);
+                                    setImageLoading(false);
+                                }}
+                            />
+                        )}
+                    </div>
                 ) : (
                     <div className="specialist-avatar-initials-preview">
                         {getInitials(name)}

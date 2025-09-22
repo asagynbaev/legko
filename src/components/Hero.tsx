@@ -1,8 +1,10 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 const Hero = () => (
   <section className="hero">
     <div className="hero__container container">
+      {/* Левая часть - контент */}
       <div className="hero__content">
         <div className="hero__badge">
           <span className="modern-badge">
@@ -19,26 +21,60 @@ const Hero = () => (
         </p>
         <div className="hero__cta">
           <div className="cta-buttons">
-            <a href="#" className="btn btn--primary btn--modern">Найти психолога <i className="fas fa-arrow-right"></i></a>
+            <Link href="/staff" className="btn btn--primary btn--modern">
+              <i className="fas fa-search"></i>
+              Найти психолога 
+              <i className="fas fa-arrow-right"></i>
+            </Link>
             <a href="#how-it-works" className="btn btn--ghost btn--modern">
+              <i className="fas fa-play-circle"></i>
               Как это работает
             </a>
           </div>
           <div className="hero__stats">
-            <div className="stat-item"><span className="stat-number">4.9</span><span className="stat-label">рейтинг</span></div>
-            <div className="stat-item"><span className="stat-number">2000+</span><span className="stat-label">клиентов</span></div>
+            <div className="stat-item">
+              <span className="stat-number">4.9</span>
+              <span className="stat-label">рейтинг</span>
+            </div>
             <div className="stat-divider"></div>
-            <div className="stat-item"><span className="stat-number">24/7</span><span className="stat-label">поддержка</span></div>
+            <div className="stat-item">
+              <span className="stat-number">2000+</span>
+              <span className="stat-label">клиентов</span>
+            </div>
+            <div className="stat-divider"></div>
+            <div className="stat-item">
+              <span className="stat-number">24/7</span>
+              <span className="stat-label">поддержка</span>
+            </div>
           </div>
         </div>
       </div>
+      
+      {/* Правая часть - визуал */}
       <div className="hero__visual">
         <div className="hero__mascot-wrapper">
-          <Image src="/images/пушистик радость.png" alt="Legko помощник" width={180} height={180} className="hero__mascot-modern" />
+          <Image 
+            src="/images/пушистик радость.png" 
+            alt="Legko помощник" 
+            width={350} 
+            height={350} 
+            className="hero__mascot-modern" 
+            priority
+          />
         </div>
         <div className="floating-elements">
-          <div className="floating-card modern-card card-2"><div className="card-icon">🔒</div><span>Конфиденциально</span></div>
-          <div className="floating-card modern-card card-3"><div className="card-icon">⚡</div><span>Быстрый подбор</span></div>
+          <div className="floating-card modern-card card-1">
+            <div className="card-icon">💬</div>
+            <span>Онлайн сессии</span>
+          </div>
+          <div className="floating-card modern-card card-2">
+            <div className="card-icon">🔒</div>
+            <span>Конфиденциально</span>
+          </div>
+          <div className="floating-card modern-card card-3">
+            <div className="card-icon">⚡</div>
+            <span>Быстрый подбор</span>
+          </div>
         </div>
       </div>
     </div>

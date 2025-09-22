@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { getStaffByBusinessId } from '../../api/api';
 import Image from 'next/image';
 import Head from 'next/head';
-import Header from '../../components/Header';
+import StaffHeader from '../../components/StaffHeader';
 import Footer from '../../components/Footer';
 
 interface Staff {
@@ -94,7 +94,7 @@ const StaffPage = () => {
         <title>Наши специалисты - Legko</title>
         <meta name="description" content="Познакомьтесь с нашими квалифицированными психологами. Найдите подходящего специалиста для решения ваших задач." />
       </Head>
-      <Header />
+      <StaffHeader />
       
       <main className="specialists-page">
         {/* Hero Section */}

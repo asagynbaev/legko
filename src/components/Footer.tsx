@@ -18,28 +18,29 @@ const Footer = () => (
             <div className="footer-column">
               <h4>Сервис</h4>
               <ul>
-                <li><a href="#">Найти психолога</a></li>
-                <li><a href="#">Как это работает</a></li>
-                <li><a href="#">Цены</a></li>
-                <li><a href="#">Специализации</a></li>
+                <li><Link href="/staff" legacyBehavior><a>Найти психолога</a></Link></li>
+                <li><a href="#specialists">Специалисты</a></li>
+                <li><a href="#how-it-works">Как это работает</a></li>
+                <li><a href="#pricing">Цены</a></li>
+                <li><a href="#specializations">Специализации</a></li>
               </ul>
             </div>
             <div className="footer-column">
               <h4>Поддержка</h4>
               <ul>
-                <li><a href="#">FAQ</a></li>
-                <li><a href="#">Связаться с нами</a></li>
-                <li><a href="#">Техподдержка</a></li>
-                <li><a href="#">Статьи</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#contact">Связаться с нами</a></li>
+                <li><a href="#support">Техподдержка</a></li>
+                <li><a href="#blog">Статьи</a></li>
               </ul>
             </div>
             <div className="footer-column">
               <h4>Информация</h4>
               <ul>
-                <li><a href="#">О нас</a></li>
+                <li><a href="#about">О нас</a></li>
                 <li><a href="#privacy-policy">Политика конфиденциальности</a></li>
                 <li><a href="#terms-of-use">Условия использования</a></li>
-                <li><a href="#">Для психологов</a></li>
+                <li><a href="#for-psychologists">Для психологов</a></li>
               </ul>
             </div>
           </div>
