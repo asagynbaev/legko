@@ -6,12 +6,6 @@ const Hero = () => (
     <div className="hero__container container">
       {/* Левая часть - контент */}
       <div className="hero__content">
-        <div className="hero__badge">
-          <span className="modern-badge">
-            <span className="badge-icon">✨</span>
-            15 000+ успешных сессий
-          </span>
-        </div>
         <h1 className="hero__title">
           Найдите <span className="gradient-text">идеального психолога</span> за 2 минуты
         </h1>

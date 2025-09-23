@@ -29,10 +29,8 @@ const Header = () => {
     <header className="header">
         <nav className="nav container">
             <div className="nav__brand">
-                <Link href="/" legacyBehavior>
-                    <a className="logo">
-                        <Image src="/images/Group_12_3.png.webp" alt="Legko - поиск психологов" width={120} height={40} className="logo__image" />
-                    </a>
+                <Link href="/" className="logo">
+                    <Image src="/images/Group_12_3.png.webp" alt="Legko - поиск психологов" width={120} height={40} className="logo__image" />
                 </Link>
             </div>
             <div className={`nav__menu ${isMobileMenuOpen ? 'show' : ''}`} id="nav-menu">
@@ -43,11 +41,11 @@ const Header = () => {
                     <li className="nav__item"><a href="#faq" className="nav__link" onClick={closeMobileMenu}>FAQ</a></li>
                 </ul>
                 <div className="nav__mobile-actions">
-                    <Link href="/staff" legacyBehavior><a className="btn btn--primary btn--mobile" onClick={closeMobileMenu}>Найти психолога</a></Link>
+                    <Link href="/staff" className="btn btn--primary btn--mobile" onClick={closeMobileMenu}>Найти психолога</Link>
                 </div>
             </div>
             <div className="nav__actions">
-                <Link href="/staff" legacyBehavior><a className="btn btn--primary">Найти психолога</a></Link>
+                <Link href="/staff" className="btn btn--primary">Найти психолога</Link>
             </div>
             <div className="nav__toggle" id="nav-toggle" onClick={toggleMobileMenu}>
                 <i className={`fas ${isMobileMenuOpen ? 'fa-times' : 'fa-bars'}`}></i>
