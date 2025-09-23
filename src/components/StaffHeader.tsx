@@ -38,16 +38,40 @@ const StaffHeader = () => {
         <div className={`nav__menu ${isMobileMenuOpen ? 'show' : ''}`} id="nav-menu">
           <ul className="nav__list">
             <li className="nav__item">
-              <Link href="/" legacyBehavior>
-                <a className="nav__link" onClick={closeMobileMenu}>
-                  Вернуться на главную
-                </a>
+              <Link href="/" className="nav__link" onClick={closeMobileMenu}>
+                Главная
               </Link>
             </li>
+            <li className="nav__item">
+              <a href="/#how-it-works" className="nav__link" onClick={closeMobileMenu}>
+                Как это работает
+              </a>
+            </li>
+            <li className="nav__item">
+              <a href="/#benefits" className="nav__link" onClick={closeMobileMenu}>
+                Преимущества
+              </a>
+            </li>
+            <li className="nav__item">
+              <a href="/#specialists" className="nav__link" onClick={closeMobileMenu}>
+                Специалисты
+              </a>
+            </li>
+            <li className="nav__item">
+              <a href="/#faq" className="nav__link" onClick={closeMobileMenu}>
+                FAQ
+              </a>
+            </li>
           </ul>
+          <div className="nav__mobile-actions">
+            <Link href="/" className="btn btn--outline btn--mobile" onClick={closeMobileMenu}>
+              Вернуться на главную
+            </Link>
+          </div>
         </div>
         
         <div className="nav__actions">
+          <Link href="/" className="btn btn--outline">Вернуться на главную</Link>
         </div>
         
         <div className="nav__toggle" id="nav-toggle" onClick={toggleMobileMenu}>
