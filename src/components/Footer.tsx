@@ -38,8 +38,8 @@ const Footer = () => (
               <h4>Информация</h4>
               <ul>
                 <li><a href="#about">О нас</a></li>
-                <li><a href="#privacy-policy">Политика конфиденциальности</a></li>
-                <li><a href="#terms-of-use">Условия использования</a></li>
+                <li><Link href="#" legacyBehavior><a onClick={(e) => {e.preventDefault(); if (typeof window !== 'undefined') {window.dispatchEvent(new CustomEvent('openPrivacyPolicyModal'));}}}>Политика конфиденциальности</a></Link></li>
+                <li><Link href="#" legacyBehavior><a onClick={(e) => {e.preventDefault(); if (typeof window !== 'undefined') {window.dispatchEvent(new CustomEvent('openTermsOfUseModal'));}}}>Условия использования</a></Link></li>
                 <li><a href="#for-psychologists">Для психологов</a></li>
               </ul>
             </div>
