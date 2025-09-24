@@ -43,24 +43,24 @@ const StaffHeader = () => {
               </Link>
             </li>
             <li className="nav__item">
-              <a href="/#how-it-works" className="nav__link" onClick={closeMobileMenu}>
+              <Link href="/#how-it-works" className="nav__link" onClick={closeMobileMenu}>
                 Как это работает
-              </a>
+              </Link>
             </li>
             <li className="nav__item">
-              <a href="/#benefits" className="nav__link" onClick={closeMobileMenu}>
+              <Link href="/#benefits" className="nav__link" onClick={closeMobileMenu}>
                 Преимущества
-              </a>
+              </Link>
             </li>
             <li className="nav__item">
-              <a href="/#specialists" className="nav__link" onClick={closeMobileMenu}>
+              <Link href="/#specialists" className="nav__link" onClick={closeMobileMenu}>
                 Специалисты
-              </a>
+              </Link>
             </li>
             <li className="nav__item">
-              <a href="/#faq" className="nav__link" onClick={closeMobileMenu}>
+              <Link href="/#faq" className="nav__link" onClick={closeMobileMenu}>
                 FAQ
-              </a>
+              </Link>
             </li>
           </ul>
           <div className="nav__mobile-actions">

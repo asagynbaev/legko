@@ -49,7 +49,7 @@ const SpecialistCard = ({ avatar, name, title, rating }: SpecialistCardProps) =>
                             </div>
                         )}
                         {isExternalImage ? (
-                            <img 
+                            <Image 
                                 src={avatar} 
                                 alt={name} 
                                 width={80} 
@@ -61,6 +61,7 @@ const SpecialistCard = ({ avatar, name, title, rating }: SpecialistCardProps) =>
                                     setImageLoading(false);
                                 }}
                                 style={{ borderRadius: '50%', objectFit: 'cover' }}
+                                unoptimized
                             />
                         ) : (
                             <Image 
