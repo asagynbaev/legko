@@ -1,4 +1,4 @@
-const BASE_URL = "https://stinkbug-helping-blindly.ngrok-free.app/api/v1";
+const BASE_URL = "https://api.booka.kg/api/v1";
 
 export interface MessageHistoryItem {
   role: "user" | "assistant";
@@ -89,7 +89,6 @@ export async function startMatching(userId?: string): Promise<StartResponse> {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "ngrok-skip-browser-warning": "true",
     },
   });
 
@@ -129,7 +128,6 @@ export async function sendMessage(
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "ngrok-skip-browser-warning": "true",
       },
       body: JSON.stringify(requestBody),
     });
@@ -177,7 +175,6 @@ export async function getAvailableTimes(
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "ngrok-skip-browser-warning": "true",
       },
     }
   );
@@ -199,7 +196,6 @@ export async function createBooking(
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "ngrok-skip-browser-warning": "true",
     },
     body: JSON.stringify(booking),
   });

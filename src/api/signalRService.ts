@@ -1,6 +1,6 @@
 import * as signalR from "@microsoft/signalr";
 
-const HUB_URL = "https://stinkbug-helping-blindly.ngrok-free.app/hubs/psychologist-match";
+const HUB_URL = "https://api.booka.kg/hubs/psychologist-match";
 
 export interface MessageHistoryItem {
   role: "user" | "assistant";
@@ -88,9 +88,7 @@ class SignalRService {
     try {
       this.connection = new signalR.HubConnectionBuilder()
         .withUrl(HUB_URL, {
-          headers: {
-            "ngrok-skip-browser-warning": "true",
-          },
+          headers: {},
         })
         .withAutomaticReconnect({
           nextRetryDelayInMilliseconds: (retryContext) => {
