@@ -11,6 +11,8 @@ const Specialists = () => {
         photo?: string;
         speciality: string;
         rating?: number;
+        experience?: number;
+        numberOfClients?: number;
     }>>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -104,8 +106,8 @@ const Specialists = () => {
                                 name={item.name}
                                 title={item.speciality}
                                 rating={item.rating || 5}
-                                experience={(item as any).experience}
-                                numberOfClients={(item as any).numberOfClients}
+                                experience={item.experience}
+                                numberOfClients={item.numberOfClients}
                             />
                         ))
                     ) : !loading && (

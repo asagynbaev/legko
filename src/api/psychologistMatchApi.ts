@@ -137,14 +137,14 @@ export async function sendMessage(
       try {
         const errorData = await response.json();
         errorMessage = errorData.message || errorData.error || errorMessage;
-      } catch (e) {
+      } catch {
         // Если не удалось распарсить JSON, используем текст ответа
         try {
           const errorText = await response.text();
           if (errorText) {
             errorMessage = errorText;
           }
-        } catch (e2) {
+        } catch {
           // Игнорируем ошибку парсинга текста
         }
       }
@@ -152,13 +152,14 @@ export async function sendMessage(
     }
 
     return response.json();
-  } catch (error: any) {
+  } catch (error: unknown) {
     // Если это уже наша ошибка, пробрасываем дальше
-    if (error.message && error.message.startsWith('Ошибка')) {
+    if (error instanceof Error && error.message && error.message.startsWith('Ошибка')) {
       throw error;
     }
     // Иначе оборачиваем в более понятное сообщение
-    throw new Error(error.message || 'Не удалось отправить сообщение. Проверьте подключение к интернету.');
+    const errorMessage = error instanceof Error ? error.message : 'Не удалось отправить сообщение. Проверьте подключение к интернету.';
+    throw new Error(errorMessage);
   }
 }
 

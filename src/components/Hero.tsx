@@ -51,6 +51,7 @@ const Hero = () => {
         signalRService.disconnect();
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const setupSignalRListeners = () => {
@@ -329,9 +330,9 @@ const Hero = () => {
           setIsLoading(false);
         }
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Failed to send message:', err);
-      const errorText = err.message || 'Не удалось отправить сообщение. Пожалуйста, попробуйте еще раз.';
+      const errorText = err instanceof Error ? err.message : 'Не удалось отправить сообщение. Пожалуйста, попробуйте еще раз.';
       setError(errorText);
       
       // Удаляем временное сообщение
@@ -371,7 +372,6 @@ const Hero = () => {
       const serviceDuration = 60; // По умолчанию 60 минут, можно получить из services
       
       // Вычисляем endTime
-      const [hours, minutes] = bookingSuggestion.suggestedTime.split(':').map(Number);
       const startDate = new Date(`${bookingSuggestion.suggestedDate}T${bookingSuggestion.suggestedTime}`);
       const endDate = new Date(startDate.getTime() + serviceDuration * 60000);
       const endTime = `${String(endDate.getHours()).padStart(2, '0')}:${String(endDate.getMinutes()).padStart(2, '0')}:00`;
@@ -395,11 +395,11 @@ const Hero = () => {
         };
         setMessages((prev) => [...prev, successMessage]);
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Failed to create booking:', err);
       const errorMessage: Message = {
         id: `booking-error-${Date.now()}`,
-        text: `❌ Не удалось создать запись: ${err.message || 'Произошла ошибка'}. Пожалуйста, попробуйте еще раз или свяжитесь с нами напрямую.`,
+        text: `❌ Не удалось создать запись: ${err instanceof Error ? err.message : 'Произошла ошибка'}. Пожалуйста, попробуйте еще раз или свяжитесь с нами напрямую.`,
         sender: 'assistant',
       };
       setMessages((prev) => [...prev, errorMessage]);
