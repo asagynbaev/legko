@@ -512,12 +512,10 @@ img {
     overflow: hidden;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(130, 99, 232, 0.1);
-    min-height: 600px;
-    max-height: 80vh;
+    height: calc(100vh - 120px); /* Фиксированная высота: viewport минус отступы */
     position: relative;
     z-index: 3;
     margin-top: -10px;
-    height: 100%;
 }
 
 .hero__chat-header {
@@ -5549,8 +5547,7 @@ img {
     }
 
     .hero__chat {
-        min-height: 550px;
-        max-height: 75vh;
+        height: calc(100vh - 140px); /* Фиксированная высота с отступами */
         margin-top: 0;
     }
 
@@ -5569,14 +5566,23 @@ img {
 }
 
 @media (max-width: 768px) {
+    /* Предотвращение зума на iOS при фокусе на input/textarea */
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="number"],
+    input[type="search"],
+    textarea {
+        font-size: 16px !important;
+    }
+    
     .hero--chat .hero__container {
-        padding: 1rem 0;
-        gap: 1rem;
+        padding: 0.5rem 0;
+        gap: 0.75rem;
     }
 
     .hero__chat {
-        min-height: calc(100vh - 200px);
-        max-height: calc(100vh - 150px);
+        height: calc(100vh - 120px); /* Фиксированная высота с отступами */
         border-radius: 16px;
         margin-top: 0;
     }
@@ -5631,7 +5637,7 @@ img {
     }
 
     .hero__chat-input {
-        font-size: 0.875rem;
+        font-size: 16px; /* Минимум 16px для предотвращения зума на iOS */
         padding: 10px 14px;
         min-height: 44px;
         max-height: 100px;
@@ -5788,13 +5794,12 @@ img {
 
 @media (max-width: 480px) {
     .hero--chat .hero__container {
-        padding: 0.75rem 0;
-        gap: 0.75rem;
+        padding: 0.5rem 0;
+        gap: 0.5rem;
     }
 
     .hero__chat {
-        min-height: calc(100vh - 180px);
-        max-height: calc(100vh - 130px);
+        height: calc(100vh - 100px); /* Фиксированная высота с отступами */
         border-radius: 12px;
         margin-top: 0;
     }
@@ -5848,7 +5853,7 @@ img {
     }
 
     .hero__chat-input {
-        font-size: 0.8125rem;
+        font-size: 16px; /* Минимум 16px для предотвращения зума на iOS */
         padding: 8px 12px;
         min-height: 44px;
         max-height: 90px;
@@ -5974,13 +5979,12 @@ img {
 /* Очень маленькие экраны (менее 360px) */
 @media (max-width: 360px) {
     .hero--chat .hero__container {
-        padding: 0.5rem 0;
+        padding: 0.25rem 0;
         gap: 0.5rem;
     }
 
     .hero__chat {
-        min-height: calc(100vh - 160px);
-        max-height: calc(100vh - 120px);
+        height: calc(100vh - 80px); /* Фиксированная высота с отступами */
         border-radius: 10px;
     }
 
@@ -6020,7 +6024,7 @@ img {
     }
 
     .hero__chat-input {
-        font-size: 0.75rem;
+        font-size: 16px; /* Минимум 16px для предотвращения зума на iOS */
         padding: 7px 10px;
         min-height: 40px;
         max-height: 80px;
