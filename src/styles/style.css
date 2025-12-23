@@ -316,7 +316,7 @@ img {
     display: flex;
     align-items: center;
     background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-    overflow: hidden;
+    overflow: visible;
     width: 100%;
     max-width: 100vw;
     padding: 0;
@@ -608,6 +608,7 @@ img {
 
 .chat-message {
     display: flex;
+    margin-bottom: 0.75rem;
     animation: messageSlideIn 0.3s ease-out;
 }
 
@@ -631,28 +632,64 @@ img {
 }
 
 .chat-message__bubble {
-    max-width: 75%;
-    padding: 14px 18px;
-    border-radius: 18px;
-    font-size: 0.9375rem;
-    line-height: 1.6;
+    max-width: 70%;
+    padding: 10px 14px;
+    border-radius: 16px;
+    font-size: 0.875rem;
+    line-height: 1.5;
     word-wrap: break-word;
     position: relative;
 }
 
 .chat-message--assistant .chat-message__bubble {
-    background: white;
+    background: #f7fafc;
     color: var(--text-primary);
     border-bottom-left-radius: 4px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    border: 1px solid rgba(130, 99, 232, 0.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.chat-message--assistant .chat-message__bubble::before {
+    content: '';
+    position: absolute;
+    left: -6px;
+    bottom: 8px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 6px 8px 0;
+    border-color: transparent #f7fafc transparent transparent;
+}
+
+/* Специальные стили для индикатора печатания */
+.chat-message--assistant .chat-message__bubble .typing-indicator {
+    padding: 0;
+    margin: 0;
+}
+
+.chat-message--assistant .chat-message__bubble .typing-indicator span {
+    width: 8px;
+    height: 8px;
+    background: #8263e8;
 }
 
 .chat-message--user .chat-message__bubble {
     background: linear-gradient(135deg, #8263e8 0%, #667eea 100%);
     color: white;
     border-bottom-right-radius: 4px;
-    box-shadow: 0 4px 12px rgba(130, 99, 232, 0.3);
+    box-shadow: 0 2px 8px rgba(130, 99, 232, 0.25);
+    font-weight: 400;
+}
+
+.chat-message--user .chat-message__bubble::after {
+    content: '';
+    position: absolute;
+    right: -6px;
+    bottom: 8px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 0 8px 6px;
+    border-color: transparent transparent transparent #667eea;
 }
 
 .typing-cursor {
@@ -784,6 +821,371 @@ img {
     opacity: 0.5;
     cursor: not-allowed;
     transform: none;
+}
+
+/* Psychologist Suggestions Styles */
+.psychologist-suggestions {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding: 1.25rem;
+    background: #f7fafc;
+    border-radius: 12px;
+    border: 1px solid rgba(130, 99, 232, 0.15);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.suggestions-title {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+.psychologist-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    transition: all 0.2s ease;
+}
+
+.psychologist-card:last-child {
+    margin-bottom: 0;
+}
+
+.psychologist-card:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 2px 8px rgba(130, 99, 232, 0.1);
+}
+
+.psychologist-card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.75rem;
+}
+
+.psychologist-card__name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.psychologist-card__rating {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    color: #f59e0b;
+    font-weight: 600;
+    font-size: 0.8125rem;
+}
+
+.psychologist-card__rating i {
+    font-size: 0.75rem;
+}
+
+.psychologist-card__speciality {
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+    margin: 0.25rem 0 0.5rem 0;
+    font-weight: 400;
+}
+
+.psychologist-card__reason {
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    margin: 0.5rem 0 0.75rem 0;
+    line-height: 1.5;
+    font-style: italic;
+    padding: 0.5rem;
+    background: rgba(130, 99, 232, 0.05);
+    border-left: 2px solid var(--primary-color);
+    border-radius: 4px;
+}
+
+.psychologist-card__info {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.psychologist-card__services {
+    margin-bottom: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.service-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    font-size: 0.8125rem;
+}
+
+.service-name {
+    font-weight: 500;
+    color: var(--text-primary);
+    flex: 1;
+}
+
+.service-price {
+    color: var(--primary-color);
+    font-weight: 600;
+    margin: 0 0.75rem;
+    font-size: 0.8125rem;
+}
+
+.service-duration {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+}
+
+.psychologist-card__link {
+    display: inline-block;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.8125rem;
+    transition: color 0.2s ease;
+    margin-top: 0.5rem;
+}
+
+.psychologist-card__link:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+.typing-indicator {
+    display: flex;
+    gap: 6px;
+    padding: 0;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 20px;
+}
+
+.typing-indicator span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #8263e8;
+    animation: typing 1.4s infinite;
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+.typing-indicator span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes typing {
+    0%, 60%, 100% {
+        transform: translateY(0) scale(1);
+        opacity: 0.7;
+    }
+    30% {
+        transform: translateY(-12px) scale(1.1);
+        opacity: 1;
+    }
+}
+
+/* Стили для успешных сообщений (с ✅) */
+.chat-message--assistant .chat-message__bubble:has-text("✅"),
+.chat-message--assistant .chat-message__bubble:contains("✅") {
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+    border-color: rgba(34, 197, 94, 0.3);
+    color: #166534;
+}
+
+.chat-message--assistant .chat-message__bubble:has-text("✅")::before,
+.chat-message--assistant .chat-message__bubble:contains("✅")::before {
+    border-color: transparent #dcfce7 transparent transparent;
+}
+
+/* Стили для ошибочных сообщений (с ❌) */
+.chat-message--assistant .chat-message__bubble:has-text("❌"),
+.chat-message--assistant .chat-message__bubble:contains("❌") {
+    background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+    border-color: rgba(239, 68, 68, 0.3);
+    color: #991b1b;
+}
+
+.chat-message--assistant .chat-message__bubble:has-text("❌")::before,
+.chat-message--assistant .chat-message__bubble:contains("❌")::before {
+    border-color: transparent #fee2e2 transparent transparent;
+}
+
+/* Адаптивность для рекомендаций */
+@media (max-width: 768px) {
+    .psychologist-suggestions {
+        padding: 1.25rem;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .psychologist-card {
+        padding: 1.25rem;
+    }
+    
+    .service-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .service-price {
+        margin: 0;
+    }
+    
+    .chat-message {
+        max-width: 85%;
+    }
+    
+    .chat-message__bubble {
+        padding: 12px 16px;
+        font-size: 0.875rem;
+    }
+}
+
+/* Улучшенные стили для сообщений с успехом/ошибкой */
+.chat-message--assistant .chat-message__bubble--success {
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%) !important;
+    border-color: rgba(34, 197, 94, 0.3) !important;
+    color: #166534 !important;
+}
+
+.chat-message--assistant .chat-message__bubble--success::before {
+    border-color: transparent #dcfce7 transparent transparent !important;
+}
+
+.chat-message--assistant .chat-message__bubble--error {
+    background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%) !important;
+    border-color: rgba(239, 68, 68, 0.3) !important;
+    color: #991b1b !important;
+}
+
+.chat-message--assistant .chat-message__bubble--error::before {
+    border-color: transparent #fee2e2 transparent transparent !important;
+}
+
+/* Markdown стили для сообщений AI */
+.markdown-paragraph {
+    margin: 0 0 0.5rem 0;
+    line-height: 1.6;
+}
+
+.markdown-paragraph:last-child {
+    margin-bottom: 0;
+}
+
+.markdown-list {
+    margin: 0.5rem 0;
+    padding-left: 1.5rem;
+    line-height: 1.6;
+}
+
+.markdown-list--numbered {
+    list-style-type: decimal;
+}
+
+.markdown-list-item {
+    margin-bottom: 0.25rem;
+}
+
+.markdown-list-item:last-child {
+    margin-bottom: 0;
+}
+
+.markdown-strong {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.markdown-em {
+    font-style: italic;
+}
+
+.markdown-code {
+    background: rgba(0, 0, 0, 0.05);
+    padding: 0.125rem 0.25rem;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 0.875em;
+}
+
+.markdown-h1,
+.markdown-h2,
+.markdown-h3 {
+    margin: 0.75rem 0 0.5rem 0;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.3;
+}
+
+.markdown-h1 {
+    font-size: 1.25rem;
+}
+
+.markdown-h2 {
+    font-size: 1.125rem;
+}
+
+.markdown-h3 {
+    font-size: 1rem;
+}
+
+.markdown-h1:first-child,
+.markdown-h2:first-child,
+.markdown-h3:first-child {
+    margin-top: 0;
+}
+
+/* Анимация появления сообщений */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Адаптивность для рекомендаций */
+@media (max-width: 768px) {
+    .psychologist-suggestions {
+        padding: 1.25rem;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .psychologist-card {
+        padding: 1.25rem;
+    }
+    
+    .service-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .service-price {
+        margin: 0;
+    }
+    
+    .chat-message {
+        max-width: 85%;
+    }
 }
 
 /* Hero Visual - Right Side */
@@ -2358,6 +2760,31 @@ img {
     font-size: 0.875rem;
     color: var(--text-secondary);
     font-weight: 500;
+}
+
+.specialist-experience-preview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+}
+
+.specialist-experience-preview i {
+    color: var(--primary-color);
+    font-size: 0.75rem;
+}
+
+.specialist-preview--link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.specialist-preview--link:hover {
+    text-decoration: none;
 }
 
 /* Старые стили для совместимости */
@@ -4208,6 +4635,21 @@ img {
 .specialist-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.specialist-card--highlighted {
+  border: 3px solid var(--primary-color) !important;
+  box-shadow: 0 8px 32px rgba(130, 99, 232, 0.3) !important;
+  animation: highlightPulse 2s ease-in-out;
+}
+
+@keyframes highlightPulse {
+  0%, 100% {
+    box-shadow: 0 8px 32px rgba(130, 99, 232, 0.3);
+  }
+  50% {
+    box-shadow: 0 12px 40px rgba(130, 99, 232, 0.5);
+  }
 }
 
 .specialist-card-header {

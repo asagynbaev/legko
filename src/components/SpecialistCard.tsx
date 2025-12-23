@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { useState } from 'react';
 
 interface SpecialistCardProps {
@@ -6,9 +7,12 @@ interface SpecialistCardProps {
     name: string;
     title: string;
     rating: number;
+    id?: string;
+    experience?: number;
+    numberOfClients?: number;
 }
 
-const SpecialistCard = ({ avatar, name, title, rating }: SpecialistCardProps) => {
+const SpecialistCard = ({ avatar, name, title, rating, id, experience, numberOfClients }: SpecialistCardProps) => {
     const [imageError, setImageError] = useState(false);
     const [imageLoading, setImageLoading] = useState(true);
     
@@ -38,8 +42,8 @@ const SpecialistCard = ({ avatar, name, title, rating }: SpecialistCardProps) =>
         return stars;
     };
 
-    return (
-        <div className="specialist-preview">
+    const cardContent = (
+        <>
             <div className="specialist-photo-preview">
                 {avatar && !imageError ? (
                     <div className="image-container">
@@ -92,10 +96,32 @@ const SpecialistCard = ({ avatar, name, title, rating }: SpecialistCardProps) =>
                         {renderStars(rating || 5)}
                     </div>
                     <span className="rating-text-preview">
-                        {(rating || 5).toFixed(1)} (50+ отзывов)
+                        {(rating || 5).toFixed(1)}
+                        {numberOfClients && ` (${numberOfClients}+ клиентов)`}
+                        {!numberOfClients && ' (50+ отзывов)'}
                     </span>
                 </div>
+                {experience && (
+                    <div className="specialist-experience-preview">
+                        <i className="fas fa-briefcase"></i>
+                        <span>Опыт: {experience} лет</span>
+                    </div>
+                )}
             </div>
+        </>
+    );
+
+    if (id) {
+        return (
+            <Link href={`/staff?psychologist=${id}`} className="specialist-preview specialist-preview--link">
+                {cardContent}
+            </Link>
+        );
+    }
+
+    return (
+        <div className="specialist-preview">
+            {cardContent}
         </div>
     );
 };

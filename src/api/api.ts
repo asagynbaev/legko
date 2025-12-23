@@ -6,10 +6,14 @@ export async function getStaffByBusinessId() {
     const endpoint = `/Business/staff/get-staff-by-business-id/${businessId}`;
     return apiGet(endpoint);
 }
-const BASE_URL = "https://api.booka.kg/api/v1";
+const BASE_URL = "https://stinkbug-helping-blindly.ngrok-free.app/api/v1";
 
 export async function apiGet(endpoint: string) {
-    const response = await fetch(`${BASE_URL}${endpoint}`);
+    const response = await fetch(`${BASE_URL}${endpoint}`, {
+        headers: {
+            "ngrok-skip-browser-warning": "true",
+        },
+    });
     if (!response.ok) {
         throw new Error(`GET ${endpoint} failed: ${response.status}`);
     }
@@ -20,7 +24,8 @@ export async function apiPost(endpoint: string, body: Record<string, unknown>) {
     const response = await fetch(`${BASE_URL}${endpoint}`, {
         method: "POST",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "ngrok-skip-browser-warning": "true",
         },
         body: JSON.stringify(body)
     });

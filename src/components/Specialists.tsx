@@ -99,10 +99,13 @@ const Specialists = () => {
                         staff.slice(0, 3).map((item) => (
                             <SpecialistCard
                                 key={item.id}
+                                id={item.id}
                                 avatar={item.photo || "/images/пушистик обьятия.png"}
                                 name={item.name}
                                 title={item.speciality}
                                 rating={item.rating || 5}
+                                experience={(item as any).experience}
+                                numberOfClients={(item as any).numberOfClients}
                             />
                         ))
                     ) : !loading && (

@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
+import { useRouter } from 'next/router';
 import { getStaffByBusinessId } from '../../api/api';
 import Image from 'next/image';
 import Head from 'next/head';
@@ -23,10 +24,13 @@ interface Staff {
 }
 
 const StaffPage = () => {
+  const router = useRouter();
+  const { psychologist } = router.query;
   const [staff, setStaff] = useState<Staff[]>([]);
   const [loading, setLoading] = useState(true);
   const [imageErrors, setImageErrors] = useState<Set<string>>(new Set());
   const [expandedDescriptions, setExpandedDescriptions] = useState<Set<string>>(new Set());
+  const specialistRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
 
   useEffect(() => {
     getStaffByBusinessId().then((res) => {
@@ -36,6 +40,25 @@ const StaffPage = () => {
       setLoading(false);
     });
   }, []);
+
+  // Прокрутка к нужному психологу при наличии параметра
+  useEffect(() => {
+    if (psychologist && typeof psychologist === 'string' && !loading && staff.length > 0) {
+      const timer = setTimeout(() => {
+        const element = specialistRefs.current[psychologist];
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          // Добавляем класс для выделения
+          element.classList.add('specialist-card--highlighted');
+          // Убираем выделение через 3 секунды
+          setTimeout(() => {
+            element.classList.remove('specialist-card--highlighted');
+          }, 3000);
+        }
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [psychologist, loading, staff]);
 
 
   const renderStars = (rating: number) => {
@@ -121,7 +144,15 @@ const StaffPage = () => {
             ) : (
               <div className="specialists-grid">
                 {staff.map((specialist) => (
-                  <div key={specialist.id} className="specialist-card">
+                  <div 
+                    key={specialist.id} 
+                    className={`specialist-card ${psychologist === specialist.id ? 'specialist-card--highlighted' : ''}`}
+                    ref={(el) => {
+                      if (el) {
+                        specialistRefs.current[specialist.id] = el;
+                      }
+                    }}
+                  >
                     <div className="specialist-card-header">
                       <div className="specialist-photo">
                         {specialist.photo && !imageErrors.has(specialist.id) ? (
