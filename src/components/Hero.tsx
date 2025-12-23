@@ -80,9 +80,33 @@ const Hero = () => {
     }, 30); // Скорость печатания
   };
 
-  const handleSend = () => {
-    if (!inputText.trim() || isTyping) return;
+  const [error, setError] = useState<string | null>(null);
 
+  const validateInput = (text: string): string | null => {
+    const trimmed = text.trim();
+    if (trimmed.length === 0) {
+      return 'Пожалуйста, введите сообщение';
+    }
+    if (trimmed.length < 3) {
+      return 'Сообщение слишком короткое (минимум 3 символа)';
+    }
+    if (trimmed.length > 1000) {
+      return 'Сообщение слишком длинное (максимум 1000 символов)';
+    }
+    return null;
+  };
+
+  const handleSend = () => {
+    if (isTyping) return;
+
+    const validationError = validateInput(inputText);
+    if (validationError) {
+      setError(validationError);
+      setTimeout(() => setError(null), 3000);
+      return;
+    }
+
+    setError(null);
     const userMessage: Message = {
       id: `user-${Date.now()}`,
       text: inputText.trim(),
@@ -142,7 +166,7 @@ const Hero = () => {
         <div className="hero__chat">
           <div className="hero__chat-header">
             <div className="chat-header__info">
-              <div className="chat-header__avatar">
+              <div className="chat-header__avatar" aria-hidden="true">
                 <i className="fas fa-robot"></i>
               </div>
               <div>
@@ -179,22 +203,38 @@ const Hero = () => {
           </div>
 
           <div className="hero__chat-input-container">
+            {error && (
+              <div className="chat-input-error" role="alert" aria-live="polite">
+                <i className="fas fa-exclamation-circle"></i>
+                <span>{error}</span>
+              </div>
+            )}
             <textarea
               ref={inputRef}
-              className="hero__chat-input"
+              className={`hero__chat-input ${error ? 'hero__chat-input--error' : ''}`}
               value={inputText}
-              onChange={(e) => setInputText(e.target.value)}
+              onChange={(e) => {
+                setInputText(e.target.value);
+                if (error) setError(null);
+              }}
               onKeyPress={handleKeyPress}
               placeholder="Опишите вашу проблему..."
               rows={2}
               disabled={isTyping}
+              aria-label="Поле ввода сообщения"
+              aria-describedby="chat-input-hint"
+              aria-invalid={!!error}
+              maxLength={1000}
             />
+            <span id="chat-input-hint" className="sr-only">Введите ваше сообщение и нажмите Enter для отправки</span>
             <button
               className="hero__chat-send"
               onClick={handleSend}
               disabled={!inputText.trim() || isTyping}
+              aria-label="Отправить сообщение"
+              type="button"
             >
-              <i className="fas fa-paper-plane"></i>
+              <i className="fas fa-paper-plane" aria-hidden="true"></i>
             </button>
           </div>
         </div>

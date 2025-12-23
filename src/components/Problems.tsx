@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 const Problems = () => (
   <section className="problems">
@@ -13,7 +14,7 @@ const Problems = () => (
         <div className="problems-grid">
           <div className="problem-card problem-card--featured">
             <div className="problem-card__icon">
-              <Image src="/images/пушистик грусть.png" alt="Тревога" width={60} height={60} className="mascot-icon" />
+              <Image src="/images/пушистик грусть.png" alt="Тревога" width={60} height={60} className="mascot-icon" loading="lazy" />
             </div>
             <h4 className="problem-card__title">Тревога и беспокойство</h4>
             <p className="problem-card__description">Избавление от ненужных мыслей и чувств, а также навязчивого &ldquo;что скажут люди&rdquo;</p>
@@ -25,7 +26,7 @@ const Problems = () => (
           </div>
           <div className="problem-card problem-card--featured">
             <div className="problem-card__icon">
-              <Image src="/images/пушистик снеснение.png" alt="Депрессия" width={60} height={60} className="mascot-icon" />
+              <Image src="/images/пушистик снеснение.png" alt="Депрессия" width={60} height={60} className="mascot-icon" loading="lazy" />
             </div>
             <h4 className="problem-card__title">Нет энергии и сил</h4>
             <p className="problem-card__description">Вернуть энергию и силы, выявление сильных и слабых сторон, принятие себя</p>
@@ -37,7 +38,7 @@ const Problems = () => (
           </div>
           <div className="problem-card problem-card--featured">
             <div className="problem-card__icon">
-              <Image src="/images/пушистик удивление.png" alt="Отношения" width={60} height={60} className="mascot-icon" />
+              <Image src="/images/пушистик удивление.png" alt="Отношения" width={60} height={60} className="mascot-icon" loading="lazy" />
             </div>
             <h4 className="problem-card__title">Сложности в отношениях</h4>
             <p className="problem-card__description">Гармоничные отношения с детьми, родителями и даже с семьей мужа/жены</p>
@@ -57,19 +58,19 @@ const Problems = () => (
             <h4 className="category-title">💭 Эмоциональное состояние</h4>
             <div className="category-items">
               <div className="category-item">
-                <Image src="/images/пушистик грусть.png" alt="Тревога" width={40} height={40} className="category-icon" />
+                <Image src="/images/пушистик грусть.png" alt="Тревога" width={40} height={40} className="category-icon" loading="lazy" />
                 <span>Тревога и беспокойство</span>
               </div>
               <div className="category-item">
-                <Image src="/images/пушистик снеснение.png" alt="Депрессия" width={40} height={40} className="category-icon" />
+                <Image src="/images/пушистик снеснение.png" alt="Депрессия" width={40} height={40} className="category-icon" loading="lazy" />
                 <span>Депрессия</span>
               </div>
               <div className="category-item">
-                <Image src="/images/пушистик радость.png" alt="Стресс" width={40} height={40} className="category-icon" />
+                <Image src="/images/пушистик радость.png" alt="Стресс" width={40} height={40} className="category-icon" loading="lazy" />
                 <span>Эмоциональное выгорание</span>
               </div>
               <div className="category-item">
-                <Image src="/images/пушистик расслабление.png" alt="Панические атаки" width={40} height={40} className="category-icon" />
+                <Image src="/images/пушистик расслабление.png" alt="Панические атаки" width={40} height={40} className="category-icon" loading="lazy" />
                 <span>Панические атаки</span>
               </div>
             </div>
@@ -79,15 +80,15 @@ const Problems = () => (
             <h4 className="category-title">❤️ Отношения</h4>
             <div className="category-items">
               <div className="category-item">
-                <Image src="/images/пушистик влюбленность.png" alt="Построить отношения" width={40} height={40} className="category-icon" />
+                <Image src="/images/пушистик влюбленность.png" alt="Построить отношения" width={40} height={40} className="category-icon" loading="lazy" />
                 <span>Построить отношения</span>
               </div>
               <div className="category-item">
-                <Image src="/images/пушистик обьятия.png" alt="Семейные конфликты" width={40} height={40} className="category-icon" />
+                <Image src="/images/пушистик обьятия.png" alt="Семейные конфликты" width={40} height={40} className="category-icon" loading="lazy" />
                 <span>Наладить отношения с семьей</span>
               </div>
               <div className="category-item">
-                <Image src="/images/пушистик удивление.png" alt="Развод" width={40} height={40} className="category-icon" />
+                <Image src="/images/пушистик удивление.png" alt="Развод" width={40} height={40} className="category-icon" loading="lazy" />
                 <span>Переживание развода</span>
               </div>
               <div className="category-item">
@@ -101,11 +102,11 @@ const Problems = () => (
             <h4 className="category-title">🎯 Личностный рост</h4>
             <div className="category-items">
               <div className="category-item">
-                <Image src="/images/пушистик самолюбование.png" alt="Самооценка" width={40} height={40} className="category-icon" />
+                <Image src="/images/пушистик самолюбование.png" alt="Самооценка" width={40} height={40} className="category-icon" loading="lazy" />
                 <span>Проблемы с самооценкой</span>
               </div>
               <div className="category-item">
-                <Image src="/images/пушистик нежность.png" alt="Найти себя" width={40} height={40} className="category-icon" />
+                <Image src="/images/пушистик нежность.png" alt="Найти себя" width={40} height={40} className="category-icon" loading="lazy" />
                 <span>Найти себя и любимое занятие</span>
               </div>
               <div className="category-item">
@@ -189,11 +190,11 @@ const Problems = () => (
           <div className="problems-cta-content">
             <h4>Не нашли свою проблему?</h4>
             <p>У нас есть специалисты по <strong>50+ направлениям</strong>. Расскажите о своей ситуации, и мы подберем подходящего психолога</p>
-            <a href="#" className="btn btn--primary btn--problems-cta">
+            <Link href="/staff" className="btn btn--primary btn--problems-cta">
               <i className="fas fa-comment-dots"></i>
               <span className="btn-text-full">Получить бесплатную консультацию</span>
               <span className="btn-text-short">Бесплатная консультация</span>
-            </a>
+            </Link>
           </div>
         </div>
       </div>

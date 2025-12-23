@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 const HowItWorks = () => (
   <section className="how-it-works" id="how-it-works">
     <div className="container">
@@ -89,11 +91,11 @@ const HowItWorks = () => (
       </div>
     </div>
     <div className="process-cta">
-      <a href="#" className="btn btn--primary btn--modern btn--large">
+      <Link href="/staff" className="btn btn--primary btn--modern btn--large">
         <i className="fas fa-rocket"></i>
         Начать поиск психолога
         <i className="fas fa-arrow-right"></i>
-      </a>
+      </Link>
       <p className="cta-note"><strong>10% скидка</strong> на первую сессию</p>
     </div>
     </div>

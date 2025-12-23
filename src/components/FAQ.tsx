@@ -7,6 +7,13 @@ const FAQ = () => {
     setActiveItem(activeItem === index ? null : index);
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent, index: number) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggleItem(index);
+    }
+  };
+
   const faqData = [
     {
       question: "Что насчет конфиденциальности?",
@@ -50,11 +57,22 @@ const FAQ = () => {
               <div 
                 className="faq-question"
                 onClick={() => toggleItem(index)}
+                onKeyDown={(e) => handleKeyDown(e, index)}
+                role="button"
+                tabIndex={0}
+                aria-expanded={activeItem === index}
+                aria-controls={`faq-answer-${index}`}
+                id={`faq-question-${index}`}
               >
                 <h3>{item.question}</h3>
-                <i className="fas fa-chevron-down"></i>
+                <i className="fas fa-chevron-down" aria-hidden="true"></i>
               </div>
-              <div className="faq-answer">
+              <div 
+                className="faq-answer"
+                id={`faq-answer-${index}`}
+                role="region"
+                aria-labelledby={`faq-question-${index}`}
+              >
                 <p>{item.answer}</p>
               </div>
             </div>

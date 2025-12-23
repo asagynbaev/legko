@@ -33,7 +33,11 @@ const Header = () => {
                     <Image src="/images/Group_12_3.png.webp" alt="Legko - поиск психологов" width={120} height={40} className="logo__image" />
                 </Link>
             </div>
-            <div className={`nav__menu ${isMobileMenuOpen ? 'show' : ''}`} id="nav-menu">
+            <div 
+              className={`nav__menu ${isMobileMenuOpen ? 'show' : ''}`} 
+              id="nav-menu"
+              aria-hidden={!isMobileMenuOpen}
+            >
                 <ul className="nav__list">
                     <li className="nav__item"><a href="#how-it-works" className="nav__link" onClick={closeMobileMenu}>Как это работает</a></li>
                     <li className="nav__item"><a href="#benefits" className="nav__link" onClick={closeMobileMenu}>Преимущества</a></li>
@@ -47,9 +51,17 @@ const Header = () => {
             <div className="nav__actions">
                 <Link href="/staff" className="btn btn--primary">Найти психолога</Link>
             </div>
-            <div className="nav__toggle" id="nav-toggle" onClick={toggleMobileMenu}>
-                <i className={`fas ${isMobileMenuOpen ? 'fa-times' : 'fa-bars'}`}></i>
-            </div>
+            <button 
+              className="nav__toggle" 
+              id="nav-toggle" 
+              onClick={toggleMobileMenu}
+              aria-label={isMobileMenuOpen ? "Закрыть меню" : "Открыть меню"}
+              aria-expanded={isMobileMenuOpen}
+              aria-controls="nav-menu"
+              type="button"
+            >
+                <i className={`fas ${isMobileMenuOpen ? 'fa-times' : 'fa-bars'}`} aria-hidden="true"></i>
+            </button>
         </nav>
     </header>
     );
