@@ -17,7 +17,7 @@ const SpecialistCard = ({ avatar, name, title, rating, id, experience, numberOfC
     const [imageLoading, setImageLoading] = useState(true);
     
     // Проверяем, является ли аватар внешним изображением
-    const isExternalImage = avatar && avatar.includes('img.booka.kg');
+    const isExternalImage = avatar && avatar.includes('img.booka.life');
     
     const getInitials = (name: string) => {
         const words = name.trim().split(' ');

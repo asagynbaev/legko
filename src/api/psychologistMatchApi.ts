@@ -1,4 +1,4 @@
-const BASE_URL = "https://api.booka.kg/api/v1";
+const BASE_URL = "https://api.booka.life/api/v1";
 
 export interface MessageHistoryItem {
   role: "user" | "assistant";

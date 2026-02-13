@@ -6,7 +6,7 @@ export async function getStaffByBusinessId() {
     const endpoint = `/Business/staff/get-staff-by-business-id/${businessId}`;
     return apiGet(endpoint);
 }
-const BASE_URL = "https://api.booka.kg/api/v1";
+const BASE_URL = "https://api.booka.life/api/v1";
 
 export async function apiGet(endpoint: string) {
     const response = await fetch(`${BASE_URL}${endpoint}`, {

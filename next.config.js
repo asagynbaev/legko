@@ -3,12 +3,12 @@ module.exports = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'img.booka.kg',
+        hostname: 'img.booka.life',
         port: '',
         pathname: '/images/user-photos/**',
       },
     ],
-    domains: ['img.booka.kg'],
+    domains: ['img.booka.life'],
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     // Улучшенная обработка внешних изображений

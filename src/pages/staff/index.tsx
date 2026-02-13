@@ -85,8 +85,8 @@ const StaffPage = () => {
   };
 
   const handleBookingClick = (specialistId: string) => {
-    // Сразу открываем в новом окне, так как booka.kg блокирует iframe
-    window.open(`https://booka.kg/master/${specialistId}`, '_blank');
+    // Сразу открываем в новом окне, так как booka.life блокирует iframe
+    window.open(`https://booka.life/master/${specialistId}`, '_blank');
   };
 
 

@@ -1,6 +1,6 @@
 import * as signalR from "@microsoft/signalr";
 
-const HUB_URL = "https://api.booka.kg/hubs/psychologist-match";
+const HUB_URL = "https://api.booka.life/hubs/psychologist-match";
 
 export interface MessageHistoryItem {
   role: "user" | "assistant";
