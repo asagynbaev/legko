@@ -92,10 +92,10 @@ class SignalRService {
         })
         .withAutomaticReconnect({
           nextRetryDelayInMilliseconds: (retryContext) => {
-            if (retryContext.previousRetryCount < 3) {
-              return 2000; // 2 секунды
-            }
-            return 5000; // 5 секунд
+            // Редкие повторы, чтобы не спамить negotiate при обрывах
+            if (retryContext.previousRetryCount === 0) return 3000;
+            if (retryContext.previousRetryCount < 3) return 5000;
+            return 10000;
           },
         })
         .build();

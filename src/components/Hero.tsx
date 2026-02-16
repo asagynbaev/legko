@@ -35,18 +35,24 @@ const Hero = () => {
   const messagesContainerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const isInitialized = useRef(false);
+  const isInitializing = useRef(false);
   const isUsingSignalR = useRef(false);
 
   useEffect(() => {
-    if (!isInitialized.current) {
-      initializeSession();
-      setupSignalRListeners();
-      isInitialized.current = true;
+    if (isInitialized.current || isInitializing.current) {
+      return;
     }
-    
+    isInitializing.current = true;
+    initializeSession().finally(() => {
+      isInitialized.current = true;
+      isInitializing.current = false;
+    });
+
     return () => {
+      isInitialized.current = false;
       if (isUsingSignalR.current) {
         signalRService.disconnect();
+        isUsingSignalR.current = false;
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -161,6 +167,7 @@ const Hero = () => {
       try {
         await signalRService.connect();
         isUsingSignalR.current = true;
+        setupSignalRListeners();
         await signalRService.startMatching();
       } catch (signalRErr) {
         console.warn('SignalR connection failed, falling back to REST API:', signalRErr);
