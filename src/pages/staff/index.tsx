@@ -23,11 +23,15 @@ interface Staff {
   branchId: string;
 }
 
+const INITIAL_VISIBLE = 6;
+const LOAD_MORE_COUNT = 6;
+
 const StaffPage = () => {
   const router = useRouter();
   const { psychologist } = router.query;
   const [staff, setStaff] = useState<Staff[]>([]);
   const [loading, setLoading] = useState(true);
+  const [visibleCount, setVisibleCount] = useState(INITIAL_VISIBLE);
   const [imageErrors, setImageErrors] = useState<Set<string>>(new Set());
   const [expandedDescriptions, setExpandedDescriptions] = useState<Set<string>>(new Set());
   const specialistRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
@@ -40,6 +44,24 @@ const StaffPage = () => {
       setLoading(false);
     });
   }, []);
+
+  const visibleStaff = staff.slice(0, visibleCount);
+  const hasMore = visibleCount < staff.length;
+  const showLoadMore = !loading && hasMore;
+
+  const handleLoadMore = () => {
+    setVisibleCount((prev) => Math.min(prev + LOAD_MORE_COUNT, staff.length));
+  };
+
+  // При переходе по ссылке ?psychologist=id показываем достаточно карточек, чтобы эта была в списке
+  useEffect(() => {
+    if (psychologist && typeof psychologist === 'string' && !loading && staff.length > 0) {
+      const index = staff.findIndex((s) => s.id === psychologist);
+      if (index >= 0) {
+        setVisibleCount((prev) => Math.max(prev, index + 1));
+      }
+    }
+  }, [psychologist, loading, staff]);
 
   useEffect(() => {
     if (psychologist && typeof psychologist === 'string' && !loading && staff.length > 0) {
@@ -55,20 +77,7 @@ const StaffPage = () => {
       }, 500);
       return () => clearTimeout(timer);
     }
-  }, [psychologist, loading, staff]);
-
-  const renderStars = (rating: number) => {
-    const stars = [];
-    for (let i = 1; i <= 5; i++) {
-      stars.push(
-        <i
-          key={i}
-          className={`fas fa-star ${i <= rating ? 'text-yellow-400' : 'text-gray-300'}`}
-        />
-      );
-    }
-    return stars;
-  };
+  }, [psychologist, loading, staff, visibleCount]);
 
   const getInitials = (name: string) => {
     const words = name.trim().split(' ');
@@ -163,63 +172,56 @@ const StaffPage = () => {
                 <p>Загружаем информацию о специалистах...</p>
               </div>
             ) : (
+              <>
               <div className="staff-grid">
-                {staff.map((specialist) => (
+                {visibleStaff.map((specialist) => (
                   <div
                     key={specialist.id}
-                    className={`staff-card ${psychologist === specialist.id ? 'staff-card--highlighted' : ''}`}
+                    className={`staff-card staff-card--alter ${psychologist === specialist.id ? 'staff-card--highlighted' : ''}`}
                     ref={(el) => {
-                      if (el) {
-                        specialistRefs.current[specialist.id] = el;
-                      }
+                      if (el) specialistRefs.current[specialist.id] = el;
                     }}
                   >
-                    {/* Card header */}
-                    <div className="staff-card__header">
-                      <div className="staff-card__photo">
-                        {specialist.photo && !imageErrors.has(specialist.id) ? (
-                          <Image
-                            src={specialist.photo}
-                            alt={specialist.name}
-                            width={80}
-                            height={80}
-                            className="staff-card__avatar"
-                            onError={() => handleImageError(specialist.id)}
-                            unoptimized
-                          />
-                        ) : (
-                          <div className="staff-card__initials">
-                            {getInitials(specialist.name)}
-                          </div>
-                        )}
-                      </div>
-                      <div className="staff-card__info">
+                    <div className="staff-card__photo-wrap">
+                      {specialist.photo && !imageErrors.has(specialist.id) ? (
+                        <Image
+                          src={specialist.photo}
+                          alt={specialist.name}
+                          fill
+                          className="staff-card__img"
+                          onError={() => handleImageError(specialist.id)}
+                          unoptimized
+                          sizes="(max-width: 768px) 100vw, 360px"
+                        />
+                      ) : (
+                        <div className="staff-card__initials">{getInitials(specialist.name)}</div>
+                      )}
+                      <div className="staff-card__photo-overlay" />
+                      <div className="staff-card__photo-caption">
                         <h3 className="staff-card__name">{specialist.name}</h3>
                         <p className="staff-card__speciality">{specialist.speciality}</p>
-                        <div className="staff-card__rating">
-                          <div className="staff-card__stars">
-                            {renderStars(specialist.rating || 5)}
-                          </div>
-                          <span className="staff-card__rating-text">
-                            {specialist.rating || 5}.0 ({specialist.numberOfClients || 0}+ клиентов)
-                          </span>
+                        <p className="staff-card__meta-line">
+                          Опыт {specialist.experience} лет
+                          {specialist.numberOfClients != null && ` • ${specialist.numberOfClients}+ клиентов`}
+                        </p>
+                        <div className="staff-card__rating-inline">
+                          <i className="fas fa-star" />
+                          <span>{(specialist.rating || 5).toFixed(1)}</span>
                         </div>
                       </div>
                     </div>
-
-                    {/* Card meta */}
-                    <div className="staff-card__meta">
-                      <div className="staff-card__meta-item">
-                        <i className="fas fa-briefcase"></i>
-                        <span>Опыт: {specialist.experience} лет</span>
+                    <div className="staff-card__details-block">
+                      <div className="staff-card__detail-row">
+                        <span className="staff-card__detail-label">Стоимость консультации</span>
+                        <span className="staff-card__detail-value">От 2000 с</span>
                       </div>
-                      <div className="staff-card__meta-item">
-                        <i className="fas fa-users"></i>
-                        <span>{specialist.numberOfClients || 0}+ клиентов</span>
+                      <div className="staff-card__detail-row">
+                        <span className="staff-card__detail-label">Где ведёт приём</span>
+                        <span className="staff-card__detail-value">
+                          {specialist.address?.trim() || 'Онлайн'}
+                        </span>
                       </div>
                     </div>
-
-                    {/* Description */}
                     <div className="staff-card__about">
                       <p className={expandedDescriptions.has(specialist.id) ? '' : 'staff-card__about-truncated'}>
                         {expandedDescriptions.has(specialist.id)
@@ -237,19 +239,33 @@ const StaffPage = () => {
                         </button>
                       )}
                     </div>
-
-                    {/* Action */}
                     <button
                       className="staff-card__cta"
                       onClick={() => handleBookingClick(specialist.id)}
                       type="button"
                     >
                       <i className="fas fa-calendar-alt"></i>
-                      Записаться на консультацию
+                      Записаться
                     </button>
                   </div>
                 ))}
               </div>
+
+              {showLoadMore && (
+                <div className="staff-load-more">
+                  <button
+                    type="button"
+                    className="btn btn--primary btn--large staff-load-more__btn"
+                    onClick={handleLoadMore}
+                  >
+                    Показать ещё
+                  </button>
+                  <p className="staff-load-more__hint">
+                    Показано {visibleStaff.length} из {staff.length}
+                  </p>
+                </div>
+              )}
+              </>
             )}
 
             {!loading && staff.length === 0 && (

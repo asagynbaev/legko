@@ -163,15 +163,21 @@ const Hero = () => {
   const initializeSession = async () => {
     try {
       setIsLoading(true);
-      
+
+      const useRestOnly = process.env.NEXT_PUBLIC_USE_REST_ONLY === 'true';
+
       try {
+        if (useRestOnly) throw new Error('REST only mode');
         await signalRService.connect();
         isUsingSignalR.current = true;
         setupSignalRListeners();
         await signalRService.startMatching();
       } catch (signalRErr) {
-        console.warn('SignalR connection failed, falling back to REST API:', signalRErr);
         isUsingSignalR.current = false;
+        await signalRService.disconnect();
+        if (process.env.NODE_ENV === 'development' && !useRestOnly) {
+          console.info('Используем REST API (SignalR недоступен или отключён)');
+        }
         
         const response = await startMatching();
         
