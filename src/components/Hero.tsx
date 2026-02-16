@@ -396,7 +396,7 @@ const Hero = () => {
           Пройдите подбор и найдите <span className="hero__title-accent">своего психолога</span>
         </h1>
         <p className="hero__subtitle">
-          Расскажите AI-помощнику о вашей ситуации, и мы подберем специалиста, который подходит именно вам
+          Расскажите Элли о вашей ситуации, и мы подберем специалиста, который подходит именно вам
         </p>
       </div>
 
@@ -409,7 +409,7 @@ const Hero = () => {
                 <i className="fas fa-robot"></i>
               </div>
               <div>
-                <h2 className="chat-header__title">AI Помощник Legko</h2>
+                <h2 className="chat-header__title">Элли</h2>
                 <p className="chat-header__status">
                   {isLoading ? 'печатает...' : 'онлайн'}
                 </p>
@@ -558,7 +558,7 @@ const Hero = () => {
           <div className="hero__mascot-wrapper">
             <Image 
               src="/images/пушистик радость.png" 
-              alt="Legko помощник" 
+              alt="Элли" 
               width={525} 
               height={525} 
               className="hero__mascot-modern" 

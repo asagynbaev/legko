@@ -30,7 +30,7 @@ const HowItWorks = () => (
               <div className="step-badge">2 минуты</div>
               <h3 className="step-title">Расскажите о себе</h3>
               <p className="step-description">
-                Опишите AI-помощнику вашу ситуацию или заполните короткую анкету
+                Опишите Элли вашу ситуацию или заполните короткую анкету
               </p>
             </div>
           </div>
