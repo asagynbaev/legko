@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import SpecialistCard from './SpecialistCard';
@@ -40,7 +39,6 @@ const Specialists = () => {
 
     return (
         <section className="specialists-modern" id="specialists">
-            <div className="specialists-modern-bg"></div>
             <div className="container">
                 <div className="section-header">
                     <div className="section-badge">
@@ -50,10 +48,10 @@ const Specialists = () => {
                         </span>
                     </div>
                     <h2 className="section-title">
-                        Профессиональные <span className="gradient-text">психологи</span>
+                        Проверенные <span className="gradient-text">психологи</span>
                     </h2>
                     <p className="section-subtitle">
-                        Специалисты с высшим образованием и опытом работы от 5 лет
+                        Все специалисты проходят строгий отбор и имеют высшее образование
                     </p>
                 </div>
 
@@ -102,7 +100,7 @@ const Specialists = () => {
                             <SpecialistCard
                                 key={item.id}
                                 id={item.id}
-                                avatar={item.photo || "/images/пушистик обьятия.png"}
+                                avatar={item.photo || '/images/пушистик обьятия.png'}
                                 name={item.name}
                                 title={item.speciality}
                                 rating={item.rating || 5}
@@ -135,10 +133,9 @@ const Specialists = () => {
                 </div>
 
                 <div className="specialists-modern-cta">
-                    <Link href="/staff" className="btn btn--primary btn--modern btn--large">
+                    <Link href="/staff" className="btn btn--primary btn--large">
                         <i className="fas fa-search"></i>
                         Посмотреть всех специалистов
-                        <i className="fas fa-arrow-right"></i>
                     </Link>
                 </div>
             </div>

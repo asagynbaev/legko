@@ -1,7 +1,6 @@
 import Head from 'next/head';
 import Hero from '../components/Hero';
 import HowItWorks from '../components/HowItWorks';
-import FirstSession from '../components/FirstSession';
 import Benefits from '../components/Benefits';
 import Problems from '../components/Problems';
 import Specialists from '../components/Specialists';
@@ -105,7 +104,7 @@ export default function Home() {
                                     "name": "Можно ли менять психолога?",
                                     "acceptedAnswer": {
                                         "@type": "Answer",
-                                        "text": "Да, вы сами выбираете себе психолога. Вы работаете с тем психологом, которого выбрали. Если психолог вам не подошел, вы можете без проблем выбрать другого."
+                                        "text": "Да, вы сами выбираете себе психолога. Если психолог вам не подошел, вы можете без проблем выбрать другого."
                                     }
                                 }
                             ]
@@ -115,10 +114,9 @@ export default function Home() {
             </Head>
             <Header />
             <Hero />
-            <HowItWorks />
-            <FirstSession />
-            <Benefits />
             <Problems />
+            <HowItWorks />
+            <Benefits />
             <Specialists />
             <Testimonials />
             <FAQ />

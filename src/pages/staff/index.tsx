@@ -41,18 +41,15 @@ const StaffPage = () => {
     });
   }, []);
 
-  // Прокрутка к нужному психологу при наличии параметра
   useEffect(() => {
     if (psychologist && typeof psychologist === 'string' && !loading && staff.length > 0) {
       const timer = setTimeout(() => {
         const element = specialistRefs.current[psychologist];
         if (element) {
           element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          // Добавляем класс для выделения
-          element.classList.add('specialist-card--highlighted');
-          // Убираем выделение через 3 секунды
+          element.classList.add('staff-card--highlighted');
           setTimeout(() => {
-            element.classList.remove('specialist-card--highlighted');
+            element.classList.remove('staff-card--highlighted');
           }, 3000);
         }
       }, 500);
@@ -60,13 +57,12 @@ const StaffPage = () => {
     }
   }, [psychologist, loading, staff]);
 
-
   const renderStars = (rating: number) => {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
       stars.push(
-        <i 
-          key={i} 
+        <i
+          key={i}
           className={`fas fa-star ${i <= rating ? 'text-yellow-400' : 'text-gray-300'}`}
         />
       );
@@ -85,13 +81,11 @@ const StaffPage = () => {
   };
 
   const handleBookingClick = (specialistId: string) => {
-    // Сразу открываем в новом окне, так как booka.life блокирует iframe
     window.open(`https://booka.life/master/${specialistId}`, '_blank');
   };
 
-
   const handleImageError = (specialistId: string) => {
-    setImageErrors(prev => new Set(prev).add(specialistId));
+    setImageErrors((prev) => new Set(prev).add(specialistId));
   };
 
   const truncateText = (text: string, maxLength: number = 150) => {
@@ -100,7 +94,7 @@ const StaffPage = () => {
   };
 
   const toggleDescription = (specialistId: string) => {
-    setExpandedDescriptions(prev => {
+    setExpandedDescriptions((prev) => {
       const newSet = new Set(prev);
       if (newSet.has(specialistId)) {
         newSet.delete(specialistId);
@@ -115,140 +109,197 @@ const StaffPage = () => {
     <>
       <Head>
         <title>Наши специалисты - Legko</title>
-        <meta name="description" content="Познакомьтесь с нашими квалифицированными психологами. Найдите подходящего специалиста для решения ваших задач." />
+        <meta
+          name="description"
+          content="Познакомьтесь с нашими квалифицированными психологами. Найдите подходящего специалиста для решения ваших задач."
+        />
       </Head>
       <StaffHeader />
-      
-      <main className="specialists-page">
-        {/* Hero Section */}
-        <section className="specialists-hero">
+
+      <main className="staff-page">
+        {/* Hero */}
+        <section className="staff-hero">
           <div className="container">
-            <div className="specialists-hero-content">
-              <h1>Наши специалисты</h1>
-              <p className="specialists-hero-subtitle">
-                Высококвалифицированные психологи с опытом работы от 2 лет. 
-                Каждый специалист прошел тщательный отбор и имеет необходимые сертификаты.
-              </p>
+            <div className="staff-hero__badge">
+              <i className="fas fa-users"></i>
+              Каталог специалистов
+            </div>
+            <h1 className="staff-hero__title">
+              Наши <span className="gradient-text">психологи</span>
+            </h1>
+            <p className="staff-hero__subtitle">
+              Высококвалифицированные специалисты с опытом работы от 2 лет.
+              Каждый прошел тщательный отбор и имеет необходимые сертификаты.
+            </p>
+
+            {/* Trust badges */}
+            <div className="staff-hero__badges">
+              <div className="staff-badge">
+                <i className="fas fa-graduation-cap"></i>
+                <span>Высшее образование</span>
+              </div>
+              <div className="staff-badge">
+                <i className="fas fa-certificate"></i>
+                <span>Сертифицированы</span>
+              </div>
+              <div className="staff-badge">
+                <i className="fas fa-shield-alt"></i>
+                <span>Проверены лично</span>
+              </div>
+              <div className="staff-badge">
+                <i className="fas fa-star"></i>
+                <span>Средний рейтинг 4.9</span>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* Specialists Grid */}
-        <section className="specialists-grid-section">
+        {/* Staff Grid */}
+        <section className="staff-grid-section">
           <div className="container">
             {loading ? (
-              <div className="loading-state">
+              <div className="staff-loading">
                 <div className="loading-spinner"></div>
                 <p>Загружаем информацию о специалистах...</p>
               </div>
             ) : (
-              <div className="specialists-grid">
+              <div className="staff-grid">
                 {staff.map((specialist) => (
-                  <div 
-                    key={specialist.id} 
-                    className={`specialist-card ${psychologist === specialist.id ? 'specialist-card--highlighted' : ''}`}
+                  <div
+                    key={specialist.id}
+                    className={`staff-card ${psychologist === specialist.id ? 'staff-card--highlighted' : ''}`}
                     ref={(el) => {
                       if (el) {
                         specialistRefs.current[specialist.id] = el;
                       }
                     }}
                   >
-                    <div className="specialist-card-header">
-                      <div className="specialist-photo">
+                    {/* Card header */}
+                    <div className="staff-card__header">
+                      <div className="staff-card__photo">
                         {specialist.photo && !imageErrors.has(specialist.id) ? (
                           <Image
                             src={specialist.photo}
                             alt={specialist.name}
-                            width={120}
-                            height={120}
-                            className="specialist-avatar"
+                            width={80}
+                            height={80}
+                            className="staff-card__avatar"
                             onError={() => handleImageError(specialist.id)}
-                            placeholder="blur"
-                            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
+                            unoptimized
                           />
                         ) : (
-                          <div className="specialist-avatar-initials">
+                          <div className="staff-card__initials">
                             {getInitials(specialist.name)}
                           </div>
                         )}
                       </div>
-                      <div className="specialist-basic-info">
-                        <h3 className="specialist-name">{specialist.name}</h3>
-                        <p className="specialist-title">{specialist.speciality}</p>
-                        <div className="specialist-rating">
-                          <div className="stars">
+                      <div className="staff-card__info">
+                        <h3 className="staff-card__name">{specialist.name}</h3>
+                        <p className="staff-card__speciality">{specialist.speciality}</p>
+                        <div className="staff-card__rating">
+                          <div className="staff-card__stars">
                             {renderStars(specialist.rating || 5)}
                           </div>
-                          <span className="rating-text">
+                          <span className="staff-card__rating-text">
                             {specialist.rating || 5}.0 ({specialist.numberOfClients || 0}+ клиентов)
                           </span>
                         </div>
                       </div>
                     </div>
-                    
-                    <div className="specialist-card-body">
-                      <div className="specialist-experience">
-                        <i className="fas fa-graduation-cap"></i>
-                        <span>Опыт работы: {specialist.experience} лет</span>
+
+                    {/* Card meta */}
+                    <div className="staff-card__meta">
+                      <div className="staff-card__meta-item">
+                        <i className="fas fa-briefcase"></i>
+                        <span>Опыт: {specialist.experience} лет</span>
                       </div>
-                      
-                      <div className="specialist-description">
-                        <p className={`description-text ${expandedDescriptions.has(specialist.id) ? 'expanded' : ''}`}>
-                          {expandedDescriptions.has(specialist.id) 
-                            ? specialist.aboutMe 
-                            : truncateText(specialist.aboutMe)
-                          }
-                        </p>
-                        {specialist.aboutMe.length > 150 && (
-                          <button 
-                            className="description-toggle"
-                            onClick={() => toggleDescription(specialist.id)}
-                          >
-                            {expandedDescriptions.has(specialist.id) ? 'Свернуть' : 'Читать далее'}
-                            <i className={`fas ${expandedDescriptions.has(specialist.id) ? 'fa-chevron-up' : 'fa-chevron-down'}`}></i>
-                          </button>
-                        )}
-                      </div>
-                      
-                      <div className="specialist-card-footer">
-                        <button 
-                          className="btn btn--primary btn--specialist btn--full-width"
-                          onClick={() => handleBookingClick(specialist.id)}
-                        >
-                          <i className="fas fa-calendar-alt"></i>
-                          Записаться на консультацию
-                        </button>
+                      <div className="staff-card__meta-item">
+                        <i className="fas fa-users"></i>
+                        <span>{specialist.numberOfClients || 0}+ клиентов</span>
                       </div>
                     </div>
+
+                    {/* Description */}
+                    <div className="staff-card__about">
+                      <p className={expandedDescriptions.has(specialist.id) ? '' : 'staff-card__about-truncated'}>
+                        {expandedDescriptions.has(specialist.id)
+                          ? specialist.aboutMe
+                          : truncateText(specialist.aboutMe)}
+                      </p>
+                      {specialist.aboutMe.length > 150 && (
+                        <button
+                          className="staff-card__toggle"
+                          onClick={() => toggleDescription(specialist.id)}
+                          type="button"
+                        >
+                          {expandedDescriptions.has(specialist.id) ? 'Свернуть' : 'Читать далее'}
+                          <i className={`fas ${expandedDescriptions.has(specialist.id) ? 'fa-chevron-up' : 'fa-chevron-down'}`}></i>
+                        </button>
+                      )}
+                    </div>
+
+                    {/* Action */}
+                    <button
+                      className="staff-card__cta"
+                      onClick={() => handleBookingClick(specialist.id)}
+                      type="button"
+                    >
+                      <i className="fas fa-calendar-alt"></i>
+                      Записаться на консультацию
+                    </button>
                   </div>
                 ))}
               </div>
             )}
-            
+
             {!loading && staff.length === 0 && (
-              <div className="empty-state">
-                <div className="empty-state-content">
-                  <i className="fas fa-user-friends empty-state-icon"></i>
-                  <h3>Специалисты временно недоступны</h3>
-                  <p>Мы работаем над пополнением команды. Попробуйте зайти позже.</p>
+              <div className="staff-empty">
+                <div className="staff-empty__icon">
+                  <i className="fas fa-user-friends"></i>
                 </div>
+                <h3>Специалисты временно недоступны</h3>
+                <p>Мы работаем над пополнением команды. Попробуйте зайти позже.</p>
               </div>
             )}
           </div>
         </section>
 
-        {/* CTA Section */}
-        <section className="specialists-cta">
+        {/* CTA */}
+        <section className="staff-cta">
           <div className="container">
-            <div className="cta-content">
-              <h2>Не нашли подходящего специалиста?</h2>
-              <p>Свяжитесь с нами через социальные сети, и мы поможем подобрать психолога под ваши потребности</p>
+            <div className="staff-cta__content">
+              <div className="staff-cta__icon">
+                <i className="fas fa-comments"></i>
+              </div>
+              <h2 className="staff-cta__title">Не нашли подходящего специалиста?</h2>
+              <p className="staff-cta__description">
+                Свяжитесь с нами, и мы поможем подобрать психолога под ваш запрос бесплатно
+              </p>
+              <div className="staff-cta__buttons">
+                <a
+                  href="https://wa.me/996509339333"
+                  className="btn btn--primary btn--large"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i className="fab fa-whatsapp"></i>
+                  Написать в WhatsApp
+                </a>
+                <a
+                  href="https://t.me/legko_psychology"
+                  className="btn btn--secondary btn--large"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i className="fab fa-telegram"></i>
+                  Написать в Telegram
+                </a>
+              </div>
             </div>
           </div>
         </section>
       </main>
 
-      
       <Footer />
     </>
   );

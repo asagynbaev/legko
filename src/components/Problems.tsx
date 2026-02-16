@@ -2,200 +2,157 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 const Problems = () => (
-  <section className="problems">
+  <section className="problems" id="problems">
     <div className="container">
       <div className="section-header">
-        <h2 className="section-title">&ldquo;Legko&rdquo; для тех, кто хочет...</h2>
-        <p className="section-subtitle">Более 50 направлений работы с профессиональными психологами</p>
+        <h2 className="section-title">С чем может помочь <span className="gradient-text">терапия?</span></h2>
+        <p className="section-subtitle">
+          Запросом может быть любая тема, которая важна для вас. Вот самые популярные направления работы
+        </p>
       </div>
-      {/* Popular Problems */}
-      <div className="problems-popular">
-        <h3 className="problems-section-title">🔥 Самые популярные запросы</h3>
-        <div className="problems-grid">
-          <div className="problem-card problem-card--featured">
-            <div className="problem-card__icon">
-              <Image src="/images/пушистик грусть.png" alt="Тревога" width={60} height={60} className="mascot-icon" loading="lazy" />
-            </div>
-            <h4 className="problem-card__title">Тревога и беспокойство</h4>
-            <p className="problem-card__description">Избавление от ненужных мыслей и чувств, а также навязчивого &ldquo;что скажут люди&rdquo;</p>
-            <div className="problem-card__tags">
-              <span className="tag">Панические атаки</span>
-              <span className="tag">Фобии</span>
-              <span className="tag">ОКР</span>
-            </div>
+
+      {/* Popular problems - alter.ru style quote cards */}
+      <div className="problems-grid">
+        <div className="problem-card problem-card--featured">
+          <div className="problem-card__quote">&laquo;Я чувствую тревогу и беспокойство&raquo;</div>
+          <div className="problem-card__description">
+            Психолог поможет разобраться с причинами тревоги и научит техникам саморегуляции
           </div>
-          <div className="problem-card problem-card--featured">
-            <div className="problem-card__icon">
-              <Image src="/images/пушистик снеснение.png" alt="Депрессия" width={60} height={60} className="mascot-icon" loading="lazy" />
-            </div>
-            <h4 className="problem-card__title">Нет энергии и сил</h4>
-            <p className="problem-card__description">Вернуть энергию и силы, выявление сильных и слабых сторон, принятие себя</p>
-            <div className="problem-card__tags">
-              <span className="tag">Депрессия</span>
-              <span className="tag">Апатия</span>
-              <span className="tag">Усталость</span>
-            </div>
+          <div className="problem-card__tags">
+            <span className="tag">Панические атаки</span>
+            <span className="tag">Фобии</span>
+            <span className="tag">ОКР</span>
           </div>
-          <div className="problem-card problem-card--featured">
-            <div className="problem-card__icon">
-              <Image src="/images/пушистик удивление.png" alt="Отношения" width={60} height={60} className="mascot-icon" loading="lazy" />
-            </div>
-            <h4 className="problem-card__title">Сложности в отношениях</h4>
-            <p className="problem-card__description">Гармоничные отношения с детьми, родителями и даже с семьей мужа/жены</p>
-            <div className="problem-card__tags">
-              <span className="tag">Развод</span>
-              <span className="tag">Ревность</span>
-              <span className="tag">Семейные конфликты</span>
-            </div>
+        </div>
+
+        <div className="problem-card">
+          <div className="problem-card__icon">
+            <Image src="/images/пушистик снеснение.png" alt="" width={48} height={48} className="mascot-icon" loading="lazy" />
+          </div>
+          <div className="problem-card__quote">&laquo;У меня нет сил и энергии&raquo;</div>
+          <div className="problem-card__description">
+            Терапия поможет выйти из состояния апатии и вернуть интерес к жизни
+          </div>
+          <div className="problem-card__tags">
+            <span className="tag">Депрессия</span>
+            <span className="tag">Выгорание</span>
+            <span className="tag">Апатия</span>
+          </div>
+        </div>
+
+        <div className="problem-card">
+          <div className="problem-card__icon">
+            <Image src="/images/пушистик удивление.png" alt="" width={48} height={48} className="mascot-icon" loading="lazy" />
+          </div>
+          <div className="problem-card__quote">&laquo;Сложности в отношениях&raquo;</div>
+          <div className="problem-card__description">
+            Терапия научит строить здоровые отношения, решать конфликты и доверять
+          </div>
+          <div className="problem-card__tags">
+            <span className="tag">Семья</span>
+            <span className="tag">Ревность</span>
+            <span className="tag">Развод</span>
+          </div>
+        </div>
+
+        <div className="problem-card">
+          <div className="problem-card__icon">
+            <Image src="/images/пушистик самолюбование.png" alt="" width={48} height={48} className="mascot-icon" loading="lazy" />
+          </div>
+          <div className="problem-card__quote">&laquo;Хочу разобраться в себе&raquo;</div>
+          <div className="problem-card__description">
+            Психолог поможет лучше понять себя, свои потребности и найти свой путь
+          </div>
+          <div className="problem-card__tags">
+            <span className="tag">Самооценка</span>
+            <span className="tag">Самопознание</span>
+            <span className="tag">Цели</span>
           </div>
         </div>
       </div>
-      {/* All Categories */}
+
+      {/* All categories */}
       <div className="problems-categories">
-        <h3 className="problems-section-title">📋 Все направления работы</h3>
+        <h3 className="problems-section-title">Все направления работы</h3>
         <div className="categories-grid">
           <div className="category-group">
-            <h4 className="category-title">💭 Эмоциональное состояние</h4>
+            <h4 className="category-title">Эмоциональное состояние</h4>
             <div className="category-items">
               <div className="category-item">
-                <Image src="/images/пушистик грусть.png" alt="Тревога" width={40} height={40} className="category-icon" loading="lazy" />
+                <Image src="/images/пушистик грусть.png" alt="" width={32} height={32} className="category-icon" loading="lazy" />
                 <span>Тревога и беспокойство</span>
               </div>
               <div className="category-item">
-                <Image src="/images/пушистик снеснение.png" alt="Депрессия" width={40} height={40} className="category-icon" loading="lazy" />
+                <Image src="/images/пушистик снеснение.png" alt="" width={32} height={32} className="category-icon" loading="lazy" />
                 <span>Депрессия</span>
               </div>
               <div className="category-item">
-                <Image src="/images/пушистик радость.png" alt="Стресс" width={40} height={40} className="category-icon" loading="lazy" />
+                <Image src="/images/пушистик радость.png" alt="" width={32} height={32} className="category-icon" loading="lazy" />
                 <span>Эмоциональное выгорание</span>
               </div>
               <div className="category-item">
-                <Image src="/images/пушистик расслабление.png" alt="Панические атаки" width={40} height={40} className="category-icon" loading="lazy" />
+                <Image src="/images/пушистик расслабление.png" alt="" width={32} height={32} className="category-icon" loading="lazy" />
                 <span>Панические атаки</span>
               </div>
             </div>
           </div>
 
           <div className="category-group">
-            <h4 className="category-title">❤️ Отношения</h4>
+            <h4 className="category-title">Отношения</h4>
             <div className="category-items">
               <div className="category-item">
-                <Image src="/images/пушистик влюбленность.png" alt="Построить отношения" width={40} height={40} className="category-icon" loading="lazy" />
+                <Image src="/images/пушистик влюбленность.png" alt="" width={32} height={32} className="category-icon" loading="lazy" />
                 <span>Построить отношения</span>
               </div>
               <div className="category-item">
-                <Image src="/images/пушистик обьятия.png" alt="Семейные конфликты" width={40} height={40} className="category-icon" loading="lazy" />
+                <Image src="/images/пушистик обьятия.png" alt="" width={32} height={32} className="category-icon" loading="lazy" />
                 <span>Наладить отношения с семьей</span>
               </div>
               <div className="category-item">
-                <Image src="/images/пушистик удивление.png" alt="Развод" width={40} height={40} className="category-icon" loading="lazy" />
+                <Image src="/images/пушистик удивление.png" alt="" width={32} height={32} className="category-icon" loading="lazy" />
                 <span>Переживание развода</span>
               </div>
               <div className="category-item">
-                <Image src="/images/пушистик грусть.png" alt="Обида на родителей" width={40} height={40} className="category-icon" />
-                <span>Обида на папу/маму</span>
+                <Image src="/images/пушистик грусть.png" alt="" width={32} height={32} className="category-icon" loading="lazy" />
+                <span>Обида на родителей</span>
               </div>
             </div>
           </div>
 
           <div className="category-group">
-            <h4 className="category-title">🎯 Личностный рост</h4>
+            <h4 className="category-title">Личностный рост</h4>
             <div className="category-items">
               <div className="category-item">
-                <Image src="/images/пушистик самолюбование.png" alt="Самооценка" width={40} height={40} className="category-icon" loading="lazy" />
+                <Image src="/images/пушистик самолюбование.png" alt="" width={32} height={32} className="category-icon" loading="lazy" />
                 <span>Проблемы с самооценкой</span>
               </div>
               <div className="category-item">
-                <Image src="/images/пушистик нежность.png" alt="Найти себя" width={40} height={40} className="category-icon" loading="lazy" />
-                <span>Найти себя и любимое занятие</span>
+                <Image src="/images/пушистик нежность.png" alt="" width={32} height={32} className="category-icon" loading="lazy" />
+                <span>Найти себя и любимое дело</span>
               </div>
               <div className="category-item">
-                <Image src="/images/пушистик радость.png" alt="Раскрыть потенциал" width={40} height={40} className="category-icon" />
+                <Image src="/images/пушистик радость.png" alt="" width={32} height={32} className="category-icon" loading="lazy" />
                 <span>Раскрыть свой потенциал</span>
               </div>
               <div className="category-item">
-                <Image src="/images/пушистик самолюбование.png" alt="Разобраться в себе" width={40} height={40} className="category-icon" />
-                <span>Разобраться в себе</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="category-group">
-            <h4 className="category-title">💼 Карьера и деньги</h4>
-            <div className="category-items">
-              <div className="category-item">
-                <Image src="/images/пушистик снеснение.png" alt="Не нравится работа" width={40} height={40} className="category-icon" />
-                <span>Не нравится работа</span>
-              </div>
-              <div className="category-item">
-                <Image src="/images/пушистик самолюбование.png" alt="Карьерный рост" width={40} height={40} className="category-icon" />
-                <span>Как вырасти в доходе</span>
-              </div>
-              <div className="category-item">
-                <Image src="/images/пушистик радость.png" alt="Выгорание" width={40} height={40} className="category-icon" />
+                <Image src="/images/пушистик снеснение.png" alt="" width={32} height={32} className="category-icon" loading="lazy" />
                 <span>Профессиональное выгорание</span>
-              </div>
-              <div className="category-item">
-                <Image src="/images/пушистик грусть.png" alt="Стресс на работе" width={40} height={40} className="category-icon" />
-                <span>Стресс на работе</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="category-group">
-            <h4 className="category-title">🌟 Жизненные кризисы</h4>
-            <div className="category-items">
-              <div className="category-item">
-                <Image src="/images/пушистик удивление.png" alt="Кризис среднего возраста" width={40} height={40} className="category-icon" />
-                <span>Кризис среднего возраста</span>
-              </div>
-              <div className="category-item">
-                <Image src="/images/пушистик грусть.png" alt="Проработать травмы" width={40} height={40} className="category-icon" />
-                <span>Проработать травмы</span>
-              </div>
-              <div className="category-item">
-                <Image src="/images/пушистик снеснение.png" alt="Выйти из кризиса" width={40} height={40} className="category-icon" />
-                <span>Выйти из кризисной ситуации</span>
-              </div>
-              <div className="category-item">
-                <Image src="/images/пушистик обьятия.png" alt="Старший ребенок" width={40} height={40} className="category-icon" />
-                <span>Гармоничные отношения с детьми</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="category-group">
-            <h4 className="category-title">🧠 Ментальное здоровье</h4>
-            <div className="category-items">
-              <div className="category-item">
-                <Image src="/images/пушистик грусть.png" alt="Тревожные расстройства" width={40} height={40} className="category-icon" />
-                <span>Тревожные расстройства</span>
-              </div>
-              <div className="category-item">
-                <Image src="/images/пушистик снеснение.png" alt="Биполярное расстройство" width={40} height={40} className="category-icon" />
-                <span>Работа с настроением</span>
-              </div>
-              <div className="category-item">
-                <Image src="/images/пушистик расслабление.png" alt="Расстройства сна" width={40} height={40} className="category-icon" />
-                <span>Проблемы со сном</span>
-              </div>
-              <div className="category-item">
-                <Image src="/images/пушистик радость.png" alt="Зависимости" width={40} height={40} className="category-icon" />
-                <span>Работа с зависимостями</span>
               </div>
             </div>
           </div>
         </div>
-        <div className="problems-cta">
-          <div className="problems-cta-content">
-            <h4>Не нашли свою проблему?</h4>
-            <p>У нас есть специалисты по <strong>50+ направлениям</strong>. Расскажите о своей ситуации, и мы подберем подходящего психолога</p>
-            <Link href="/staff" className="btn btn--primary btn--problems-cta">
-              <i className="fas fa-comment-dots"></i>
-              <span className="btn-text-full">Получить бесплатную консультацию</span>
-              <span className="btn-text-short">Бесплатная консультация</span>
-            </Link>
-          </div>
+      </div>
+
+      {/* CTA */}
+      <div className="problems-cta">
+        <div className="problems-cta-content">
+          <h4>Не нашли свою проблему?</h4>
+          <p>У нас есть специалисты по <strong>50+ направлениям</strong>. Расскажите о своей ситуации, и мы подберем подходящего психолога</p>
+          <Link href="/staff" className="btn btn--primary">
+            <i className="fas fa-comment-dots"></i>
+            <span className="btn-text-full">Получить бесплатную консультацию</span>
+            <span className="btn-text-short">Бесплатная консультация</span>
+          </Link>
         </div>
       </div>
     </div>

@@ -19,23 +19,41 @@ const StaffHeader = () => {
         setIsMobileMenuOpen(false);
       }
     };
-
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen]);
+
   return (
-    <header className="header header--staff">
+    <header className="header">
       <nav className="nav container">
         <div className="nav__brand">
-          <Link href="/" legacyBehavior>
-            <a className="logo">
-              <Image src="/images/Group_12_3.png.webp" alt="Legko - поиск психологов" width={120} height={40} className="logo__image" />
-            </a>
+          <Link href="/" className="logo">
+            <Image
+              src="/images/Group_12_3.png.webp"
+              alt="Legko - поиск психологов"
+              width={120}
+              height={40}
+              className="logo__image"
+            />
           </Link>
         </div>
-        
-        <div className={`nav__menu ${isMobileMenuOpen ? 'show' : ''}`} id="nav-menu">
+
+        <div
+          className={`nav__menu ${isMobileMenuOpen ? 'show' : ''}`}
+          id="nav-menu"
+          aria-hidden={!isMobileMenuOpen}
+        >
           <ul className="nav__list">
             <li className="nav__item">
               <Link href="/" className="nav__link" onClick={closeMobileMenu}>
@@ -53,30 +71,37 @@ const StaffHeader = () => {
               </Link>
             </li>
             <li className="nav__item">
-              <Link href="/#specialists" className="nav__link" onClick={closeMobileMenu}>
-                Специалисты
-              </Link>
-            </li>
-            <li className="nav__item">
               <Link href="/#faq" className="nav__link" onClick={closeMobileMenu}>
                 FAQ
               </Link>
             </li>
           </ul>
           <div className="nav__mobile-actions">
-            <Link href="/" className="btn btn--outline btn--mobile" onClick={closeMobileMenu}>
-              Вернуться на главную
+            <Link href="/" className="btn btn--secondary" onClick={closeMobileMenu}>
+              <i className="fas fa-arrow-left"></i>
+              На главную
             </Link>
           </div>
         </div>
-        
+
         <div className="nav__actions">
-          <Link href="/" className="btn btn--outline">Вернуться на главную</Link>
+          <Link href="/" className="btn btn--secondary">
+            <i className="fas fa-arrow-left"></i>
+            На главную
+          </Link>
         </div>
-        
-        <div className="nav__toggle" id="nav-toggle" onClick={toggleMobileMenu}>
-          <i className={`fas ${isMobileMenuOpen ? 'fa-times' : 'fa-bars'}`}></i>
-        </div>
+
+        <button
+          className="nav__toggle"
+          id="nav-toggle"
+          onClick={toggleMobileMenu}
+          aria-label={isMobileMenuOpen ? 'Закрыть меню' : 'Открыть меню'}
+          aria-expanded={isMobileMenuOpen}
+          aria-controls="nav-menu"
+          type="button"
+        >
+          <i className={`fas ${isMobileMenuOpen ? 'fa-times' : 'fa-bars'}`} aria-hidden="true"></i>
+        </button>
       </nav>
     </header>
   );

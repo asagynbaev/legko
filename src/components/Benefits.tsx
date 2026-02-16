@@ -2,63 +2,77 @@ const Benefits = () => (
   <section className="benefits" id="benefits">
     <div className="container">
       <div className="section-header">
-        <h2 className="section-title">Почему выбирают Legko</h2>
-        <p className="section-subtitle">Мы делаем психологическую помощь доступной и удобной</p>
+        <h2 className="section-title">Почему выбирают <span className="gradient-text">Legko</span></h2>
+        <p className="section-subtitle">
+          Мы делаем психологическую помощь доступной и удобной для каждого
+        </p>
       </div>
       <div className="benefits-grid">
         <div className="benefit-card">
           <div className="benefit-card__icon">
-            <i className="fas fa-rocket"></i>
+            <i className="fas fa-brain"></i>
           </div>
-          <h3 className="benefit-card__title">Быстрый подбор</h3>
-          <p className="benefit-card__description">
-            Найдем подходящего психолога за 5 минут на основе ваших ответов
-          </p>
+          <div>
+            <h3 className="benefit-card__title">AI-подбор за 2 минуты</h3>
+            <p className="benefit-card__description">
+              Умный алгоритм проанализирует ваш запрос и подберет идеального специалиста
+            </p>
+          </div>
         </div>
         <div className="benefit-card">
           <div className="benefit-card__icon">
-            <i className="fas fa-medal"></i>
+            <i className="fas fa-user-check"></i>
           </div>
-          <h3 className="benefit-card__title">Проверенные специалисты</h3>
-          <p className="benefit-card__description">
-            Все психологи проходят строгий отбор и имеют соответствующее образование
-          </p>
+          <div>
+            <h3 className="benefit-card__title">Проверенные психологи</h3>
+            <p className="benefit-card__description">
+              Все специалисты проходят строгий отбор, имеют образование и опыт от 5 лет
+            </p>
+          </div>
         </div>
         <div className="benefit-card">
           <div className="benefit-card__icon">
             <i className="fas fa-lock"></i>
           </div>
-          <h3 className="benefit-card__title">Полная конфиденциальность</h3>
-          <p className="benefit-card__description">
-            Ваши данные под надежной защитой, анонимность гарантирована
-          </p>
+          <div>
+            <h3 className="benefit-card__title">100% конфиденциальность</h3>
+            <p className="benefit-card__description">
+              Ваши данные под надежной защитой, все сессии полностью анонимны
+            </p>
+          </div>
         </div>
         <div className="benefit-card">
           <div className="benefit-card__icon">
-            <i className="fas fa-clock"></i>
+            <i className="fas fa-calendar-alt"></i>
           </div>
-          <h3 className="benefit-card__title">Удобное расписание</h3>
-          <p className="benefit-card__description">
-            Бронируйте сессии в любое удобное время, включая вечера и выходные
-          </p>
+          <div>
+            <h3 className="benefit-card__title">Удобное расписание</h3>
+            <p className="benefit-card__description">
+              Записывайтесь на сессии в любое время, включая вечера и выходные
+            </p>
+          </div>
         </div>
         <div className="benefit-card">
           <div className="benefit-card__icon">
-            <i className="fas fa-money-bill-wave"></i>
+            <i className="fas fa-tag"></i>
           </div>
-          <h3 className="benefit-card__title">Прозрачные цены</h3>
-          <p className="benefit-card__description">
-            Никаких скрытых платежей, цены указаны заранее
-          </p>
+          <div>
+            <h3 className="benefit-card__title">Прозрачные цены</h3>
+            <p className="benefit-card__description">
+              Никаких скрытых платежей. Стоимость от 2000 сом за сессию
+            </p>
+          </div>
         </div>
         <div className="benefit-card">
           <div className="benefit-card__icon">
             <i className="fas fa-headset"></i>
           </div>
-          <h3 className="benefit-card__title">Поддержка 24/7</h3>
-          <p className="benefit-card__description">
-            Наша команда поддержки всегда готова помочь с любыми вопросами
-          </p>
+          <div>
+            <h3 className="benefit-card__title">Поддержка 24/7</h3>
+            <p className="benefit-card__description">
+              Служба поддержки всегда готова помочь с любыми вопросами
+            </p>
+          </div>
         </div>
       </div>
     </div>
