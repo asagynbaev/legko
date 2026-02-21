@@ -1,15 +1,18 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const StaffHeader = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navMenuRef = useRef<HTMLDivElement>(null);
+  const toggleRef = useRef<HTMLButtonElement>(null);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
   const closeMobileMenu = () => {
+    toggleRef.current?.focus();
     setIsMobileMenuOpen(false);
   };
 
@@ -22,6 +25,13 @@ const StaffHeader = () => {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  // When menu closes, move focus out of it to avoid aria-hidden on focused element
+  useEffect(() => {
+    if (!isMobileMenuOpen && navMenuRef.current?.contains(document.activeElement)) {
+      toggleRef.current?.focus();
+    }
+  }, [isMobileMenuOpen]);
 
   useEffect(() => {
     if (isMobileMenuOpen) {
@@ -50,6 +60,7 @@ const StaffHeader = () => {
         </div>
 
         <div
+          ref={navMenuRef}
           className={`nav__menu ${isMobileMenuOpen ? 'show' : ''}`}
           id="nav-menu"
           aria-hidden={!isMobileMenuOpen}
@@ -92,6 +103,7 @@ const StaffHeader = () => {
         </div>
 
         <button
+          ref={toggleRef}
           className="nav__toggle"
           id="nav-toggle"
           onClick={toggleMobileMenu}

@@ -88,7 +88,7 @@ class SignalRService {
     try {
       this.connection = new signalR.HubConnectionBuilder()
         .withUrl(HUB_URL, {
-          headers: {},
+          headers: { "Accept-Language": "ru" },
           // Только WebSockets — SSE и long polling на бэкенде дают 404
           transport: signalR.HttpTransportType.WebSockets,
           skipNegotiation: true,

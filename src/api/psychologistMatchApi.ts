@@ -88,6 +88,7 @@ export async function startMatching(userId?: string): Promise<StartResponse> {
   const response = await fetch(url, {
     method: "POST",
     headers: {
+      "Accept-Language": "ru",
       "Content-Type": "application/json",
     },
   });
@@ -127,6 +128,7 @@ export async function sendMessage(
     const response = await fetch(`${BASE_URL}/PsychologistMatch/message`, {
       method: "POST",
       headers: {
+        "Accept-Language": "ru",
         "Content-Type": "application/json",
       },
       body: JSON.stringify(requestBody),
@@ -175,6 +177,7 @@ export async function getAvailableTimes(
     {
       method: "GET",
       headers: {
+        "Accept-Language": "ru",
         "Content-Type": "application/json",
       },
     }
@@ -196,6 +199,7 @@ export async function createBooking(
   const response = await fetch(`${BASE_URL}/PsychologistMatch/create-booking`, {
     method: "POST",
     headers: {
+      "Accept-Language": "ru",
       "Content-Type": "application/json",
     },
     body: JSON.stringify(booking),

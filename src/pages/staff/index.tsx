@@ -1,10 +1,11 @@
 import { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/router';
-import { getStaffByBusinessId } from '../../api/api';
+import { getStaffByBusinessId, getMasterById, MasterProfile } from '../../api/api';
 import Image from 'next/image';
 import Head from 'next/head';
 import StaffHeader from '../../components/StaffHeader';
 import Footer from '../../components/Footer';
+import StaffProfileModal from '../../components/StaffProfileModal';
 
 interface Staff {
   id: string;
@@ -34,6 +35,12 @@ const StaffPage = () => {
   const [visibleCount, setVisibleCount] = useState(INITIAL_VISIBLE);
   const [imageErrors, setImageErrors] = useState<Set<string>>(new Set());
   const [expandedDescriptions, setExpandedDescriptions] = useState<Set<string>>(new Set());
+  const [profileModal, setProfileModal] = useState<{
+    open: boolean;
+    loading: boolean;
+    error: string | null;
+    master: MasterProfile | null;
+  }>({ open: false, loading: false, error: null, master: null });
   const specialistRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
 
   useEffect(() => {
@@ -91,6 +98,25 @@ const StaffPage = () => {
 
   const handleBookingClick = (specialistId: string) => {
     window.open(`https://booka.life/master/${specialistId}`, '_blank');
+  };
+
+  const handleOpenProfile = (masterId: string) => {
+    setProfileModal({ open: true, loading: true, error: null, master: null });
+    getMasterById(masterId)
+      .then((res) => {
+        if (res?.code === 200 && res.message) {
+          setProfileModal((prev) => ({ ...prev, loading: false, master: res.message }));
+        } else {
+          setProfileModal((prev) => ({ ...prev, loading: false, error: 'Не удалось загрузить анкету' }));
+        }
+      })
+      .catch(() => {
+        setProfileModal((prev) => ({ ...prev, loading: false, error: 'Ошибка загрузки. Попробуйте позже.' }));
+      });
+  };
+
+  const handleCloseProfile = () => {
+    setProfileModal({ open: false, loading: false, error: null, master: null });
   };
 
   const handleImageError = (specialistId: string) => {
@@ -239,14 +265,24 @@ const StaffPage = () => {
                         </button>
                       )}
                     </div>
-                    <button
-                      className="staff-card__cta"
-                      onClick={() => handleBookingClick(specialist.id)}
-                      type="button"
-                    >
-                      <i className="fas fa-calendar-alt"></i>
-                      Записаться
-                    </button>
+                    <div className="staff-card__actions">
+                      <button
+                        type="button"
+                        className="staff-card__cta staff-card__cta--secondary"
+                        onClick={() => handleOpenProfile(specialist.id)}
+                      >
+                        <i className="fas fa-user-circle" aria-hidden></i>
+                        Посмотреть анкету
+                      </button>
+                      <button
+                        className="staff-card__cta"
+                        onClick={() => handleBookingClick(specialist.id)}
+                        type="button"
+                      >
+                        <i className="fas fa-calendar-alt" aria-hidden></i>
+                        Записаться
+                      </button>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -317,6 +353,16 @@ const StaffPage = () => {
       </main>
 
       <Footer />
+
+      {profileModal.open && (
+        <StaffProfileModal
+          master={profileModal.master}
+          loading={profileModal.loading}
+          error={profileModal.error}
+          onClose={handleCloseProfile}
+          onBook={handleBookingClick}
+        />
+      )}
     </>
   );
 };
