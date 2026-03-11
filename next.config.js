@@ -13,7 +13,6 @@ module.exports = {
     ],
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
-    // Улучшенная обработка внешних изображений
     unoptimized: true,
     loader: 'custom',
     loaderFile: './src/utils/imageLoader.js',
