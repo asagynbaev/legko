@@ -10,11 +10,10 @@ const CTABottom = () => (
             <i className="fas fa-heart"></i>
           </div>
         </div>
-        
+
         <div className="cta-text-content">
           <h2 className="cta-bottom-title">
-            <span className="cta-highlight">Готовы начать путь</span>
-            <br />к лучшей жизни?
+            Готовы начать путь<br />к лучшей жизни?
           </h2>
           <p className="cta-bottom-description">
             Сделайте первый шаг к изменениям. Найдите своего психолога уже сегодня 
@@ -27,14 +26,18 @@ const CTABottom = () => (
             <i className="fas fa-gift"></i>
             <span>Первая консультация со скидкой 10%</span>
           </div>
-          
+
           <div className="cta-buttons-group">
             <Link href="/staff" className="btn btn--cta-primary">
               <i className="fas fa-search"></i>
-              <span>Найти психолога</span>
-              <div className="btn-shine"></div>
+              <span>Подобрать психолога</span>
             </Link>
-            <a href="https://wa.me/996509339333" className="btn btn--cta-secondary" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://wa.me/996509339333"
+              className="btn btn--cta-secondary"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <i className="fab fa-whatsapp"></i>
               <span>Написать в WhatsApp</span>
             </a>

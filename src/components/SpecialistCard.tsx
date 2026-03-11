@@ -1,103 +1,131 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { useState } from 'react';
 
 interface SpecialistCardProps {
-    avatar: string;
-    name: string;
-    title: string;
-    rating: number;
+  avatar: string;
+  name: string;
+  title: string;
+  rating?: number;
+  id?: string;
+  experience?: number;
+  numberOfClients?: number;
+  /** Цена, например "От 2000 с" */
+  priceFrom?: string;
+  /** Где ведёт приём, например "Бишкек / Онлайн" */
+  location?: string;
+  /** Подход: КПТ, Гештальт, ЭФТ и т.д. — показывается бейджем на фото */
+  approach?: string;
 }
 
-const SpecialistCard = ({ avatar, name, title, rating }: SpecialistCardProps) => {
-    const [imageError, setImageError] = useState(false);
-    const [imageLoading, setImageLoading] = useState(true);
-    
-    // Проверяем, является ли аватар внешним изображением
-    const isExternalImage = avatar && avatar.includes('img.booka.kg');
-    
-    const getInitials = (name: string) => {
-        const words = name.trim().split(' ');
-        if (words.length >= 2) {
-            return (words[0][0] + words[1][0]).toUpperCase();
-        } else if (words.length === 1) {
-            return words[0][0].toUpperCase();
-        }
-        return 'П';
-    };
+const SpecialistCard = ({
+  avatar,
+  name,
+  title,
+  rating = 5,
+  id,
+  experience,
+  numberOfClients,
+  priceFrom = 'От 2000 с',
+  location = 'Онлайн',
+  approach,
+}: SpecialistCardProps) => {
+  const [imageError, setImageError] = useState(false);
+  const [imageLoading, setImageLoading] = useState(true);
 
-    const renderStars = (rating: number) => {
-        const stars = [];
-        for (let i = 1; i <= 5; i++) {
-            stars.push(
-                <i 
-                    key={i} 
-                    className={`fas fa-star ${i <= rating ? 'text-yellow-400' : 'text-gray-300'}`}
-                />
-            );
-        }
-        return stars;
-    };
+  const isExternalImage = avatar && avatar.includes('img.booka.life');
 
-    return (
-        <div className="specialist-preview">
-            <div className="specialist-photo-preview">
-                {avatar && !imageError ? (
-                    <div className="image-container">
-                        {imageLoading && (
-                            <div className="image-loader">
-                                <div className="loader-spinner"></div>
-                            </div>
-                        )}
-                        {isExternalImage ? (
-                            <Image 
-                                src={avatar} 
-                                alt={name} 
-                                width={80} 
-                                height={80} 
-                                className={`specialist-avatar-preview ${imageLoading ? 'loading' : 'loaded'}`}
-                                onLoad={() => setImageLoading(false)}
-                                onError={() => {
-                                    setImageError(true);
-                                    setImageLoading(false);
-                                }}
-                                style={{ borderRadius: '50%', objectFit: 'cover' }}
-                                unoptimized
-                            />
-                        ) : (
-                            <Image 
-                                src={avatar} 
-                                alt={name} 
-                                width={80} 
-                                height={80} 
-                                className={`specialist-avatar-preview ${imageLoading ? 'loading' : 'loaded'}`}
-                                onLoad={() => setImageLoading(false)}
-                                onError={() => {
-                                    setImageError(true);
-                                    setImageLoading(false);
-                                }}
-                            />
-                        )}
-                    </div>
-                ) : (
-                    <div className="specialist-avatar-initials-preview">
-                        {getInitials(name)}
-                    </div>
-                )}
+  const getInitials = (nameStr: string) => {
+    const words = nameStr.trim().split(' ');
+    if (words.length >= 2) return (words[0][0] + words[1][0]).toUpperCase();
+    if (words.length === 1) return words[0][0].toUpperCase();
+    return 'П';
+  };
+
+  const cardContent = (
+    <>
+      <div className="specialist-card-alter__photo">
+        {imageLoading && (
+          <div className="specialist-card-alter__photo-loader">
+            <div className="loader-spinner"></div>
+          </div>
+        )}
+        {avatar && !imageError ? (
+          isExternalImage ? (
+            <Image
+              src={avatar}
+              alt={name}
+              fill
+              className={`specialist-card-alter__img ${imageLoading ? 'loading' : 'loaded'}`}
+              onLoad={() => setImageLoading(false)}
+              onError={() => {
+                setImageError(true);
+                setImageLoading(false);
+              }}
+              sizes="(max-width: 768px) 100vw, 360px"
+              unoptimized
+            />
+          ) : (
+            <Image
+              src={avatar}
+              alt={name}
+              fill
+              className={`specialist-card-alter__img ${imageLoading ? 'loading' : 'loaded'}`}
+              onLoad={() => setImageLoading(false)}
+              onError={() => {
+                setImageError(true);
+                setImageLoading(false);
+              }}
+              sizes="(max-width: 768px) 100vw, 360px"
+            />
+          )
+        ) : (
+          <div className="specialist-card-alter__initials">{getInitials(name)}</div>
+        )}
+        <div className="specialist-card-alter__photo-overlay" />
+        {approach && (
+          <span className="specialist-card-alter__approach">{approach}</span>
+        )}
+        <div className="specialist-card-alter__photo-caption">
+          <h3 className="specialist-card-alter__name">{name}</h3>
+          <p className="specialist-card-alter__title">{title}</p>
+          {(experience != null || numberOfClients != null) && (
+            <p className="specialist-card-alter__meta">
+              {experience != null && `Опыт ${experience} лет`}
+              {experience != null && numberOfClients != null && ' • '}
+              {numberOfClients != null && `${numberOfClients}+ клиентов`}
+            </p>
+          )}
+          {rating > 0 && (
+            <div className="specialist-card-alter__rating">
+              <i className="fas fa-star" />
+              <span>{rating.toFixed(1)}</span>
             </div>
-            <div className="specialist-info-preview">
-                <h4>{name}</h4>
-                <p className="specialist-title-preview">{title}</p>
-                <div className="rating-preview">
-                    <div className="stars-preview">
-                        {renderStars(rating || 5)}
-                    </div>
-                    <span className="rating-text-preview">
-                        {(rating || 5).toFixed(1)} (50+ отзывов)
-                    </span>
-                </div>
-            </div>
+          )}
         </div>
+      </div>
+      <div className="specialist-card-alter__details">
+        <div className="specialist-card-alter__row">
+          <span className="specialist-card-alter__label">Стоимость консультации</span>
+          <span className="specialist-card-alter__value">{priceFrom}</span>
+        </div>
+        <div className="specialist-card-alter__row">
+          <span className="specialist-card-alter__label">Где ведёт приём</span>
+          <span className="specialist-card-alter__value">{location}</span>
+        </div>
+      </div>
+    </>
+  );
+
+  if (id) {
+    return (
+      <Link href={`/staff?psychologist=${id}`} className="specialist-card-alter specialist-card-alter--link">
+        {cardContent}
+      </Link>
     );
+  }
+
+  return <div className="specialist-card-alter">{cardContent}</div>;
 };
 
 export default SpecialistCard;

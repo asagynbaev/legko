@@ -1,6 +1,6 @@
 export default function imageLoader({ src, width, quality }) {
-  // Если это внешнее изображение с img.booka.kg, используем его напрямую
-  if (src.includes('img.booka.kg')) {
+  // Если это внешнее изображение с img.booka.life, используем его напрямую
+  if (src.includes('img.booka.life')) {
     return src;
   }
   

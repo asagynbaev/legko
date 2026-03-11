@@ -124,6 +124,23 @@ export default function App({ Component, pageProps }: AppProps) {
     };
   }, []);
 
+  // Analytics initialization (ready for Google Analytics / Yandex Metrica)
+  useEffect(() => {
+    // Google Analytics example:
+    // if (typeof window !== 'undefined' && window.gtag) {
+    //   window.gtag('config', 'GA_MEASUREMENT_ID');
+    // }
+
+    // Yandex Metrica example:
+    // if (typeof window !== 'undefined' && window.ym) {
+    //   window.ym(YANDEX_METRICA_ID, 'init', {
+    //     clickmap: true,
+    //     trackLinks: true,
+    //     accurateTrackBounce: true
+    //   });
+    // }
+  }, []);
+
   return (
     <>
       <Head>

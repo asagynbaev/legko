@@ -38,3 +38,5 @@ coverage/
 
 # Others
 *.log
+.claude/
+.vercel

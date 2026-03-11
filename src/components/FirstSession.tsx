@@ -20,11 +20,11 @@ const FirstSession = () => (
             </div>
             <div className="mockup-content">
               <div className="video-participant">
-                <Image src="/images/пушистик обьятия.png" alt="Психолог" width={80} height={80} className="participant-avatar" />
+                <Image src="/images/пушистик обьятия.png" alt="Психолог" width={80} height={80} className="participant-avatar" loading="lazy" />
                 <span className="participant-name">Ваш психолог</span>
               </div>
               <div className="video-participant video-participant--you">
-                <Image src="/images/пушистик радость.png" alt="Вы" width={80} height={80} className="participant-avatar" />
+                <Image src="/images/пушистик радость.png" alt="Вы" width={80} height={80} className="participant-avatar" loading="lazy" />
                 <span className="participant-name">Вы</span>
               </div>
             </div>
