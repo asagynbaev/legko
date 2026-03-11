@@ -11,7 +11,6 @@ module.exports = {
         pathname: '/images/user-photos/**',
       },
     ],
-    domains: ['img.booka.life'],
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     // Улучшенная обработка внешних изображений
