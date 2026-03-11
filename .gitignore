@@ -38,3 +38,4 @@ coverage/
 
 # Others
 *.log
+.claude/
