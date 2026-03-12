@@ -1,4 +1,6 @@
-const BASE_URL = "https://api.booka.life/api/v1";
+import { config } from "@/config/env";
+
+const BASE_URL = config.apiBaseUrl;
 
 export interface MessageHistoryItem {
   role: "user" | "assistant";

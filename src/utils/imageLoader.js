@@ -1,6 +1,6 @@
 export default function imageLoader({ src, width, quality }) {
-  // Если это внешнее изображение с img.booka.life, используем его напрямую
-  if (src.includes('img.booka.life')) {
+  // Если это внешнее изображение с image host, используем его напрямую
+  if (src.includes(process.env.NEXT_PUBLIC_IMAGE_HOST)) {
     return src;
   }
   
