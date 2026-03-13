@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/router';
 import { getStaffByBusinessId, getMasterById, MasterProfile } from '../../api/api';
+import { config } from '@/config/env';
 import Image from 'next/image';
 import Head from 'next/head';
 import StaffHeader from '../../components/StaffHeader';
@@ -97,7 +98,7 @@ const StaffPage = () => {
   };
 
   const handleBookingClick = (specialistId: string) => {
-    window.open(`https://booka.life/master/${specialistId}`, '_blank');
+    window.open(`${config.bookingBaseUrl}/master/${specialistId}`, '_blank');
   };
 
   const handleOpenProfile = (masterId: string) => {
