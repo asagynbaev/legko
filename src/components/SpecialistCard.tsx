@@ -11,7 +11,7 @@ interface SpecialistCardProps {
   id?: string;
   experience?: number;
   numberOfClients?: number;
-  /** Цена, например "От 2000 с" */
+  /** Цена, например "От 1500 с" */
   priceFrom?: string;
   /** Где ведёт приём, например "Бишкек / Онлайн" */
   location?: string;
@@ -27,7 +27,7 @@ const SpecialistCard = ({
   id,
   experience,
   numberOfClients,
-  priceFrom = 'От 2000 с',
+  priceFrom = 'От 1500 с',
   location = 'Онлайн',
   approach,
 }: SpecialistCardProps) => {

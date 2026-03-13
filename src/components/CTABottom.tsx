@@ -1,5 +1,3 @@
-import Link from 'next/link';
-
 const CTABottom = () => (
   <section className="cta-bottom-section">
     <div className="cta-background-pattern"></div>
@@ -13,11 +11,10 @@ const CTABottom = () => (
 
         <div className="cta-text-content">
           <h2 className="cta-bottom-title">
-            Готовы начать путь<br />к лучшей жизни?
+            Иногда достаточно одного разговора,<br />чтобы стало легче.
           </h2>
           <p className="cta-bottom-description">
-            Сделайте первый шаг к изменениям. Найдите своего психолога уже сегодня 
-            и начните жить полной жизнью.
+            Если вы чувствуете, что вам нужна поддержка, мы рядом.
           </p>
         </div>
 
@@ -28,12 +25,17 @@ const CTABottom = () => (
           </div>
 
           <div className="cta-buttons-group">
-            <Link href="/staff" className="btn btn--cta-primary">
-              <i className="fas fa-search"></i>
-              <span>Подобрать психолога</span>
-            </Link>
             <a
-              href="https://wa.me/996509339333"
+              href="https://t.me/legko_psychology"
+              className="btn btn--cta-primary"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i className="fab fa-telegram"></i>
+              <span>Написать в Telegram</span>
+            </a>
+            <a
+              href="https://wa.me/996700595393"
               className="btn btn--cta-secondary"
               target="_blank"
               rel="noopener noreferrer"

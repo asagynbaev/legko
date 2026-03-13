@@ -390,13 +390,13 @@ const Hero = () => {
       <div className="hero__top container">
         <div className="hero__badge">
           <span className="hero__badge-dot"></span>
-          Онлайн-сервис подбора психологов
+          Онлайн и офлайн консультации с проверенными психологами
         </div>
         <h1 className="hero__title">
           Пройдите подбор и найдите <span className="hero__title-accent">своего психолога</span>
         </h1>
         <p className="hero__subtitle">
-          Расскажите Элли о вашей ситуации, и мы подберем специалиста, который подходит именно вам
+          Расскажите немного о том, что вас беспокоит. Наш помощник Элли поможет понять ваш запрос и предложит психологов, которые работают с такими ситуациями
         </p>
       </div>
 
@@ -585,7 +585,7 @@ const Hero = () => {
       {/* Stats bar */}
       <div className="hero__stats container">
         <div className="hero__stat">
-          <div className="hero__stat-value">500+</div>
+          <div className="hero__stat-value">1200+</div>
           <div className="hero__stat-label">проведенных сессий</div>
         </div>
         <div className="hero__stat">
@@ -593,11 +593,11 @@ const Hero = () => {
           <div className="hero__stat-label">средняя оценка</div>
         </div>
         <div className="hero__stat">
-          <div className="hero__stat-value">50+</div>
-          <div className="hero__stat-label">проверенных психологов</div>
+          <div className="hero__stat-value">11+</div>
+          <div className="hero__stat-label">направлений работы</div>
         </div>
         <div className="hero__stat">
-          <div className="hero__stat-value">от 2000 с</div>
+          <div className="hero__stat-value">от 1500 с</div>
           <div className="hero__stat-label">за сессию</div>
         </div>
       </div>

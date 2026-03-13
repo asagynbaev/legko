@@ -26,7 +26,7 @@ const Benefits = () => (
           <div>
             <h3 className="benefit-card__title">Проверенные психологи</h3>
             <p className="benefit-card__description">
-              Все специалисты проходят строгий отбор, имеют образование и опыт от 5 лет
+              Все специалисты проходят строгий отбор и подтверждают образование и практику
             </p>
           </div>
         </div>
@@ -59,18 +59,18 @@ const Benefits = () => (
           <div>
             <h3 className="benefit-card__title">Прозрачные цены</h3>
             <p className="benefit-card__description">
-              Никаких скрытых платежей. Стоимость от 2000 сом за сессию
+              Вы можете выбрать специалиста под свой комфортный бюджет.
             </p>
           </div>
         </div>
         <div className="benefit-card">
           <div className="benefit-card__icon">
-            <i className="fas fa-headset"></i>
+            <i className="fas fa-globe"></i>
           </div>
           <div>
-            <h3 className="benefit-card__title">Поддержка 24/7</h3>
+            <h3 className="benefit-card__title">Культурная чувствительность</h3>
             <p className="benefit-card__description">
-              Служба поддержки всегда готова помочь с любыми вопросами
+              Наши специалисты работают с людьми из Кыргызстана и понимают культурные особенности. Консультации на 3 языках: кыргызский, русский и английский
             </p>
           </div>
         </div>

@@ -14,7 +14,7 @@ export default function Home() {
     return (
         <>
             <Head>
-                <title>Legko - Найдите своего психолога за 5 минут</title>
+                <title>Legko - Найдите своего психолога Легко</title>
                 <meta name="description" content="Быстрый и удобный поиск психологов онлайн. Подберем специалиста под ваши потребности. Конфиденциально и профессионально." />
                 <meta name="keywords" content="психолог онлайн, поиск психолога, психологическая помощь, онлайн консультация психолога, психолог Кыргызстан" />
                 <link rel="canonical" href="https://legko.live/" />
@@ -22,14 +22,14 @@ export default function Home() {
                 {/* Open Graph / Facebook */}
                 <meta property="og:type" content="website" />
                 <meta property="og:url" content="https://legko.live/" />
-                <meta property="og:title" content="Legko - Найдите своего психолога за 5 минут" />
+                <meta property="og:title" content="Legko - Найдите своего психолога Легко" />
                 <meta property="og:description" content="Быстрый и удобный поиск психологов онлайн. Подберем специалиста под ваши потребности." />
                 <meta property="og:image" content="https://legko.live/images/Group_12_3.png.webp" />
                 <meta property="og:locale" content="ru_RU" />
                 
                 {/* Twitter */}
                 <meta name="twitter:card" content="summary_large_image" />
-                <meta name="twitter:title" content="Legko - Найдите своего психолога за 5 минут" />
+                <meta name="twitter:title" content="Legko - Найдите своего психолога Легко" />
                 <meta name="twitter:description" content="Быстрый и удобный поиск психологов онлайн. Подберем специалиста под ваши потребности." />
                 <meta name="twitter:image" content="https://legko.live/images/Group_12_3.png.webp" />
                 

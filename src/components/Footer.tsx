@@ -33,7 +33,7 @@ const Footer = () => (
               <ul>
                 <li><a href="#faq">FAQ</a></li>
                 <li>
-                  <a href="https://wa.me/996509339333" target="_blank" rel="noopener noreferrer">
+                  <a href="https://wa.me/996700595393" target="_blank" rel="noopener noreferrer">
                     Написать в WhatsApp
                   </a>
                 </li>
@@ -86,7 +86,7 @@ const Footer = () => (
               <i className="fab fa-telegram"></i>
               <span>Telegram</span>
             </a>
-            <a href="https://wa.me/996509339333" title="Написать в WhatsApp" target="_blank" rel="noopener noreferrer">
+            <a href="https://wa.me/996700595393" title="Написать в WhatsApp" target="_blank" rel="noopener noreferrer">
               <i className="fab fa-whatsapp"></i>
               <span>WhatsApp</span>
             </a>
