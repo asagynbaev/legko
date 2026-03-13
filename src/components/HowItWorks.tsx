@@ -11,10 +11,10 @@ const HowItWorks = () => (
           </span>
         </div>
         <h2 className="section-title">
-          Запишитесь на <span className="gradient-text">первую сессию</span>
+          Как записаться на <span className="gradient-text">сессию</span>
         </h2>
         <p className="section-subtitle">
-          4 простых шага до первой встречи с психологом
+          Сделать первый шаг Легко
         </p>
       </div>
 
@@ -58,10 +58,12 @@ const HowItWorks = () => (
             </div>
             <div className="step-content">
               <div className="step-badge">24/7</div>
-              <h3 className="step-title">Выберите время</h3>
+              <h3 className="step-title">Забронируйте время</h3>
               <p className="step-description">
-                Запишитесь на удобное время в календаре выбранного специалиста
+                Выберите дату и время сессии, и произведите оплату
               </p>
+              <p className="step-description">или приходите офлайн по указанному в сообщении адресу</p>
+              <p className="step-description">Мы вышлем вам чек-лист перед первой консультацией</p>
             </div>
           </div>
 
@@ -99,7 +101,7 @@ const HowItWorks = () => (
           </div>
           <div className="guarantee-content">
             <h4>Гарантия совместимости</h4>
-            <p>Если психолог не подошел — подберем нового <strong>бесплатно</strong> или вернем деньги</p>
+            <p>Если психолог не подошел — подберем нового <strong>со скидкой 20%</strong></p>
           </div>
           <div className="guarantee-badge">100%</div>
         </div>

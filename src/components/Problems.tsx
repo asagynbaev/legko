@@ -5,9 +5,9 @@ const Problems = () => (
   <section className="problems" id="problems">
     <div className="container">
       <div className="section-header">
-        <h2 className="section-title">С чем может помочь <span className="gradient-text">терапия?</span></h2>
+        <h2 className="section-title">С чем можно прийти <span className="gradient-text">к психологу</span></h2>
         <p className="section-subtitle">
-          Запросом может быть любая тема, которая важна для вас. Вот самые популярные направления работы
+          Иногда мы не можем точно сформулировать проблему и это нормально. Вы можете прийти с любым вопросом, который сейчас важен для вас
         </p>
       </div>
 
@@ -148,11 +148,11 @@ const Problems = () => (
         <div className="problems-cta-content">
           <h4>Не нашли свою проблему?</h4>
           <p>У нас есть специалисты по <strong>50+ направлениям</strong>. Расскажите о своей ситуации, и мы подберем подходящего психолога</p>
-          <Link href="/staff" className="btn btn--primary">
-            <i className="fas fa-comment-dots"></i>
-            <span className="btn-text-full">Получить бесплатную консультацию</span>
-            <span className="btn-text-short">Бесплатная консультация</span>
-          </Link>
+          <a href="https://wa.me/996700595393" target="_blank" rel="noopener noreferrer" className="btn btn--primary">
+            <i className="fab fa-whatsapp"></i>
+            <span className="btn-text-full">Написать живому менеджеру в WhatsApp</span>
+            <span className="btn-text-short">Написать в WhatsApp</span>
+          </a>
         </div>
       </div>
     </div>

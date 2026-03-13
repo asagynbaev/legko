@@ -239,7 +239,7 @@ const StaffPage = () => {
                     <div className="staff-card__details-block">
                       <div className="staff-card__detail-row">
                         <span className="staff-card__detail-label">Стоимость консультации</span>
-                        <span className="staff-card__detail-value">От 2000 с</span>
+                        <span className="staff-card__detail-value">От 1500 с</span>
                       </div>
                       <div className="staff-card__detail-row">
                         <span className="staff-card__detail-label">Где ведёт приём</span>

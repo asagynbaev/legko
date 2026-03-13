@@ -61,15 +61,14 @@ const Specialists = () => {
         <div className="section-header">
           <div className="section-badge">
             <span className="modern-badge">
-              <span className="badge-icon">👥</span>
-              Наша команда
+              <span className="badge-icon"></span>
             </span>
           </div>
           <h2 className="section-title">
-            Проверенные <span className="gradient-text">психологи</span>
+            Наша команда <span className="gradient-text">психологов</span>
           </h2>
           <p className="section-subtitle">
-            Все специалисты проходят строгий отбор и имеют высшее образование
+            Каждый специалист проходит строгий отбор и имеет высшее психологическое образование. Вы можете посмотреть профиль психолога, его специализацию и стоимость консультации
           </p>
         </div>
 
@@ -78,34 +77,23 @@ const Specialists = () => {
             <div className="feature-icon-wrapper">
               <i className="fas fa-graduation-cap"></i>
             </div>
-            <span>Высшее образование</span>
+            <span>Высшее психологическое образование</span>
           </div>
           <div className="modern-feature-item">
             <div className="feature-icon-wrapper">
-              <i className="fas fa-certificate"></i>
+              <i className="fas fa-heart"></i>
             </div>
-            <span>Сертификаты</span>
-          </div>
-          <div className="modern-feature-item">
-            <div className="feature-icon-wrapper">
-              <i className="fas fa-chart-line"></i>
-            </div>
-            <span>5+ лет опыта</span>
+            <span>Личная терапия</span>
           </div>
           <div className="modern-feature-item">
             <div className="feature-icon-wrapper">
               <i className="fas fa-users"></i>
             </div>
-            <span>Супервизия</span>
+            <span>Супервизии</span>
           </div>
         </div>
 
         <div className="specialists-carousel-wrap">
-          <div className="specialists-stat-badge">
-            <span>{displayList.length ? avgExperience : '5'}+</span>
-            <span>лет средний стаж психологов Legko</span>
-          </div>
-
           {loading ? (
             <div className="specialists-loading" aria-live="polite" aria-label="Загрузка специалистов">
               <div className="loading-spinner"></div>
@@ -133,7 +121,7 @@ const Specialists = () => {
                         rating={item.rating ?? 5}
                         experience={item.experience}
                         numberOfClients={item.numberOfClients}
-                        priceFrom="От 2000 с"
+                        priceFrom="От 1500 с"
                         location={item.address && item.address.trim() ? item.address : 'Онлайн'}
                         approach={item.speciality?.split(/[,\/]/)[0]?.trim() || undefined}
                       />
@@ -149,7 +137,7 @@ const Specialists = () => {
                         name={item.name}
                         title={item.title}
                         rating={5}
-                        priceFrom="От 2000 с"
+                        priceFrom="От 1500 с"
                         location="Онлайн"
                       />
                     ))}
