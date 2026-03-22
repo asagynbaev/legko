@@ -119,7 +119,7 @@ const SpecialistCard = ({
 
   if (id) {
     return (
-      <Link href={`/staff?psychologist=${id}`} className="specialist-card-alter specialist-card-alter--link">
+      <Link href={`/staff/${id}`} className="specialist-card-alter specialist-card-alter--link">
         {cardContent}
       </Link>
     );

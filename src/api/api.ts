@@ -45,6 +45,18 @@ export interface MasterAddress {
   longitude: number;
 }
 
+export interface MasterQualification {
+  id: string;
+  title: string;
+  issuingOrganization: string | null;
+  issueDate: string | null;
+  expiryDate: string | null;
+  certificateNumber: string | null;
+  description: string | null;
+  documentUrl: string | null;
+  isVerified: boolean;
+}
+
 export interface MasterProfile {
   id: string;
   name: string;
@@ -56,9 +68,11 @@ export interface MasterProfile {
   experience: number;
   numberOfClients: number;
   rating: number;
+  interval: number;
   services: MasterService[];
   workSchedules: MasterWorkSchedule[];
   educations: MasterEducation[];
+  qualifications: MasterQualification[];
   currencySymbol: string;
 }
 
