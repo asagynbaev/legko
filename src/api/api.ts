@@ -90,7 +90,8 @@ export async function getMasterById(masterId: string): Promise<GetMasterByIdResp
     const res = await apiGet(endpoint);
     return res as GetMasterByIdResponse;
 }
-const BASE_URL = config.apiBaseUrl;
+const isServer = typeof window === 'undefined';
+const BASE_URL = isServer ? config.apiBaseUrl : "/api/proxy";
 
 const API_HEADERS: HeadersInit = {
     "Accept-Language": "ru",
