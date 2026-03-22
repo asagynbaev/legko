@@ -102,18 +102,7 @@ const StaffPage = () => {
   };
 
   const handleOpenProfile = (masterId: string) => {
-    setProfileModal({ open: true, loading: true, error: null, master: null });
-    getMasterById(masterId)
-      .then((res) => {
-        if (res?.code === 200 && res.message) {
-          setProfileModal((prev) => ({ ...prev, loading: false, master: res.message }));
-        } else {
-          setProfileModal((prev) => ({ ...prev, loading: false, error: 'Не удалось загрузить анкету' }));
-        }
-      })
-      .catch(() => {
-        setProfileModal((prev) => ({ ...prev, loading: false, error: 'Ошибка загрузки. Попробуйте позже.' }));
-      });
+    router.push(`/staff/${masterId}`);
   };
 
   const handleCloseProfile = () => {
