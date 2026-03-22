@@ -2,6 +2,14 @@ const path = require('path');
 
 module.exports = {
   outputFileTracingRoot: path.join(__dirname),
+  async rewrites() {
+    return [
+      {
+        source: '/api/proxy/:path*',
+        destination: 'https://api.booka.life/api/v1/:path*',
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       {
