@@ -1,6 +1,7 @@
 import * as signalR from "@microsoft/signalr";
+import { config } from "@/config/env";
 
-const HUB_URL = "https://api.booka.life/hubs/psychologist-match";
+const HUB_URL = config.signalrHubUrl;
 
 export interface MessageHistoryItem {
   role: "user" | "assistant";

@@ -1,9 +1,10 @@
+import { config } from "@/config/env";
+
 /**
- * Get staff by business id (hardcoded)
+ * Get staff by business id
  */
 export async function getStaffByBusinessId() {
-    const businessId = "9369c165-4672-4ca7-90d7-d3efdafccbd6";
-    const endpoint = `/Business/staff/get-staff-by-business-id/${businessId}`;
+    const endpoint = `/Business/staff/get-staff-by-business-id/${config.businessId}`;
     return apiGet(endpoint);
 }
 
@@ -82,14 +83,14 @@ interface GetMasterByIdResponse {
 }
 
 /**
- * Get full master (psychologist) profile by id from api.booka.life
+ * Get full master (psychologist) profile by id
  */
 export async function getMasterById(masterId: string): Promise<GetMasterByIdResponse> {
     const endpoint = `/Masters/get-master-by-id?id=${encodeURIComponent(masterId)}`;
     const res = await apiGet(endpoint);
     return res as GetMasterByIdResponse;
 }
-const BASE_URL = "https://api.booka.life/api/v1";
+const BASE_URL = config.apiBaseUrl;
 
 const API_HEADERS: HeadersInit = {
     "Accept-Language": "ru",

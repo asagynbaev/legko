@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
+import { config } from '@/config/env';
 
 interface SpecialistCardProps {
   avatar: string;
@@ -33,7 +34,7 @@ const SpecialistCard = ({
   const [imageError, setImageError] = useState(false);
   const [imageLoading, setImageLoading] = useState(true);
 
-  const isExternalImage = avatar && avatar.includes('img.booka.life');
+  const isExternalImage = avatar && avatar.includes(config.imageHost);
 
   const getInitials = (nameStr: string) => {
     const words = nameStr.trim().split(' ');
