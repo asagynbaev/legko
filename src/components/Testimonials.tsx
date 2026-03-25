@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 
 const reviews = [
@@ -91,7 +91,16 @@ const GAP_PX = 32;
 
 const Testimonials = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
   const touchStartX = useRef<number>(0);
+
+  // Detect mobile for layout calculations
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const goTo = (i: number) => setActiveIndex((i + reviews.length) % reviews.length);
   const prev = () => goTo(activeIndex - 1);
@@ -110,7 +119,7 @@ const Testimonials = () => {
 
   const handleTouchEnd = (e: React.TouchEvent) => {
     const diff = touchStartX.current - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 50) {
+    if (Math.abs(diff) > 40) {
       goTo(diff > 0 ? activeIndex + 1 : activeIndex - 1);
     }
   };
@@ -145,17 +154,27 @@ const Testimonials = () => {
                 const offset = getOffset(idx);
                 const isActive = offset === 0;
                 const isVisible = Math.abs(offset) <= 1;
-                const translateX = `calc(${offset * CARD_WIDTH_PERCENT}% + ${offset * GAP_PX}px)`;
+
+                // On mobile: only show active card, centered
+                const mobileStyle: React.CSSProperties = {
+                  transform: isActive ? 'none' : `translateX(${offset > 0 ? '110%' : '-110%'})`,
+                  opacity: isActive ? 1 : 0,
+                  pointerEvents: isActive ? 'auto' : 'none',
+                };
+
+                // On desktop: 3-column carousel
+                const desktopTranslateX = `calc(${offset * CARD_WIDTH_PERCENT}% + ${offset * GAP_PX}px)`;
+                const desktopStyle: React.CSSProperties = {
+                  transform: `translateX(${desktopTranslateX}) scale(${isActive ? 1.06 : 0.93})`,
+                  opacity: isVisible ? (isActive ? 1 : 0.55) : 0,
+                  pointerEvents: isVisible ? 'auto' : 'none',
+                };
 
                 return (
                   <div
                     key={review.id}
                     className={`testimonial-card ${isActive ? 'testimonial-card--active' : 'testimonial-card--side'}`}
-                    style={{
-                      transform: `translateX(${translateX}) scale(${isActive ? 1.06 : 0.93})`,
-                      opacity: isVisible ? (isActive ? 1 : 0.55) : 0,
-                      pointerEvents: isVisible ? 'auto' : 'none',
-                    }}
+                    style={isMobile ? mobileStyle : desktopStyle}
                   >
                     <div className="testimonial-content">
                       <p>&laquo;{review.text}&raquo;</p>
