@@ -35,7 +35,6 @@ const StaffPage = () => {
   const [loading, setLoading] = useState(true);
   const [visibleCount, setVisibleCount] = useState(INITIAL_VISIBLE);
   const [imageErrors, setImageErrors] = useState<Set<string>>(new Set());
-  const [expandedDescriptions, setExpandedDescriptions] = useState<Set<string>>(new Set());
   const [profileModal, setProfileModal] = useState<{
     open: boolean;
     loading: boolean;
@@ -113,22 +112,6 @@ const StaffPage = () => {
     setImageErrors((prev) => new Set(prev).add(specialistId));
   };
 
-  const truncateText = (text: string, maxLength: number = 150) => {
-    if (text.length <= maxLength) return text;
-    return text.substring(0, maxLength).trim() + '...';
-  };
-
-  const toggleDescription = (specialistId: string) => {
-    setExpandedDescriptions((prev) => {
-      const newSet = new Set(prev);
-      if (newSet.has(specialistId)) {
-        newSet.delete(specialistId);
-      } else {
-        newSet.add(specialistId);
-      }
-      return newSet;
-    });
-  };
 
   return (
     <>
@@ -239,21 +222,19 @@ const StaffPage = () => {
                       </div>
                     </div>
                     <div className="staff-card__about">
-                      <p className={expandedDescriptions.has(specialist.id) ? '' : 'staff-card__about-truncated'}>
-                        {expandedDescriptions.has(specialist.id)
-                          ? specialist.aboutMe
-                          : truncateText(specialist.aboutMe)}
+                      <p className="staff-card__about-truncated">
+                        {specialist.aboutMe}
                       </p>
-                      {specialist.aboutMe.length > 150 && (
-                        <button
-                          className="staff-card__toggle"
-                          onClick={() => toggleDescription(specialist.id)}
-                          type="button"
-                        >
-                          {expandedDescriptions.has(specialist.id) ? 'Свернуть' : 'Читать далее'}
-                          <i className={`fas ${expandedDescriptions.has(specialist.id) ? 'fa-chevron-up' : 'fa-chevron-down'}`}></i>
-                        </button>
-                      )}
+                      <a
+                        href={`/staff/${specialist.id}`}
+                        className="staff-card__more-link"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleOpenProfile(specialist.id);
+                        }}
+                      >
+                        ещё...
+                      </a>
                     </div>
                     <div className="staff-card__actions">
                       <button
