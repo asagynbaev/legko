@@ -703,6 +703,31 @@ export default function StaffProfilePage({ master }: StaffProfilePageProps) {
                     <CalendarDays width={20} height={20} color="currentColor" aria-hidden />
                     Записаться
                   </a>
+                  <div className="sp-cta__contact-block">
+                    <p className="sp-cta__contact-text">
+                      Хотите связаться с менеджером или остались вопросы?
+                    </p>
+                    <div className="sp-cta__buttons">
+                      <a
+                        href="https://wa.me/996509339333"
+                        className="btn btn--cta-primary"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <i className="fab fa-whatsapp"></i>
+                        <span>Написать в WhatsApp</span>
+                      </a>
+                      <a
+                        href="https://t.me/legko_psychology"
+                        className="btn btn--cta-secondary"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <i className="fab fa-telegram"></i>
+                        <span>Написать в Telegram</span>
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
             </section>
