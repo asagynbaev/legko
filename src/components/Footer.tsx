@@ -75,7 +75,6 @@ const Footer = () => (
                     Условия использования
                   </a>
                 </li>
-                <li><Link href="/forpsychologists">Для психологов</Link></li>
               </ul>
             </div>
           </div>

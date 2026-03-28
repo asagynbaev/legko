@@ -1,6 +1,7 @@
 import { config } from "@/config/env";
 
-const BASE_URL = config.apiBaseUrl;
+const isServer = typeof window === 'undefined';
+const BASE_URL = isServer ? config.apiBaseUrl : "/api/proxy";
 
 export interface MessageHistoryItem {
   role: "user" | "assistant";

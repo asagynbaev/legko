@@ -2667,18 +2667,17 @@ img {
 }
 
 .btn--cta-secondary {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(108, 92, 231, 0.5);
   color: white;
   padding: 16px 32px;
   font-size: 16px;
   font-weight: 600;
   border-radius: var(--radius-btn);
   border: 1.5px solid rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(10px);
 }
 
 .btn--cta-secondary:hover {
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(108, 92, 231, 0.65);
   border-color: rgba(255, 255, 255, 0.5);
 }
 
@@ -6246,6 +6245,34 @@ img {
 
 .sp-cta__btn .fa-whatsapp {
   font-size: 20px;
+}
+
+.sp-cta__contact-block {
+  margin-top: 24px;
+  background: linear-gradient(135deg, #6C5CE7 0%, #a29bfe 100%);
+  border-radius: var(--radius-lg);
+  padding: 28px 32px;
+}
+
+.sp-cta__contact-text {
+  margin: 0 0 16px;
+  font-size: 15px;
+  font-weight: 600;
+  color: white;
+  text-align: center;
+}
+
+.sp-cta__buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.sp-cta__buttons .btn {
+  flex: 1;
+  min-width: 200px;
+  justify-content: center;
 }
 
 /* ---- INLINE CTA (between sections) ---- */
