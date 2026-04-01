@@ -10,6 +10,7 @@ interface SpecialistCardProps {
   rating?: number;
   id?: string;
   experience?: number;
+  experienceLabel?: string;
   numberOfClients?: number;
   /** Цена, например "От 1500 с" */
   priceFrom?: string;
@@ -26,6 +27,7 @@ const SpecialistCard = ({
   rating = 5,
   id,
   experience,
+  experienceLabel,
   numberOfClients,
   priceFrom = 'От 1500 с',
   location = 'Онлайн',
@@ -90,11 +92,11 @@ const SpecialistCard = ({
         <div className="specialist-card-alter__photo-caption">
           <h3 className="specialist-card-alter__name">{name}</h3>
           <p className="specialist-card-alter__title">{title}</p>
-          {(experience != null || numberOfClients != null) && (
+          {(experienceLabel || experience != null || (numberOfClients != null && numberOfClients > 0)) && (
             <p className="specialist-card-alter__meta">
-              {experience != null && `Опыт ${experience} лет`}
-              {experience != null && numberOfClients != null && ' • '}
-              {numberOfClients != null && `${numberOfClients}+ клиентов`}
+              {experienceLabel || (experience != null ? `Опыт ${experience} лет` : null)}
+              {(experienceLabel || experience != null) && numberOfClients != null && numberOfClients > 0 && ' • '}
+              {numberOfClients != null && numberOfClients > 0 && `${numberOfClients}+ клиентов`}
             </p>
           )}
           {rating > 0 && (
