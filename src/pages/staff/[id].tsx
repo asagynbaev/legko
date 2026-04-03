@@ -832,24 +832,21 @@ export default function StaffProfilePage({ master }: StaffProfilePageProps) {
               </section>
             )}
 
-           {/* 3. ЛГБТК+ блок — обновлённый дизайн */}
-{isLgbtFriendly && (
-  <section 
-    className="sp-section sp-section--divided" 
-    id="lgbt" 
-    ref={(el) => { sectionRefs.current.lgbt = el; }}
-  >
-    <div className="sp-section__header">
-      <Heart width={20} height={20} color="#6C5CE7" aria-hidden />
-      <h2 className="sp-section__title">Отдельно</h2>
-    </div>
-    
-    <div className="sp-lgbt-badge">
-  <Sparkles width={16} height={16} color="currentColor" aria-hidden />
-  <span>Бережно работаю с ЛГБТК+ клиентами</span>
-</div>
-  </section>
-)}
+            {/* 3. ЛГБТК+ блок */}
+            {isLgbtFriendly && (
+              <section 
+                className="sp-section sp-section--divided" id="lgbt" 
+ref={(el) => { sectionRefs.current.lgbt = el; }}
+  >                <div className="sp-section__header">
+                  <Heart width={20} height={20} color="#6C5CE7" aria-hidden />
+                  <h2 className="sp-section__title">Отдельно</h2>
+                </div>
+                <div className="sp-lgbt-badge">
+                  <Sparkles width={18} height={18} color="currentColor" aria-hidden />
+                  <span>Бережно работаю с ЛГБТК+ клиентами</span>
+                </div>
+              </section>
+            )}
 
             {/* 4. Метод работы — отдельный блок */}
             {workMethod && (
