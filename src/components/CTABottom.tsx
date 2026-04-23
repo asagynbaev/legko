@@ -3,10 +3,12 @@ const CTABottom = () => (
     <div className="cta-background-pattern"></div>
     <div className="container">
       <div className="cta-bottom-content">
-        <div className="cta-icon-wrapper">
-          <div className="cta-icon">
-            <i className="fas fa-heart"></i>
-          </div>
+        <div className="cta-mascots-wrapper">
+          <img src="/images/пушистик удивление.png" alt="" className="cta-mascot" />
+          <img src="/images/пушистик влюбленность.png" alt="" className="cta-mascot" />
+          <img src="/images/пушистик расслабление.png" alt="" className="cta-mascot cta-mascot--center" />
+          <img src="/images/пушистик нежность.png" alt="" className="cta-mascot" />
+          <img src="/images/пушистик снеснение.png" alt="" className="cta-mascot" />
         </div>
 
         <div className="cta-text-content">
