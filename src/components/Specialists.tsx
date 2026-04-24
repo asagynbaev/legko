@@ -33,7 +33,12 @@ const Specialists = () => {
     getStaffByBusinessId()
       .then((res) => {
         if (res && Array.isArray(res.message)) {
-          const sorted = [...res.message].sort((a: StaffItem, b: StaffItem) => {
+          const normalize = (s: string) => s.replace(/\s+/g, ' ').trim();
+          const normalized = res.message.map((item: StaffItem) => ({
+            ...item,
+            name: normalize(item.name),
+          }));
+          const sorted = [...normalized].sort((a: StaffItem, b: StaffItem) => {
             const idxA = STAFF_SORT_ORDER.indexOf(a.name);
             const idxB = STAFF_SORT_ORDER.indexOf(b.name);
             const orderA = idxA >= 0 ? idxA : STAFF_SORT_ORDER.length;
