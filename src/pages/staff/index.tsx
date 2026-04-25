@@ -55,7 +55,7 @@ const StaffPage = () => {
     getStaffByBusinessId().then((res) => {
       if (res && Array.isArray(res.message)) {
         const normalize = (s: string) => s.replace(/\s+/g, ' ').trim();
-        const normalized = res.message.map((item: StaffMember) => ({
+        const normalized = res.message.map((item: Staff) => ({
           ...item,
           name: normalize(item.name),
         }));
