@@ -18,7 +18,7 @@
     "@phosphor-icons/react": "^2.1.10",
     "@types/react-dom": "^19.1.9",
     "lucide-react": "^0.577.0",
-    "next": "16.1.7",
+    "next": "16.2.3",
     "nodemailer": "^8.0.5",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
