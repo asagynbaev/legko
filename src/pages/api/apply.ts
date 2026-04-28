@@ -72,7 +72,7 @@ export default async function handler(
     <h2>Новая анкета психолога</h2>
     <table style="border-collapse: collapse; width: 100%; max-width: 700px; font-family: Arial, sans-serif;">
       ${formatRow('Email', data.email)}
-      ${formatRow('Имя', data.name)}
+      ${formatRow('Имя Фамилия', data.name)}
       ${formatRow('Дата рождения', data.birthDate)}
       ${formatRow('Номер телефона', data.phone)}
       ${formatRow('Образование (уровень, место обучения, год выпуска, специальность)', data.education)}
