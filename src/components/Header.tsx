@@ -45,6 +45,55 @@ const Header = () => {
         };
     }, [isMobileMenuOpen]);
 
+    // Swipe right to close
+    useEffect(() => {
+        const menu = navMenuRef.current;
+        if (!menu) return;
+
+        let startX = 0;
+        let currentX = 0;
+        let swiping = false;
+
+        const onTouchStart = (e: TouchEvent) => {
+            startX = e.touches[0].clientX;
+            currentX = startX;
+            swiping = true;
+            menu.style.transition = 'none';
+        };
+
+        const onTouchMove = (e: TouchEvent) => {
+            if (!swiping) return;
+            currentX = e.touches[0].clientX;
+            const diff = currentX - startX;
+            if (diff > 0) {
+                menu.style.transform = `translateX(${diff}px)`;
+            }
+        };
+
+        const onTouchEnd = () => {
+            if (!swiping) return;
+            swiping = false;
+            menu.style.transition = '';
+            const diff = currentX - startX;
+            if (diff > 80) {
+                menu.style.transform = '';
+                closeMobileMenu();
+            } else {
+                menu.style.transform = '';
+            }
+        };
+
+        menu.addEventListener('touchstart', onTouchStart, { passive: true });
+        menu.addEventListener('touchmove', onTouchMove, { passive: true });
+        menu.addEventListener('touchend', onTouchEnd);
+
+        return () => {
+            menu.removeEventListener('touchstart', onTouchStart);
+            menu.removeEventListener('touchmove', onTouchMove);
+            menu.removeEventListener('touchend', onTouchEnd);
+        };
+    }, [isMobileMenuOpen]);
+
     return (
         <header className="header">
             <nav className="nav container">

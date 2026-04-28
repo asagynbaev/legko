@@ -438,8 +438,8 @@ const ForPsychologists = () => {
                         <input type="email" className="fp-input" placeholder="example@mail.com" value={data.email} onChange={e => update({ email: e.target.value })} />
                       </div>
                     </Field>
-                    <Field label="Имя" required>
-                      <input type="text" className="fp-input" placeholder="Ваше полное имя" value={data.name} onChange={e => update({ name: e.target.value })} />
+                    <Field label="Имя Фамилия" required>
+                      <input type="text" className="fp-input" placeholder="Имя Фамилия" value={data.name} onChange={e => update({ name: e.target.value })} />
                     </Field>
                     <Field label="Дата рождения">
                       <input type="date" className="fp-input" value={data.birth} onChange={e => update({ birth: e.target.value })} />
@@ -558,7 +558,7 @@ const ForPsychologists = () => {
 
                 {step === 5 && (
                   <div className="fp-fields">
-                    <Field full label="Готовы ли вы соблюдать профессиональную этику" hint="И работать с клиентами платформы только в её рамках">
+                    <Field full label="Готовы ли вы соблюдать профессиональную этику" hint="И работать с клиентами только в её рамках">
                       <RadioCards
                         options={[
                           { value: 'yes', icon: <ShieldCheck size={22} />, title: 'Да, готов(а)', desc: 'Соблюдаю этику' },

@@ -357,7 +357,7 @@ img {
     background: white;
     flex-direction: column;
     padding: 80px 24px 32px;
-    transition: right var(--transition-slow);
+    transition: right var(--transition-slow), transform 0.3s ease;
     box-shadow: -8px 0 30px rgba(0, 0, 0, 0.1);
     z-index: 999;
     align-items: stretch;
