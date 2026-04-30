@@ -1,14 +1,17 @@
 import Head from 'next/head';
+import dynamic from 'next/dynamic';
 import Hero from '../components/Hero';
-import HowItWorks from '../components/HowItWorks';
-import Benefits from '../components/Benefits';
-import Problems from '../components/Problems';
-import Specialists from '../components/Specialists';
-import Testimonials from '../components/Testimonials';
-import FAQ from '../components/FAQ';
-import CTABottom from '../components/CTABottom';
-import Footer from '../components/Footer';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
+
+// Below-fold: lazy-load
+const Problems = dynamic(() => import('../components/Problems'));
+const HowItWorks = dynamic(() => import('../components/HowItWorks'));
+const Benefits = dynamic(() => import('../components/Benefits'));
+const Specialists = dynamic(() => import('../components/Specialists'));
+const Testimonials = dynamic(() => import('../components/Testimonials'));
+const FAQ = dynamic(() => import('../components/FAQ'));
+const CTABottom = dynamic(() => import('../components/CTABottom'));
 
 export default function Home() {
     return (

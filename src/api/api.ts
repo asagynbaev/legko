@@ -3,9 +3,9 @@ import { config } from "@/config/env";
 /**
  * Get staff by business id
  */
-export async function getStaffByBusinessId() {
+export async function getStaffByBusinessId(signal?: AbortSignal) {
     const endpoint = `/Business/staff/get-staff-by-business-id/${config.businessId}`;
-    return apiGet(endpoint);
+    return apiGet(endpoint, signal);
 }
 
 /** Master (psychologist) full profile from Booka API */
@@ -85,9 +85,9 @@ interface GetMasterByIdResponse {
 /**
  * Get full master (psychologist) profile by id
  */
-export async function getMasterById(masterId: string): Promise<GetMasterByIdResponse> {
+export async function getMasterById(masterId: string, signal?: AbortSignal): Promise<GetMasterByIdResponse> {
     const endpoint = `/Masters/get-master-by-id?id=${encodeURIComponent(masterId)}`;
-    const res = await apiGet(endpoint);
+    const res = await apiGet(endpoint, signal);
     return res as GetMasterByIdResponse;
 }
 const isServer = typeof window === 'undefined';
@@ -97,9 +97,10 @@ const API_HEADERS: HeadersInit = {
     "Accept-Language": "ru",
 };
 
-export async function apiGet(endpoint: string) {
+export async function apiGet(endpoint: string, signal?: AbortSignal) {
     const response = await fetch(`${BASE_URL}${endpoint}`, {
         headers: API_HEADERS,
+        signal,
     });
     if (!response.ok) {
         throw new Error(`GET ${endpoint} failed: ${response.status}`);
@@ -107,14 +108,15 @@ export async function apiGet(endpoint: string) {
     return response.json();
 }
 
-export async function apiPost(endpoint: string, body: Record<string, unknown>) {
+export async function apiPost(endpoint: string, body: Record<string, unknown>, signal?: AbortSignal) {
     const response = await fetch(`${BASE_URL}${endpoint}`, {
         method: "POST",
         headers: {
             ...API_HEADERS,
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(body)
+        body: JSON.stringify(body),
+        signal,
     });
     if (!response.ok) {
         throw new Error(`POST ${endpoint} failed: ${response.status}`);

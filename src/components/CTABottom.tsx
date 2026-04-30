@@ -1,14 +1,16 @@
+import Image from 'next/image';
+
 const CTABottom = () => (
   <section className="cta-bottom-section">
     <div className="cta-background-pattern"></div>
     <div className="container">
       <div className="cta-bottom-content">
         <div className="cta-mascots-wrapper">
-          <img src="/images/пушистик удивление.png" alt="" className="cta-mascot" />
-          <img src="/images/пушистик влюбленность.png" alt="" className="cta-mascot" />
-          <img src="/images/пушистик расслабление.png" alt="" className="cta-mascot cta-mascot--center" />
-          <img src="/images/пушистик нежность.png" alt="" className="cta-mascot" />
-          <img src="/images/пушистик снеснение.png" alt="" className="cta-mascot" />
+          <Image src="/images/пушистик удивление.webp" alt="" className="cta-mascot" width={100} height={100} loading="lazy" />
+          <Image src="/images/пушистик влюбленность.webp" alt="" className="cta-mascot" width={100} height={100} loading="lazy" />
+          <Image src="/images/пушистик расслабление.webp" alt="" className="cta-mascot cta-mascot--center" width={120} height={120} loading="lazy" />
+          <Image src="/images/пушистик нежность.webp" alt="" className="cta-mascot" width={100} height={100} loading="lazy" />
+          <Image src="/images/пушистик снеснение.webp" alt="" className="cta-mascot" width={100} height={100} loading="lazy" />
         </div>
 
         <div className="cta-text-content">

@@ -269,6 +269,17 @@ const ForPsychologists = () => {
         <meta name="description" content="Присоединяйтесь к команде профессиональных психологов Legko. Мы найдем вам клиентов, поможем развить личный бренд и возьмем на себя операционные задачи." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
+        <link rel="canonical" href="https://legko.live/forpsychologists" />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Для психологов — Legko" />
+        <meta property="og:description" content="Присоединяйтесь к команде Legko. Мы найдем вам клиентов и поможем развить личный бренд." />
+        <meta property="og:url" content="https://legko.live/forpsychologists" />
+        <meta property="og:locale" content="ru_RU" />
+
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content="Для психологов — Legko" />
+        <meta name="twitter:description" content="Присоединяйтесь к команде Legko. Мы найдем вам клиентов и поможем развить личный бренд." />
       </Head>
       <Header />
 

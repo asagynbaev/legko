@@ -7227,3 +7227,92 @@ img {
   .fp-nav .fp-btn { min-width: 0; flex: 1; }
   .fp-success h2 { font-size: 28px; }
 }
+
+/* === RESPONSIVE: Container padding на маленьких экранах === */
+@media (max-width: 375px) {
+  .container {
+    padding: 0 16px;
+  }
+}
+
+/* === RESPONSIVE: Hero chat высота для маленьких экранов === */
+@media (max-width: 375px) {
+  .hero__chat {
+    height: 420px;
+  }
+
+  .hero__title {
+    font-size: 26px;
+  }
+
+  .hero__stats {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+}
+
+/* === RESPONSIVE: sp-services-grid для планшетов === */
+@media (max-width: 768px) {
+  .sp-services-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* === RESPONSIVE: Testimonials dot touch targets === */
+.testimonials-dots {
+  gap: 4px;
+}
+
+.testimonials-dots button {
+  padding: 18px 8px;
+}
+
+/* === RESPONSIVE: Footer links touch targets === */
+@media (max-width: 768px) {
+  .footer-column a {
+    padding: 8px 0;
+    display: block;
+  }
+
+  .footer-column li + li {
+    margin-top: 0;
+  }
+}
+
+/* === RESPONSIVE: Safe area insets для модалок === */
+@supports (padding: env(safe-area-inset-bottom)) {
+  .modal-overlay {
+    padding-bottom: max(24px, env(safe-area-inset-bottom));
+  }
+
+  .chat-modal__input-container {
+    padding-bottom: max(16px, env(safe-area-inset-bottom));
+  }
+}
+
+/* === GLOBAL: Focus Visible === */
+*:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* === GLOBAL: Reduced Motion === */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

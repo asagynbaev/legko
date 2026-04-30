@@ -10,7 +10,7 @@ const reviews = [
     name: "Акылай",
     city: "Бишкек",
     rating: 5,
-    avatar: "/images/пушистик влюбленность.png",
+    avatar: "/images/пушистик влюбленность.webp",
   },
   {
     id: 2,
@@ -18,7 +18,7 @@ const reviews = [
     name: "Бектур",
     city: "Бишкек",
     rating: 5,
-    avatar: "/images/пушистик радость.png",
+    avatar: "/images/пушистик радость.webp",
   },
   {
     id: 3,
@@ -26,7 +26,7 @@ const reviews = [
     name: "Жанара",
     city: "Бишкек",
     rating: 5,
-    avatar: "/images/пушистик нежность.png",
+    avatar: "/images/пушистик нежность.webp",
   },
   {
     id: 4,
@@ -34,7 +34,7 @@ const reviews = [
     name: "Тимур",
     city: "Бишкек",
     rating: 5,
-    avatar: "/images/пушистик самолюбование.png",
+    avatar: "/images/пушистик самолюбование.webp",
   },
   {
     id: 5,
@@ -42,7 +42,7 @@ const reviews = [
     name: "Айгуль",
     city: "Ош",
     rating: 5,
-    avatar: "/images/пушистик обьятия.png",
+    avatar: "/images/пушистик обьятия.webp",
   },
   {
     id: 6,
@@ -50,7 +50,7 @@ const reviews = [
     name: "Назира",
     city: "Бишкек",
     rating: 5,
-    avatar: "/images/пушистик расслабление.png",
+    avatar: "/images/пушистик расслабление.webp",
   },
   {
     id: 7,
@@ -58,7 +58,7 @@ const reviews = [
     name: "Азамат",
     city: "Бишкек",
     rating: 5,
-    avatar: "/images/пушистик удивление.png",
+    avatar: "/images/пушистик удивление.webp",
   },
   {
     id: 8,
@@ -66,7 +66,7 @@ const reviews = [
     name: "Камила",
     city: "Бишкек",
     rating: 5,
-    avatar: "/images/пушистик влюбленность.png",
+    avatar: "/images/пушистик влюбленность.webp",
   },
   {
     id: 9,
@@ -74,7 +74,7 @@ const reviews = [
     name: "Зарина",
     city: "Каракол",
     rating: 5,
-    avatar: "/images/пушистик грусть.png",
+    avatar: "/images/пушистик грусть.webp",
   },
   {
     id: 10,
@@ -82,7 +82,7 @@ const reviews = [
     name: "Даниял",
     city: "Бишкек",
     rating: 5,
-    avatar: "/images/пушистик снеснение.png",
+    avatar: "/images/пушистик снеснение.webp",
   },
 ];
 
@@ -92,12 +92,13 @@ const GAP_PX = 32;
 const Testimonials = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const [hydrated, setHydrated] = useState(false);
   const touchStartX = useRef<number>(0);
 
-  // Detect mobile for layout calculations
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 768);
     handleResize();
+    setHydrated(true);
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
@@ -174,7 +175,7 @@ const Testimonials = () => {
                   <div
                     key={review.id}
                     className={`testimonial-card ${isActive ? 'testimonial-card--active' : 'testimonial-card--side'}`}
-                    style={isMobile ? mobileStyle : desktopStyle}
+                    style={hydrated ? (isMobile ? mobileStyle : desktopStyle) : desktopStyle}
                   >
                     <div className="testimonial-content">
                       <p>&laquo;{review.text}&raquo;</p>

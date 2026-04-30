@@ -54,13 +54,6 @@ export interface MessageResponse {
   };
 }
 
-export interface AvailableTimesResponse {
-  code: number;
-  message: {
-    availableTimes: string[];
-  };
-}
-
 export interface CreateBookingRequest {
   masterId: string;
   serviceIds: string[];
@@ -83,17 +76,18 @@ export interface CreateBookingResponse {
 /**
  * Начать диалог для подбора психолога
  */
-export async function startMatching(userId?: string): Promise<StartResponse> {
-  const url = userId 
-    ? `${BASE_URL}/PsychologistMatch/start?userId=${userId}`
+export async function startMatching(userId?: string, signal?: AbortSignal): Promise<StartResponse> {
+  const url = userId
+    ? `${BASE_URL}/PsychologistMatch/start?userId=${encodeURIComponent(userId)}`
     : `${BASE_URL}/PsychologistMatch/start`;
-  
+
   const response = await fetch(url, {
     method: "POST",
     headers: {
       "Accept-Language": "ru",
       "Content-Type": "application/json",
     },
+    signal,
   });
 
   if (!response.ok) {
@@ -110,7 +104,8 @@ export async function sendMessage(
   message: string,
   sessionId?: string,
   userId?: string,
-  messageHistory?: MessageHistoryItem[]
+  messageHistory?: MessageHistoryItem[],
+  signal?: AbortSignal
 ): Promise<MessageResponse> {
   try {
     const requestBody = {
@@ -119,15 +114,14 @@ export async function sendMessage(
       message,
       messageHistory,
     };
-    
-    // Логируем запрос для отладки (только в dev режиме)
+
     if (process.env.NODE_ENV === 'development') {
       console.log('Sending message request:', {
         url: `${BASE_URL}/PsychologistMatch/message`,
         body: requestBody,
       });
     }
-    
+
     const response = await fetch(`${BASE_URL}/PsychologistMatch/message`, {
       method: "POST",
       headers: {
@@ -135,69 +129,43 @@ export async function sendMessage(
         "Content-Type": "application/json",
       },
       body: JSON.stringify(requestBody),
+      signal,
     });
 
     if (!response.ok) {
       let errorMessage = `Ошибка ${response.status}`;
       try {
-        const errorData = await response.json();
-        errorMessage = errorData.message || errorData.error || errorMessage;
-      } catch {
-        // Если не удалось распарсить JSON, используем текст ответа
-        try {
-          const errorText = await response.text();
-          if (errorText) {
-            errorMessage = errorText;
-          }
-        } catch {
-          // Игнорируем ошибку парсинга текста
+        const cloned = response.clone();
+        const errorData = await cloned.json();
+        const raw = errorData.message || errorData.error || '';
+        if (raw && typeof raw === 'string' && raw.length < 200) {
+          errorMessage = raw;
         }
+      } catch {
+        // Не раскрываем сырой текст ответа — может содержать stack trace
       }
       throw new Error(errorMessage);
     }
 
     return response.json();
   } catch (error: unknown) {
-    // Если это уже наша ошибка, пробрасываем дальше
+    if (error instanceof DOMException && error.name === 'AbortError') {
+      throw error;
+    }
     if (error instanceof Error && error.message && error.message.startsWith('Ошибка')) {
       throw error;
     }
-    // Иначе оборачиваем в более понятное сообщение
     const errorMessage = error instanceof Error ? error.message : 'Не удалось отправить сообщение. Проверьте подключение к интернету.';
     throw new Error(errorMessage);
   }
 }
 
 /**
- * Получить доступные времена для психолога
- */
-export async function getAvailableTimes(
-  psychologistId: string,
-  date: string
-): Promise<AvailableTimesResponse> {
-  const response = await fetch(
-    `${BASE_URL}/PsychologistMatch/available-times/${psychologistId}?date=${date}`,
-    {
-      method: "GET",
-      headers: {
-        "Accept-Language": "ru",
-        "Content-Type": "application/json",
-      },
-    }
-  );
-
-  if (!response.ok) {
-    throw new Error(`Failed to get available times: ${response.status}`);
-  }
-
-  return response.json();
-}
-
-/**
  * Создать бронирование
  */
 export async function createBooking(
-  booking: CreateBookingRequest
+  booking: CreateBookingRequest,
+  signal?: AbortSignal
 ): Promise<CreateBookingResponse> {
   const response = await fetch(`${BASE_URL}/PsychologistMatch/create-booking`, {
     method: "POST",
@@ -206,6 +174,7 @@ export async function createBooking(
       "Content-Type": "application/json",
     },
     body: JSON.stringify(booking),
+    signal,
   });
 
   if (!response.ok) {
@@ -222,22 +191,17 @@ export async function createBooking(
 export function normalizePhone(phone: string): string {
   // Удаляем все нецифровые символы
   const digits = phone.replace(/\D/g, "");
-  
+
   // Если начинается с 996, возвращаем как есть
   if (digits.startsWith("996")) {
     return digits;
   }
-  
+
   // Если начинается с 0, заменяем на 996
   if (digits.startsWith("0")) {
     return "996" + digits.substring(1);
   }
-  
-  // Если начинается с +996, убираем +
-  if (digits.startsWith("996")) {
-    return digits;
-  }
-  
+
   // Иначе добавляем 996 в начало
   return "996" + digits;
 }

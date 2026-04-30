@@ -1,7 +1,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
-const Footer = () => (
+const Footer = () => {
+  const router = useRouter();
+  const isHome = router.pathname === '/';
+
+  return (
   <footer className="footer">
     <div className="container">
       <div className="footer-content">
@@ -23,15 +28,15 @@ const Footer = () => (
               <h4>Сервис</h4>
               <ul>
                 <li><Link href="/staff">Найти психолога</Link></li>
-                <li><a href="#specialists">Специалисты</a></li>
-                <li><a href="#how-it-works">Как это работает</a></li>
-                <li><a href="#benefits">Преимущества</a></li>
+                <li><Link href={isHome ? '#specialists' : '/#specialists'}>Специалисты</Link></li>
+                <li><Link href={isHome ? '#how-it-works' : '/#how-it-works'}>Как это работает</Link></li>
+                <li><Link href={isHome ? '#benefits' : '/#benefits'}>Преимущества</Link></li>
               </ul>
             </div>
             <div className="footer-column">
               <h4>Поддержка</h4>
               <ul>
-                <li><a href="#faq">FAQ</a></li>
+                <li><Link href={isHome ? '#faq' : '/#faq'}>FAQ</Link></li>
                 <li>
                   <a href="https://wa.me/996700595393" target="_blank" rel="noopener noreferrer">
                     Написать в WhatsApp
@@ -48,7 +53,7 @@ const Footer = () => (
             <div className="footer-column">
               <h4>Информация</h4>
               <ul>
-                <li><a href="#benefits">О нас</a></li>
+                <li><Link href={isHome ? '#benefits' : '/#benefits'}>О нас</Link></li>
                 <li>
                   <a
                     href="#"
@@ -95,6 +100,7 @@ const Footer = () => (
       </div>
     </div>
   </footer>
-);
+  );
+};
 
 export default Footer;

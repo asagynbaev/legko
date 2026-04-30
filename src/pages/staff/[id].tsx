@@ -429,7 +429,7 @@ export default function StaffProfilePage({ master }: StaffProfilePageProps) {
         <main className="sp-page">
           <div className="container">
             <div className="sp-not-found">
-              <Image src="/images/пушистик грусть.png" alt="" width={180} height={180} unoptimized />
+              <Image src="/images/пушистик грусть.webp" alt="" width={180} height={180} unoptimized />
               <h1>Специалист не найден</h1>
               <p>Возможно, профиль был удалён или ссылка устарела.</p>
               <Link href="/staff" className="btn btn--primary btn--large">
@@ -679,6 +679,34 @@ export default function StaffProfilePage({ master }: StaffProfilePageProps) {
         <meta
           name="description"
           content={`${master.name} — ${STAFF_SPECIALITY_MAP[master.name] || master.speciality}. ${STAFF_EXPERIENCE_YEAR_MAP[master.name] ? `Опыт работы с ${STAFF_EXPERIENCE_YEAR_MAP[master.name]} года` : `Опыт ${master.experience} лет`}. Запишитесь на консультацию на Legko.live`}
+        />
+        <link rel="canonical" href={`https://legko.live/staff/${master.id}`} />
+
+        <meta property="og:type" content="profile" />
+        <meta property="og:title" content={`${master.name} — психолог | Legko`} />
+        <meta property="og:description" content={`${STAFF_SPECIALITY_MAP[master.name] || master.speciality}. Запишитесь на консультацию.`} />
+        <meta property="og:url" content={`https://legko.live/staff/${master.id}`} />
+        {master.photo && <meta property="og:image" content={master.photo} />}
+        <meta property="og:locale" content="ru_RU" />
+
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content={`${master.name} — психолог | Legko`} />
+        <meta name="twitter:description" content={`${STAFF_SPECIALITY_MAP[master.name] || master.speciality}. Запишитесь на консультацию.`} />
+        {master.photo && <meta name="twitter:image" content={master.photo} />}
+
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Person',
+            name: master.name,
+            jobTitle: STAFF_SPECIALITY_MAP[master.name] || master.speciality,
+            image: master.photo || undefined,
+            description: master.aboutMe || undefined,
+            url: `https://legko.live/staff/${master.id}`,
+            worksFor: { '@type': 'Organization', name: 'Legko', url: 'https://legko.live' },
+            ...(master.rating ? { aggregateRating: { '@type': 'AggregateRating', ratingValue: master.rating, bestRating: 5, ratingCount: master.numberOfClients || 1 } } : {}),
+          }).replace(/</g, '\\u003c') }}
         />
       </Head>
       <StaffHeader />
@@ -1037,7 +1065,7 @@ ref={(el) => { sectionRefs.current.lgbt = el; }}
             <section className="sp-cta">
               <div className="sp-cta__inner">
                 <Image
-                  src="/images/пушистик радость.png"
+                  src="/images/пушистик радость.webp"
                   alt=""
                   width={120}
                   height={120}
@@ -1110,7 +1138,10 @@ ref={(el) => { sectionRefs.current.lgbt = el; }}
 export const getServerSideProps: GetServerSideProps<StaffProfilePageProps> = async (context) => {
   const { id } = context.params as { id: string };
   try {
-    const res = await getMasterById(id);
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 10000);
+    const res = await getMasterById(id, controller.signal);
+    clearTimeout(timeout);
     if (res?.code === 200 && res.message) {
       return { props: { master: res.message } };
     }

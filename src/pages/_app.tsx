@@ -1,9 +1,11 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
+import dynamic from 'next/dynamic';
 import '../styles/style.css';
 import { useEffect, useState } from 'react';
-import PrivacyPolicyModal from '../components/PrivacyPolicyModal';
-import TermsOfUseModal from '../components/TermsOfUseModal';
+
+const PrivacyPolicyModal = dynamic(() => import('../components/PrivacyPolicyModal'), { ssr: false });
+const TermsOfUseModal = dynamic(() => import('../components/TermsOfUseModal'), { ssr: false });
 
 const privacyPolicy = (
   <p>
