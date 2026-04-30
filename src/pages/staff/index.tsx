@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import { getStaffByBusinessId, getMasterById, MasterProfile } from '../../api/api';
 import { config } from '@/config/env';
 import Image from 'next/image';
@@ -41,6 +42,7 @@ const StaffPage = () => {
   const { psychologist } = router.query;
   const [staff, setStaff] = useState<Staff[]>([]);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState(false);
   const [visibleCount, setVisibleCount] = useState(INITIAL_VISIBLE);
   const [imageErrors, setImageErrors] = useState<Set<string>>(new Set());
   const [profileModal, setProfileModal] = useState<{
@@ -52,24 +54,40 @@ const StaffPage = () => {
   const specialistRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
 
   useEffect(() => {
-    getStaffByBusinessId().then((res) => {
-      if (res && Array.isArray(res.message)) {
-        const normalize = (s: string) => s.replace(/\s+/g, ' ').trim();
-        const normalized = res.message.map((item: Staff) => ({
-          ...item,
-          name: normalize(item.name),
-        }));
-        const sorted = [...normalized].sort((a, b) => {
-          const idxA = STAFF_SORT_ORDER.indexOf(a.name);
-          const idxB = STAFF_SORT_ORDER.indexOf(b.name);
-          const orderA = idxA >= 0 ? idxA : STAFF_SORT_ORDER.length;
-          const orderB = idxB >= 0 ? idxB : STAFF_SORT_ORDER.length;
-          return orderA - orderB;
-        });
-        setStaff(sorted);
-      }
-      setLoading(false);
-    });
+    const controller = new AbortController();
+    let mounted = true;
+
+    getStaffByBusinessId(controller.signal)
+      .then((res) => {
+        if (!mounted) return;
+        if (res && Array.isArray(res.message)) {
+          const normalize = (s: string) => s.replace(/\s+/g, ' ').trim();
+          const normalized = res.message.map((item: Staff) => ({
+            ...item,
+            name: normalize(item.name),
+          }));
+          const sorted = [...normalized].sort((a, b) => {
+            const idxA = STAFF_SORT_ORDER.indexOf(a.name);
+            const idxB = STAFF_SORT_ORDER.indexOf(b.name);
+            const orderA = idxA >= 0 ? idxA : STAFF_SORT_ORDER.length;
+            const orderB = idxB >= 0 ? idxB : STAFF_SORT_ORDER.length;
+            return orderA - orderB;
+          });
+          setStaff(sorted);
+        }
+        setLoading(false);
+      })
+      .catch((err) => {
+        if (!mounted) return;
+        if (err instanceof DOMException && err.name === 'AbortError') return;
+        setLoadError(true);
+        setLoading(false);
+      });
+
+    return () => {
+      mounted = false;
+      controller.abort();
+    };
   }, []);
 
   const visibleStaff = staff.slice(0, visibleCount);
@@ -92,17 +110,21 @@ const StaffPage = () => {
 
   useEffect(() => {
     if (psychologist && typeof psychologist === 'string' && !loading && staff.length > 0) {
-      const timer = setTimeout(() => {
+      let highlightTimer: ReturnType<typeof setTimeout>;
+      const scrollTimer = setTimeout(() => {
         const element = specialistRefs.current[psychologist];
         if (element) {
           element.scrollIntoView({ behavior: 'smooth', block: 'center' });
           element.classList.add('staff-card--highlighted');
-          setTimeout(() => {
+          highlightTimer = setTimeout(() => {
             element.classList.remove('staff-card--highlighted');
           }, 3000);
         }
       }, 500);
-      return () => clearTimeout(timer);
+      return () => {
+        clearTimeout(scrollTimer);
+        clearTimeout(highlightTimer);
+      };
     }
   }, [psychologist, loading, staff, visibleCount]);
 
@@ -139,8 +161,21 @@ const StaffPage = () => {
         <title>Наши специалисты - Legko</title>
         <meta
           name="description"
-          content="Познакомьтесь с нашими квалифицированными психологами. Найдите подходящего специалиста для решения ваших задач."
+          content="Каталог квалифицированных психологов на платформе Legko. Найдите специалиста, прошедшего строгий отбор, с опытом работы и необходимыми сертификатами. Запишитесь на консультацию онлайн."
         />
+        <link rel="canonical" href="https://legko.live/staff" />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Наши специалисты — Legko" />
+        <meta property="og:description" content="Каталог квалифицированных психологов. Найдите специалиста под ваш запрос и запишитесь на консультацию." />
+        <meta property="og:url" content="https://legko.live/staff" />
+        <meta property="og:image" content="https://legko.live/images/og-staff.png" />
+        <meta property="og:locale" content="ru_RU" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Наши специалисты — Legko" />
+        <meta name="twitter:description" content="Каталог квалифицированных психологов. Найдите специалиста под ваш запрос." />
+        <meta name="twitter:image" content="https://legko.live/images/og-staff.png" />
       </Head>
       <StaffHeader />
 
@@ -245,16 +280,12 @@ const StaffPage = () => {
                       <p className="staff-card__about-truncated">
                         {STAFF_ABOUT_MAP[specialist.name] || specialist.aboutMe}
                       </p>
-                      <a
+                      <Link
                         href={`/staff/${specialist.id}`}
                         className="staff-card__more-link"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          handleOpenProfile(specialist.id);
-                        }}
                       >
                         ещё...
-                      </a>
+                      </Link>
                     </div>
                     <div className="staff-card__actions">
                       <button
@@ -295,7 +326,16 @@ const StaffPage = () => {
               </>
             )}
 
-            {!loading && staff.length === 0 && (
+            {!loading && loadError && (
+              <div className="staff-empty">
+                <div className="staff-empty__icon">
+                  <i className="fas fa-exclamation-triangle"></i>
+                </div>
+                <h3>Не удалось загрузить специалистов</h3>
+                <p>Произошла ошибка при загрузке. Попробуйте обновить страницу.</p>
+              </div>
+            )}
+            {!loading && !loadError && staff.length === 0 && (
               <div className="staff-empty">
                 <div className="staff-empty__icon">
                   <i className="fas fa-user-friends"></i>

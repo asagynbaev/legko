@@ -9,8 +9,9 @@ import {
   UploadSimple, File as FileIcon, Check, ShieldCheck, CaretLeft, CaretRight,
 } from '@phosphor-icons/react';
 
-const MAX_FILE_SIZE_MB = 5;
-const MAX_TOTAL_FILES = 10;
+const MAX_FILE_SIZE_MB = 1;
+const MAX_TOTAL_FILES = 3;
+const MAX_TOTAL_SIZE_MB = 3;
 
 const METHODS = ['КПТ', 'Гештальт', 'EMDR', 'Психоанализ', 'Системная', 'ACT', 'DBT', 'Схема-терапия', 'Экзистенциальная', 'Арт-терапия', 'Телесная', 'Нарративная'];
 const TOPICS = ['Тревога', 'Депрессия', 'Отношения', 'Семья/пары', 'Травма/ПТСР', 'Самооценка', 'Выгорание', 'Подростки', 'Дети', 'ЛГБТК+', 'Зависимости', 'Кризисы'];
@@ -211,8 +212,11 @@ const ForPsychologists = () => {
       });
 
       if (!response.ok) {
-        const result = await response.json();
-        throw new Error(result.error || 'Ошибка отправки');
+        if (response.status === 413) {
+          throw new Error('Файлы слишком большие. Уменьшите размер или количество прикреплённых файлов.');
+        }
+        const result = await response.json().catch(() => null);
+        throw new Error(result?.error || 'Ошибка отправки');
       }
 
       setSubmitted(true);
@@ -235,13 +239,21 @@ const ForPsychologists = () => {
   const addFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
     const incoming = Array.from(e.target.files || []);
     const valid: FileWithPreview[] = [];
-    incoming.forEach((file, i) => {
+    let currentTotalSize = files.reduce((sum, f) => sum + f.file.size, 0);
+
+    for (let i = 0; i < incoming.length; i++) {
+      const file = incoming[i];
       if (file.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
         alert(`Файл "${file.name}" превышает ${MAX_FILE_SIZE_MB} МБ`);
-        return;
+        continue;
       }
+      if (currentTotalSize + file.size > MAX_TOTAL_SIZE_MB * 1024 * 1024) {
+        alert(`Общий размер файлов не должен превышать ${MAX_TOTAL_SIZE_MB} МБ`);
+        break;
+      }
+      currentTotalSize += file.size;
       valid.push({ file, id: `${Date.now()}-${i}` });
-    });
+    }
     setFiles(prev => [...prev, ...valid].slice(0, MAX_TOTAL_FILES));
     if (fileInputRef.current) fileInputRef.current.value = '';
   };
@@ -257,6 +269,17 @@ const ForPsychologists = () => {
         <meta name="description" content="Присоединяйтесь к команде профессиональных психологов Legko. Мы найдем вам клиентов, поможем развить личный бренд и возьмем на себя операционные задачи." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
+        <link rel="canonical" href="https://legko.live/forpsychologists" />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Для психологов — Legko" />
+        <meta property="og:description" content="Присоединяйтесь к команде Legko. Мы найдем вам клиентов и поможем развить личный бренд." />
+        <meta property="og:url" content="https://legko.live/forpsychologists" />
+        <meta property="og:locale" content="ru_RU" />
+
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content="Для психологов — Legko" />
+        <meta name="twitter:description" content="Присоединяйтесь к команде Legko. Мы найдем вам клиентов и поможем развить личный бренд." />
       </Head>
       <Header />
 
@@ -568,7 +591,7 @@ const ForPsychologists = () => {
                         onChange={v => update({ ethics: v })}
                       />
                     </Field>
-                    <Field full label="Документы: дипломы, сертификаты, лицензии" hint="До 10 файлов, макс. 5 МБ каждый · PDF, JPG, PNG">
+                    <Field full label="Документы: дипломы, сертификаты, лицензии" hint="До 3 файлов, макс. 1 МБ каждый (всего до 3 МБ) · PDF, JPG, PNG">
                       <label className="fp-upload" htmlFor="fp-files">
                         <div className="fp-up-icon"><UploadSimple size={20} /></div>
                         <div className="fp-up-title">Перетащите файлы или нажмите, чтобы выбрать</div>

@@ -28,10 +28,14 @@ const Specialists = () => {
   const carouselRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const controller = new AbortController();
+    let mounted = true;
+
     setLoading(true);
     setError(null);
-    getStaffByBusinessId()
+    getStaffByBusinessId(controller.signal)
       .then((res) => {
+        if (!mounted) return;
         if (res && Array.isArray(res.message)) {
           const normalize = (s: string) => s.replace(/\s+/g, ' ').trim();
           const normalized = res.message.map((item: StaffItem) => ({
@@ -51,19 +55,27 @@ const Specialists = () => {
         }
       })
       .catch((err) => {
+        if (!mounted) return;
+        if (err instanceof DOMException && err.name === 'AbortError') return;
         console.error('Error loading staff:', err);
         setError('Произошла ошибка при загрузке специалистов');
         setStaff([]);
       })
       .finally(() => {
-        setLoading(false);
+        if (mounted) setLoading(false);
       });
+
+    return () => {
+      mounted = false;
+      controller.abort();
+    };
   }, []);
 
   const scrollCarousel = (dir: 'prev' | 'next') => {
     const el = carouselRef.current;
     if (!el) return;
-    const cardWidth = 340 + 24;
+    const firstCard = el.querySelector<HTMLElement>('.specialist-card-alter');
+    const cardWidth = firstCard ? firstCard.offsetWidth + 24 : el.clientWidth * 0.85;
     el.scrollBy({ left: dir === 'prev' ? -cardWidth : cardWidth, behavior: 'smooth' });
   };
 
@@ -134,7 +146,7 @@ const Specialists = () => {
                       <SpecialistCard
                         key={item.id}
                         id={item.id}
-                        avatar={item.photo || '/images/пушистик обьятия.png'}
+                        avatar={item.photo || '/images/пушистик обьятия.webp'}
                         name={item.name}
                         title={STAFF_SPECIALITY_MAP[item.name] || item.speciality}
                         rating={item.rating ?? 5}
@@ -147,9 +159,9 @@ const Specialists = () => {
                       />
                     ))
                   : [
-                      { name: 'Айдана Мадишова', title: 'Психолог', avatar: '/images/пушистик обьятия.png' },
-                      { name: 'Алина Сасаза', title: 'Психолог', avatar: '/images/пушистик самолюбование.png' },
-                      { name: 'Мария Иванова', title: 'Психолог-консультант', avatar: '/images/пушистик нежность.png' },
+                      { name: 'Айдана Мадишова', title: 'Психолог', avatar: '/images/пушистик обьятия.webp' },
+                      { name: 'Алина Сасаза', title: 'Психолог', avatar: '/images/пушистик самолюбование.webp' },
+                      { name: 'Мария Иванова', title: 'Психолог-консультант', avatar: '/images/пушистик нежность.webp' },
                     ].map((item, idx) => (
                       <SpecialistCard
                         key={idx}

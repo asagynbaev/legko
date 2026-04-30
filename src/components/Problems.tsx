@@ -27,7 +27,7 @@ const Problems = () => (
 
         <div className="problem-card">
           <div className="problem-card__icon">
-            <Image src="/images/пушистик снеснение.png" alt="" width={48} height={48} className="mascot-icon" loading="lazy" />
+            <Image src="/images/пушистик снеснение.webp" alt="" width={48} height={48} className="mascot-icon" loading="lazy" />
           </div>
           <div className="problem-card__quote">&laquo;У меня нет сил и энергии&raquo;</div>
           <div className="problem-card__description">
@@ -42,7 +42,7 @@ const Problems = () => (
 
         <div className="problem-card">
           <div className="problem-card__icon">
-            <Image src="/images/пушистик удивление.png" alt="" width={48} height={48} className="mascot-icon" loading="lazy" />
+            <Image src="/images/пушистик удивление.webp" alt="" width={48} height={48} className="mascot-icon" loading="lazy" />
           </div>
           <div className="problem-card__quote">&laquo;Сложности в отношениях&raquo;</div>
           <div className="problem-card__description">
@@ -57,7 +57,7 @@ const Problems = () => (
 
         <div className="problem-card">
           <div className="problem-card__icon">
-            <Image src="/images/пушистик самолюбование.png" alt="" width={48} height={48} className="mascot-icon" loading="lazy" />
+            <Image src="/images/пушистик самолюбование.webp" alt="" width={48} height={48} className="mascot-icon" loading="lazy" />
           </div>
           <div className="problem-card__quote">&laquo;Хочу разобраться в себе&raquo;</div>
           <div className="problem-card__description">
@@ -79,19 +79,19 @@ const Problems = () => (
             <h4 className="category-title">Эмоциональное состояние</h4>
             <div className="category-items">
               <div className="category-item">
-                <Image src="/images/пушистик грусть.png" alt="" width={32} height={32} className="category-icon" loading="lazy" />
+                <Image src="/images/пушистик грусть.webp" alt="" width={32} height={32} className="category-icon" loading="lazy" />
                 <span>Тревога и беспокойство</span>
               </div>
               <div className="category-item">
-                <Image src="/images/пушистик снеснение.png" alt="" width={32} height={32} className="category-icon" loading="lazy" />
+                <Image src="/images/пушистик снеснение.webp" alt="" width={32} height={32} className="category-icon" loading="lazy" />
                 <span>Депрессия</span>
               </div>
               <div className="category-item">
-                <Image src="/images/пушистик радость.png" alt="" width={32} height={32} className="category-icon" loading="lazy" />
+                <Image src="/images/пушистик радость.webp" alt="" width={32} height={32} className="category-icon" loading="lazy" />
                 <span>Эмоциональное выгорание</span>
               </div>
               <div className="category-item">
-                <Image src="/images/пушистик расслабление.png" alt="" width={32} height={32} className="category-icon" loading="lazy" />
+                <Image src="/images/пушистик расслабление.webp" alt="" width={32} height={32} className="category-icon" loading="lazy" />
                 <span>Панические атаки</span>
               </div>
             </div>
@@ -101,19 +101,19 @@ const Problems = () => (
             <h4 className="category-title">Отношения</h4>
             <div className="category-items">
               <div className="category-item">
-                <Image src="/images/пушистик влюбленность.png" alt="" width={32} height={32} className="category-icon" loading="lazy" />
+                <Image src="/images/пушистик влюбленность.webp" alt="" width={32} height={32} className="category-icon" loading="lazy" />
                 <span>Построить отношения</span>
               </div>
               <div className="category-item">
-                <Image src="/images/пушистик обьятия.png" alt="" width={32} height={32} className="category-icon" loading="lazy" />
+                <Image src="/images/пушистик обьятия.webp" alt="" width={32} height={32} className="category-icon" loading="lazy" />
                 <span>Наладить отношения с семьей</span>
               </div>
               <div className="category-item">
-                <Image src="/images/пушистик удивление.png" alt="" width={32} height={32} className="category-icon" loading="lazy" />
+                <Image src="/images/пушистик удивление.webp" alt="" width={32} height={32} className="category-icon" loading="lazy" />
                 <span>Переживание развода</span>
               </div>
               <div className="category-item">
-                <Image src="/images/пушистик грусть.png" alt="" width={32} height={32} className="category-icon" loading="lazy" />
+                <Image src="/images/пушистик грусть.webp" alt="" width={32} height={32} className="category-icon" loading="lazy" />
                 <span>Обида на родителей</span>
               </div>
             </div>
@@ -123,19 +123,19 @@ const Problems = () => (
             <h4 className="category-title">Личностный рост</h4>
             <div className="category-items">
               <div className="category-item">
-                <Image src="/images/пушистик самолюбование.png" alt="" width={32} height={32} className="category-icon" loading="lazy" />
+                <Image src="/images/пушистик самолюбование.webp" alt="" width={32} height={32} className="category-icon" loading="lazy" />
                 <span>Проблемы с самооценкой</span>
               </div>
               <div className="category-item">
-                <Image src="/images/пушистик нежность.png" alt="" width={32} height={32} className="category-icon" loading="lazy" />
+                <Image src="/images/пушистик нежность.webp" alt="" width={32} height={32} className="category-icon" loading="lazy" />
                 <span>Найти себя и любимое дело</span>
               </div>
               <div className="category-item">
-                <Image src="/images/пушистик радость.png" alt="" width={32} height={32} className="category-icon" loading="lazy" />
+                <Image src="/images/пушистик радость.webp" alt="" width={32} height={32} className="category-icon" loading="lazy" />
                 <span>Раскрыть свой потенциал</span>
               </div>
               <div className="category-item">
-                <Image src="/images/пушистик снеснение.png" alt="" width={32} height={32} className="category-icon" loading="lazy" />
+                <Image src="/images/пушистик снеснение.webp" alt="" width={32} height={32} className="category-icon" loading="lazy" />
                 <span>Профессиональное выгорание</span>
               </div>
             </div>

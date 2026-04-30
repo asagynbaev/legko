@@ -1,13 +1,13 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 import { signalRService } from '../api/signalRService';
-import { 
-  startMatching, 
-  sendMessage, 
+import {
+  startMatching,
+  sendMessage,
   createBooking,
   type MessageHistoryItem,
   type PsychologistSuggestion,
@@ -37,8 +37,19 @@ const Hero = () => {
   const isInitialized = useRef(false);
   const isInitializing = useRef(false);
   const isUsingSignalR = useRef(false);
+  const mountedRef = useRef(true);
+  const timersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
+  const abortControllerRef = useRef<AbortController | null>(null);
+
+  const safeTimeout = useCallback((fn: () => void, ms: number) => {
+    const id = setTimeout(fn, ms);
+    timersRef.current.push(id);
+    return id;
+  }, []);
 
   useEffect(() => {
+    mountedRef.current = true;
+
     if (isInitialized.current || isInitializing.current) {
       return;
     }
@@ -49,8 +60,21 @@ const Hero = () => {
     });
 
     return () => {
+      mountedRef.current = false;
       isInitialized.current = false;
+
+      // Очистка всех таймеров
+      timersRef.current.forEach(clearTimeout);
+      timersRef.current = [];
+
+      // Отмена pending запросов
+      abortControllerRef.current?.abort();
+
+      // Отписка от SignalR
       if (isUsingSignalR.current) {
+        signalRService.offMessageChunk(handleMessageChunkRef.current);
+        signalRService.offMessageComplete(handleMessageCompleteRef.current);
+        signalRService.offError(handleErrorRef.current);
         signalRService.disconnect();
         isUsingSignalR.current = false;
       }
@@ -58,23 +82,36 @@ const Hero = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Стабильные ссылки на хендлеры для корректной отписки
+  const handleMessageChunkRef = useRef<(data: { chunk: string }) => void>(() => {});
+  const handleMessageCompleteRef = useRef<(data: {
+    message: string;
+    sessionId: string;
+    psychologistSuggestions?: PsychologistSuggestion[];
+    bookingSuggestion?: BookingSuggestion;
+  }) => void>(() => {});
+  const handleErrorRef = useRef<(error: { message: string }) => void>(() => {});
+
   const setupSignalRListeners = () => {
     const handleMessageChunk = (data: { chunk: string }) => {
-      if (!currentStreamingMessageId && messages.length === 0) {
-        const welcomeMessageId = `welcome-streaming-${Date.now()}`;
-        setCurrentStreamingMessageId(welcomeMessageId);
-        setCurrentStreamingMessage(data.chunk);
-        
-        const welcomeMessage: Message = {
-          id: welcomeMessageId,
-          text: '',
-          sender: 'assistant',
-        };
-        setMessages([welcomeMessage]);
-      } else {
-        setCurrentStreamingMessage(prev => prev + data.chunk);
-      }
-      
+      if (!mountedRef.current) return;
+
+      setCurrentStreamingMessageId(prev => {
+        if (!prev) {
+          const welcomeMessageId = `welcome-streaming-${Date.now()}`;
+          setCurrentStreamingMessage(data.chunk);
+          setMessages(msgs => {
+            if (msgs.length === 0) {
+              return [{ id: welcomeMessageId, text: '', sender: 'assistant' }];
+            }
+            return msgs;
+          });
+          return welcomeMessageId;
+        }
+        setCurrentStreamingMessage(p => p + data.chunk);
+        return prev;
+      });
+
       requestAnimationFrame(() => {
         if (messagesContainerRef.current) {
           messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
@@ -88,26 +125,29 @@ const Hero = () => {
       psychologistSuggestions?: PsychologistSuggestion[];
       bookingSuggestion?: BookingSuggestion;
     }) => {
+      if (!mountedRef.current) return;
       setIsLoading(false);
-      
-      const assistantMessage: Message = {
-        id: currentStreamingMessageId || `assistant-${Date.now()}`,
-        text: data.message,
-        sender: 'assistant',
-        psychologistSuggestions: data.psychologistSuggestions,
-        bookingSuggestion: data.bookingSuggestion,
-      };
 
-      setMessages((prev) => {
-        const filtered = prev.filter(msg => msg.id !== currentStreamingMessageId);
-        return [...filtered, assistantMessage];
+      setCurrentStreamingMessageId(prevStreamingId => {
+        const assistantMessage: Message = {
+          id: prevStreamingId || `assistant-${Date.now()}`,
+          text: data.message,
+          sender: 'assistant',
+          psychologistSuggestions: data.psychologistSuggestions,
+          bookingSuggestion: data.bookingSuggestion,
+        };
+
+        setMessages((prev) => {
+          const filtered = prev.filter(msg => msg.id !== prevStreamingId);
+          return [...filtered, assistantMessage];
+        });
+        return null;
       });
 
       setCurrentStreamingMessage('');
-      setCurrentStreamingMessageId(null);
       setSessionId(data.sessionId);
 
-      if (data.bookingSuggestion && 
+      if (data.bookingSuggestion &&
           data.bookingSuggestion.masterId &&
           data.bookingSuggestion.serviceIds &&
           data.bookingSuggestion.suggestedDate &&
@@ -117,33 +157,39 @@ const Hero = () => {
         handleCreateBooking(data.bookingSuggestion);
       }
 
-      setTimeout(() => {
+      safeTimeout(() => {
         inputRef.current?.focus();
       }, 100);
     };
 
     const handleError = (error: { message: string }) => {
+      if (!mountedRef.current) return;
       setIsLoading(false);
       setCurrentStreamingMessage('');
       setError(error.message);
-      
-      const errorMessage: Message = {
-        id: `error-${Date.now()}`,
-        text: `Извините, произошла ошибка: ${error.message}`,
-        sender: 'assistant',
-      };
-      
-      setMessages((prev) => {
-        const filtered = prev.filter(msg => msg.id !== currentStreamingMessageId);
-        return [...filtered, errorMessage];
+
+      setCurrentStreamingMessageId(prevStreamingId => {
+        const errorMessage: Message = {
+          id: `error-${Date.now()}`,
+          text: `Извините, произошла ошибка: ${error.message}`,
+          sender: 'assistant',
+        };
+        setMessages((prev) => {
+          const filtered = prev.filter(msg => msg.id !== prevStreamingId);
+          return [...filtered, errorMessage];
+        });
+        return null;
       });
-      
-      setCurrentStreamingMessageId(null);
-      
-      setTimeout(() => {
+
+      safeTimeout(() => {
         inputRef.current?.focus();
       }, 100);
     };
+
+    // Сохраняем ссылки для отписки в cleanup
+    handleMessageChunkRef.current = handleMessageChunk;
+    handleMessageCompleteRef.current = handleMessageComplete;
+    handleErrorRef.current = handleError;
 
     signalRService.onMessageChunk(handleMessageChunk);
     signalRService.onMessageComplete(handleMessageComplete);
@@ -161,6 +207,9 @@ const Hero = () => {
   }, [messages, isLoading, currentStreamingMessage]);
 
   const initializeSession = async () => {
+    const controller = new AbortController();
+    abortControllerRef.current = controller;
+
     try {
       setIsLoading(true);
 
@@ -178,12 +227,13 @@ const Hero = () => {
         if (process.env.NODE_ENV === 'development' && !useRestOnly) {
           console.info('Используем REST API (SignalR недоступен или отключён)');
         }
-        
-        const response = await startMatching();
-        
+
+        const response = await startMatching(undefined, controller.signal);
+        if (!mountedRef.current) return;
+
         if (response.code === 200 && response.message) {
           setSessionId(response.message.sessionId);
-          
+
           const welcomeMessage: Message = {
             id: `welcome-${Date.now()}`,
             text: response.message.message,
@@ -193,9 +243,12 @@ const Hero = () => {
         }
       }
     } catch (err) {
+      if (!mountedRef.current) return;
+      if (err instanceof DOMException && err.name === 'AbortError') return;
+
       console.error('Failed to initialize session:', err);
       setError('Не удалось подключиться к серверу. Пожалуйста, попробуйте позже.');
-      
+
       const fallbackMessage: Message = {
         id: `fallback-${Date.now()}`,
         text: 'Привет! Я помогу тебе подобрать подходящего психолога. Расскажи, с какой ситуацией или проблемой ты хочешь обратиться?',
@@ -203,8 +256,10 @@ const Hero = () => {
       };
       setMessages([fallbackMessage]);
     } finally {
-      setIsLoading(false);
-      inputRef.current?.focus();
+      if (mountedRef.current) {
+        setIsLoading(false);
+        inputRef.current?.focus();
+      }
     }
   };
 
@@ -230,7 +285,7 @@ const Hero = () => {
     const validationError = validateInput(inputText);
     if (validationError) {
       setError(validationError);
-      setTimeout(() => setError(null), 3000);
+      safeTimeout(() => setError(null), 3000);
       return;
     }
 
@@ -245,15 +300,15 @@ const Hero = () => {
     const messageText = inputText.trim();
     setInputText('');
     setIsLoading(true);
-    
-    setTimeout(() => {
+
+    safeTimeout(() => {
       inputRef.current?.focus();
     }, 0);
 
     const streamingMessageId = `streaming-${Date.now()}`;
     setCurrentStreamingMessageId(streamingMessageId);
     setCurrentStreamingMessage('');
-    
+
     const streamingMessage: Message = {
       id: streamingMessageId,
       text: '',
@@ -261,19 +316,23 @@ const Hero = () => {
     };
     setMessages((prev) => [...prev, streamingMessage]);
 
+    const controller = new AbortController();
+    abortControllerRef.current = controller;
+
     try {
       if (isUsingSignalR.current && signalRService.isConnected()) {
         const messageHistory = getMessageHistory();
         await signalRService.sendMessage(messageText, messageHistory);
       } else {
         const messageHistory = getMessageHistory();
-        const response = await sendMessage(messageText, sessionId || undefined, undefined, messageHistory);
-        
+        const response = await sendMessage(messageText, sessionId || undefined, undefined, messageHistory, controller.signal);
+        if (!mountedRef.current) return;
+
         if (response.code === 200 && response.message) {
           setMessages((prev) => prev.filter(msg => msg.id !== streamingMessageId));
           setCurrentStreamingMessageId(null);
           setCurrentStreamingMessage('');
-          
+
           const assistantMessage: Message = {
             id: `assistant-${Date.now()}`,
             text: response.message.message,
@@ -287,12 +346,12 @@ const Hero = () => {
           }
 
           setMessages((prev) => [...prev, assistantMessage]);
-          
-          setTimeout(() => {
+
+          safeTimeout(() => {
             inputRef.current?.focus();
           }, 100);
 
-          if (response.message.bookingSuggestion && 
+          if (response.message.bookingSuggestion &&
               response.message.bookingSuggestion.masterId &&
               response.message.bookingSuggestion.serviceIds &&
               response.message.bookingSuggestion.suggestedDate &&
@@ -301,19 +360,22 @@ const Hero = () => {
               response.message.bookingSuggestion.clientPhone) {
             await handleCreateBooking(response.message.bookingSuggestion);
           }
-          
+
           setIsLoading(false);
         }
       }
     } catch (err: unknown) {
+      if (!mountedRef.current) return;
+      if (err instanceof DOMException && err.name === 'AbortError') return;
+
       console.error('Failed to send message:', err);
       const errorText = err instanceof Error ? err.message : 'Не удалось отправить сообщение. Пожалуйста, попробуйте еще раз.';
       setError(errorText);
-      
+
       setMessages((prev) => prev.filter(msg => msg.id !== streamingMessageId));
       setCurrentStreamingMessageId(null);
       setCurrentStreamingMessage('');
-      
+
       const errorMessage: Message = {
         id: `error-${Date.now()}`,
         text: `Извините, произошла ошибка: ${errorText}`,
@@ -321,8 +383,8 @@ const Hero = () => {
       };
       setMessages((prev) => [...prev, errorMessage]);
       setIsLoading(false);
-      
-      setTimeout(() => {
+
+      safeTimeout(() => {
         inputRef.current?.focus();
       }, 100);
     }
@@ -417,7 +479,7 @@ const Hero = () => {
             </div>
           </div>
 
-          <div className="hero__chat-messages" ref={messagesContainerRef}>
+          <div className="hero__chat-messages" ref={messagesContainerRef} role="log" aria-live="polite" aria-label="Сообщения чата">
             {messages.map((message) => {
               const isSuccess = message.text.includes('\u2705');
               const isError = message.text.includes('\u274C');
@@ -557,7 +619,7 @@ const Hero = () => {
         <div className="hero__visual">
           <div className="hero__mascot-wrapper">
             <Image 
-              src="/images/пушистик радость.png" 
+              src="/images/пушистик радость.webp" 
               alt="Элли" 
               width={525} 
               height={525} 
