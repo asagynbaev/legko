@@ -88,6 +88,16 @@ const StaffHeader = () => {
             </li>
           </ul>
           <div className="nav__mobile-actions">
+            <button
+              type="button"
+              className="btn btn--primary"
+              onClick={() => {
+                closeMobileMenu();
+                window.dispatchEvent(new Event('openChatModal'));
+              }}
+            >
+              Подобрать психолога
+            </button>
             <Link href="/" className="btn btn--secondary" onClick={closeMobileMenu}>
               <i className="fas fa-arrow-left"></i>
               На главную
@@ -96,6 +106,13 @@ const StaffHeader = () => {
         </div>
 
         <div className="nav__actions">
+          <button
+            type="button"
+            className="btn btn--primary"
+            onClick={() => window.dispatchEvent(new Event('openChatModal'))}
+          >
+            Подобрать психолога
+          </button>
           <Link href="/" className="btn btn--secondary">
             <i className="fas fa-arrow-left"></i>
             На главную

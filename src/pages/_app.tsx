@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 
 const PrivacyPolicyModal = dynamic(() => import('../components/PrivacyPolicyModal'), { ssr: false });
 const TermsOfUseModal = dynamic(() => import('../components/TermsOfUseModal'), { ssr: false });
+const ChatModal = dynamic(() => import('../components/ChatModal'), { ssr: false });
 
 const privacyPolicy = (
   <p>
@@ -114,15 +115,19 @@ const termsOfUse = (
 export default function App({ Component, pageProps }: AppProps) {
   const [showPrivacyModal, setShowPrivacyModal] = useState(false);
   const [showTermsModal, setShowTermsModal] = useState(false);
+  const [showChatModal, setShowChatModal] = useState(false);
 
   useEffect(() => {
     const openPrivacy = () => setShowPrivacyModal(true);
     const openTerms = () => setShowTermsModal(true);
+    const openChat = () => setShowChatModal(true);
     window.addEventListener('openPrivacyPolicyModal', openPrivacy);
     window.addEventListener('openTermsOfUseModal', openTerms);
+    window.addEventListener('openChatModal', openChat);
     return () => {
       window.removeEventListener('openPrivacyPolicyModal', openPrivacy);
       window.removeEventListener('openTermsOfUseModal', openTerms);
+      window.removeEventListener('openChatModal', openChat);
     };
   }, []);
 
@@ -158,6 +163,10 @@ export default function App({ Component, pageProps }: AppProps) {
         open={showTermsModal}
         onClose={() => setShowTermsModal(false)}
         termsText={termsOfUse}
+      />
+      <ChatModal
+        open={showChatModal}
+        onClose={() => setShowChatModal(false)}
       />
     </>
   );

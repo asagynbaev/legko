@@ -137,19 +137,26 @@ const Header = () => {
                         </li>
                     </ul>
                     <div className="nav__mobile-actions">
-                        <Link
-                            href="/staff"
+                        <button
+                            type="button"
                             className="btn btn--primary"
-                            onClick={closeMobileMenu}
+                            onClick={() => {
+                                closeMobileMenu();
+                                window.dispatchEvent(new Event('openChatModal'));
+                            }}
                         >
                             Подобрать психолога
-                        </Link>
+                        </button>
                     </div>
                 </div>
                 <div className="nav__actions">
-                    <Link href="/staff" className="btn btn--primary">
+                    <button
+                        type="button"
+                        className="btn btn--primary"
+                        onClick={() => window.dispatchEvent(new Event('openChatModal'))}
+                    >
                         Подобрать психолога
-                    </Link>
+                    </button>
                 </div>
                 <button
                     ref={toggleRef}
