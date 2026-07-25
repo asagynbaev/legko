@@ -989,6 +989,30 @@ img {
   font-weight: 500;
 }
 
+.hero__social {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  padding: 0 0 48px;
+}
+
+.hero__social a {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--text-muted);
+  transition: color var(--transition-base);
+}
+
+.hero__social a:hover {
+  color: var(--primary);
+}
+
+.hero__social i {
+  font-size: 18px;
+}
+
 /* Gradient orb decoration */
 .modern-gradient {
   display: none; /* removed for cleaner look */

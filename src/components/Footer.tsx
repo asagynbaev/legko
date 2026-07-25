@@ -94,6 +94,10 @@ const Footer = () => {
               <i className="fab fa-whatsapp"></i>
               <span>WhatsApp</span>
             </a>
+            <a href="https://www.instagram.com/legko.psychology" title="Мы в Instagram" target="_blank" rel="noopener noreferrer">
+              <i className="fab fa-instagram"></i>
+              <span>Instagram</span>
+            </a>
           </div>
           <p>&copy; 2026 Legko. Все права защищены.</p>
         </div>

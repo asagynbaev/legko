@@ -664,6 +664,14 @@ const Hero = () => {
           <div className="hero__stat-label">за сессию</div>
         </div>
       </div>
+
+      {/* Social */}
+      <div className="hero__social container">
+        <a href="https://www.instagram.com/legko.psychology" title="Мы в Instagram" target="_blank" rel="noopener noreferrer">
+          <i className="fab fa-instagram"></i>
+          <span>Instagram</span>
+        </a>
+      </div>
     </section>
   );
 };
