@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
+import ChatQuestionnaire from './ChatQuestionnaire';
 import { signalRService } from '../api/signalRService';
 import {
   startMatching,
@@ -31,6 +32,7 @@ const Hero = () => {
   const [error, setError] = useState<string | null>(null);
   const [currentStreamingMessage, setCurrentStreamingMessage] = useState<string>('');
   const [currentStreamingMessageId, setCurrentStreamingMessageId] = useState<string | null>(null);
+  const [formOpen, setFormOpen] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -464,7 +466,11 @@ const Hero = () => {
 
       <div className="hero__container container">
         {/* Left - AI Chat */}
-        <div className="hero__chat">
+        <div className={`hero__chat ${formOpen ? 'hero__chat--form' : ''}`}>
+          {formOpen ? (
+            <ChatQuestionnaire onBack={() => setFormOpen(false)} />
+          ) : (
+          <>
           <div className="hero__chat-header">
             <div className="chat-header__info">
               <div className="chat-header__avatar" aria-hidden="true">
@@ -612,7 +618,24 @@ const Hero = () => {
                 <i className="fas fa-paper-plane" aria-hidden="true"></i>
               </button>
             </div>
+            <div className="hero__chat-alt">
+              <span className="hero__chat-alt-divider">или</span>
+            </div>
+            <button type="button" className="hero__chat-cta" onClick={() => setFormOpen(true)}>
+              <span className="hero__chat-cta-icon">
+                <i className="fas fa-clipboard-list" aria-hidden="true"></i>
+              </span>
+              <span className="hero__chat-cta-text">
+                <span className="hero__chat-cta-title">Заполнить короткую анкету</span>
+                <span className="hero__chat-cta-sub">≈2 минуты · подберём психолога под ваш запрос</span>
+              </span>
+              <span className="hero__chat-cta-arrow" aria-hidden="true">
+                <i className="fas fa-arrow-right"></i>
+              </span>
+            </button>
           </div>
+          </>
+          )}
         </div>
 
         {/* Right - Visual */}
