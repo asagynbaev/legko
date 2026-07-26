@@ -12,6 +12,8 @@ import {
 import { config } from '../../config/env';
 import StaffHeader from '../../components/StaffHeader';
 import Footer from '../../components/Footer';
+import CertificatesGallery from '../../components/CertificatesGallery';
+import { getCertificates } from '../../data/certificates';
 import {
   Mail,
   Tag,
@@ -384,6 +386,7 @@ const STAFF_LGBT_FRIENDLY_NAMES = new Set<string>([
 
 export default function StaffProfilePage({ master }: StaffProfilePageProps) {
   const [activeSection, setActiveSection] = useState('about');
+  const [galleryOpen, setGalleryOpen] = useState(false);
   const sectionRefs = useRef<Record<string, HTMLElement | null>>({});
 
   useEffect(() => {
@@ -485,6 +488,10 @@ export default function StaffProfilePage({ master }: StaffProfilePageProps) {
   const eduItems = timelineItems.filter((t) => t.type === 'edu').sort((a, b) => b.sortYear - a.sortYear);
   const certItems = timelineItems.filter((t) => t.type === 'cert').sort((a, b) => b.sortYear - a.sortYear);
   const timeline = [...eduItems, ...certItems];
+
+  // Документы (дипломы/сертификаты), захостенные на сайте
+  const certDocs = getCertificates(master.name);
+  const certCount = certDocs.length || certItems.length;
   const cityName = master.address?.addressLine?.split(',')[0]?.trim() || 'Бишкек';
   const whatsappUrl = 'https://wa.me/996700595393';
   const bookingUrl = `${config.bookingBaseUrl}/master/${master.id}`;
@@ -803,13 +810,35 @@ export default function StaffProfilePage({ master }: StaffProfilePageProps) {
                     <span className="sp-trust-bar__label">образование</span>
                   </div>
                 </div>
-                <div className="sp-trust-bar__item">
-                  <div className="sp-trust-bar__icon"><i className="fas fa-certificate" aria-hidden /></div>
-                  <div>
-                    <span className="sp-trust-bar__value">{certItems.length} сертификат{certItems.length === 1 ? '' : certItems.length < 5 ? 'а' : 'ов'}</span>
-                    <span className="sp-trust-bar__label">подтверждено</span>
+                {certDocs.length > 0 ? (
+                  <div
+                    role="button"
+                    tabIndex={0}
+                    className="sp-trust-bar__item sp-trust-bar__item--clickable"
+                    onClick={() => setGalleryOpen(true)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        setGalleryOpen(true);
+                      }
+                    }}
+                    aria-label={`Посмотреть документы: ${certCount} сертификат${certCount === 1 ? '' : certCount < 5 ? 'а' : 'ов'}`}
+                  >
+                    <div className="sp-trust-bar__icon"><i className="fas fa-certificate" aria-hidden /></div>
+                    <div>
+                      <span className="sp-trust-bar__value">{certCount} сертификат{certCount === 1 ? '' : certCount < 5 ? 'а' : 'ов'}</span>
+                      <span className="sp-trust-bar__label">подтверждено · смотреть</span>
+                    </div>
                   </div>
-                </div>
+                ) : (
+                  <div className="sp-trust-bar__item">
+                    <div className="sp-trust-bar__icon"><i className="fas fa-certificate" aria-hidden /></div>
+                    <div>
+                      <span className="sp-trust-bar__value">{certCount} сертификат{certCount === 1 ? '' : certCount < 5 ? 'а' : 'ов'}</span>
+                      <span className="sp-trust-bar__label">подтверждено</span>
+                    </div>
+                  </div>
+                )}
                 <div className="sp-trust-bar__item">
                   <div className="sp-trust-bar__icon"><i className="fas fa-calendar-check" aria-hidden /></div>
                   <div>
@@ -1131,6 +1160,14 @@ ref={(el) => { sectionRefs.current.lgbt = el; }}
       </div>
 
       <Footer />
+
+      {galleryOpen && (
+        <CertificatesGallery
+          images={certDocs}
+          title={`Документы · ${master.name}`}
+          onClose={() => setGalleryOpen(false)}
+        />
+      )}
     </>
   );
 }

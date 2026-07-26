@@ -46,3 +46,6 @@ screen/
 
 # E2E tests (local only)
 e2e-tests/
+
+# Оригиналы документов психологов (staging), в git не нужны — коммитим только public/certificates
+certificates-raw/
