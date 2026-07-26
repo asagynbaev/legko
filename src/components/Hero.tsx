@@ -293,14 +293,17 @@ const Hero = () => {
     }
 
     setError(null);
+    const messageText = inputText.trim();
+    // История прошлых сообщений — до добавления текущего. Бэкенд сам добавит текущее (request.Message).
+    const messageHistory = getMessageHistory();
+
     const userMessage: Message = {
       id: `user-${Date.now()}`,
-      text: inputText.trim(),
+      text: messageText,
       sender: 'user',
     };
 
     setMessages((prev) => [...prev, userMessage]);
-    const messageText = inputText.trim();
     setInputText('');
     setIsLoading(true);
 
@@ -308,34 +311,27 @@ const Hero = () => {
       inputRef.current?.focus();
     }, 0);
 
-    const streamingMessageId = `streaming-${Date.now()}`;
-    setCurrentStreamingMessageId(streamingMessageId);
-    setCurrentStreamingMessage('');
-
-    const streamingMessage: Message = {
-      id: streamingMessageId,
-      text: '',
-      sender: 'assistant',
-    };
-    setMessages((prev) => [...prev, streamingMessage]);
+    // Плейсхолдер стриминга нужен ТОЛЬКО в SignalR-режиме (туда приходят чанки).
+    // В REST-режиме ответ приходит целиком, а пустой плейсхолдер-«пузырь» глушил бы
+    // индикатор «печатает…» (три точки, показывается при !currentStreamingMessageId).
+    let streamingMessageId: string | null = null;
 
     const controller = new AbortController();
     abortControllerRef.current = controller;
 
     try {
       if (isUsingSignalR.current && signalRService.isConnected()) {
-        const messageHistory = getMessageHistory();
+        streamingMessageId = `streaming-${Date.now()}`;
+        setCurrentStreamingMessageId(streamingMessageId);
+        setCurrentStreamingMessage('');
+        setMessages((prev) => [...prev, { id: streamingMessageId as string, text: '', sender: 'assistant' }]);
         await signalRService.sendMessage(messageText, messageHistory);
+        // Ответ и снятие isLoading происходят в handleMessageComplete.
       } else {
-        const messageHistory = getMessageHistory();
         const response = await sendMessage(messageText, sessionId || undefined, undefined, messageHistory, controller.signal);
         if (!mountedRef.current) return;
 
         if (response.code === 200 && response.message) {
-          setMessages((prev) => prev.filter(msg => msg.id !== streamingMessageId));
-          setCurrentStreamingMessageId(null);
-          setCurrentStreamingMessage('');
-
           const assistantMessage: Message = {
             id: `assistant-${Date.now()}`,
             text: response.message.message,
@@ -354,16 +350,16 @@ const Hero = () => {
             inputRef.current?.focus();
           }, 100);
 
-          if (response.message.bookingSuggestion &&
-              response.message.bookingSuggestion.masterId &&
-              response.message.bookingSuggestion.serviceIds &&
-              response.message.bookingSuggestion.suggestedDate &&
-              response.message.bookingSuggestion.suggestedTime &&
-              response.message.bookingSuggestion.clientName &&
-              response.message.bookingSuggestion.clientPhone) {
-            await handleCreateBooking(response.message.bookingSuggestion);
+          const bs = response.message.bookingSuggestion;
+          if (bs && bs.masterId && bs.serviceIds && bs.suggestedDate &&
+              bs.suggestedTime && bs.clientName && bs.clientPhone) {
+            // Автопродолжение: как только у ассистента есть все данные — сразу оформляем запись,
+            // не дожидаясь, пока пользователь переспросит «ну и?».
+            await handleCreateBooking(bs);
           }
 
+          setIsLoading(false);
+        } else {
           setIsLoading(false);
         }
       }
@@ -375,7 +371,10 @@ const Hero = () => {
       const errorText = err instanceof Error ? err.message : 'Не удалось отправить сообщение. Пожалуйста, попробуйте еще раз.';
       setError(errorText);
 
-      setMessages((prev) => prev.filter(msg => msg.id !== streamingMessageId));
+      if (streamingMessageId) {
+        const idToRemove = streamingMessageId;
+        setMessages((prev) => prev.filter(msg => msg.id !== idToRemove));
+      }
       setCurrentStreamingMessageId(null);
       setCurrentStreamingMessage('');
 
@@ -426,7 +425,7 @@ const Hero = () => {
         clearAnketa();
         const successMessage: Message = {
           id: `booking-success-${Date.now()}`,
-          text: `Запись успешно создана! ID бронирования: ${bookingResponse.message.bookingId}. Мы свяжемся с вами для подтверждения.`,
+          text: '✅ Запись успешно создана! Мы свяжемся с вами для подтверждения.',
           sender: 'assistant',
         };
         setMessages((prev) => [...prev, successMessage]);

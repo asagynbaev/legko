@@ -76,9 +76,10 @@ export interface CreateBookingRequest {
 
 export interface CreateBookingResponse {
   code: number;
-  message: {
+  // На успехе бэкенд возвращает локализованную строку ("Ок"), а id брони — в data.
+  message: string;
+  data?: {
     bookingId: string;
-    status: string;
   };
 }
 
