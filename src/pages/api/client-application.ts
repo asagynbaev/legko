@@ -130,33 +130,36 @@ export default async function handler(
     },
   });
 
-  const topicsText = data.topics + (data.topicOther ? ` · Другое: ${data.topicOther}` : '');
+  const clientLine = [data.name, data.age, data.gender].filter(Boolean).join(', ');
+  const formatLine = [data.format, data.consultType].filter(Boolean).join(', ');
   const messengerText = data.messenger === 'Telegram' && data.telegramNick
     ? `Telegram (${data.telegramNick})`
     : data.messenger;
+  const phoneLine = messengerText ? `${data.phone} (${messengerText})` : data.phone;
   const sourceText = data.source === 'Другое' && data.sourceOther
     ? `Другое: ${data.sourceOther}`
     : data.source;
 
+  const row = (label: string, value: string) =>
+    value
+      ? `<p style="margin:0 0 10px;font-size:15px;line-height:1.5;color:#222;"><strong>${label}:</strong> ${escapeHtml(value)}</p>`
+      : '';
+
   const htmlBody = `
-    <h2>Новая заявка клиента</h2>
-    <table style="border-collapse: collapse; width: 100%; max-width: 700px; font-family: Arial, sans-serif;">
-      ${formatRow('Что беспокоит', topicsText)}
-      ${formatRow('Обращались к психологу раньше', data.previousTherapy)}
-      ${formatRow('Формат консультации', data.format)}
-      ${formatRow('Тип консультации', data.consultType)}
-      ${formatRow('Имя', data.name)}
-      ${formatRow('Возраст', data.age)}
-      ${formatRow('Пол', data.gender)}
-      ${formatRow('Телефон', data.phone)}
-      ${formatRow('Email', data.email)}
-      ${formatRow('Удобный мессенджер', messengerText)}
-      ${formatRow('Язык консультации', data.language)}
-      ${formatRow('Откуда узнали о нас', sourceText)}
-    </table>
-    <p style="margin-top: 20px; color: #666; font-size: 13px;">
-      Заявка отправлена с формы подбора психолога на legko.live
-    </p>
+    <div style="font-family: Arial, sans-serif; max-width: 560px;">
+      <h2 style="font-size:20px;margin:0 0 16px;color:#111;">Новая заявка 🎉</h2>
+      <p style="margin:0 0 16px;font-size:16px;color:#222;"><strong>💜 Клиент:</strong> ${escapeHtml(clientLine)}</p>
+      ${row('Запрос', data.topics)}
+      ${row('Дополнительно', data.topicOther)}
+      ${row('Опыт терапии', data.previousTherapy)}
+      ${row('Формат', formatLine)}
+      ${row('Язык', data.language)}
+      <div style="height:12px;"></div>
+      ${row('Телефон', phoneLine)}
+      ${row('Email', data.email)}
+      ${row('Источник', sourceText)}
+      <p style="margin-top:20px;color:#888;font-size:13px;">Заявка с формы подбора психолога на legko.live</p>
+    </div>
   `;
 
   try {
@@ -173,15 +176,6 @@ export default async function handler(
     console.error('Failed to send email:', error);
     return res.status(500).json({ error: 'Не удалось отправить заявку. Попробуйте позже.' });
   }
-}
-
-function formatRow(label: string, value: string): string {
-  return `
-    <tr>
-      <td style="padding: 10px 12px; border: 1px solid #e0e0e0; background: #f8f8f8; font-weight: 600; width: 35%; vertical-align: top; font-size: 14px;">${label}</td>
-      <td style="padding: 10px 12px; border: 1px solid #e0e0e0; font-size: 14px; white-space: pre-wrap;">${escapeHtml(value || '—')}</td>
-    </tr>
-  `;
 }
 
 function escapeHtml(text: string): string {
