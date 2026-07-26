@@ -63,6 +63,15 @@ export interface CreateBookingRequest {
   name: string;
   phone: string;
   note?: string;
+  // Необязательные поля анкеты клиента (донесены сайтом из sessionStorage).
+  age?: number;
+  gender?: string;
+  topics?: string[];
+  topicOther?: string;
+  previousTherapy?: string;
+  format?: string;
+  consultType?: string;
+  language?: string;
 }
 
 export interface CreateBookingResponse {

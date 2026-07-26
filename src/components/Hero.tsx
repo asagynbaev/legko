@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 import ChatQuestionnaire from './ChatQuestionnaire';
+import { loadAnketaFields, clearAnketa } from '../lib/anketaBridge';
 import { signalRService } from '../api/signalRService';
 import {
   startMatching,
@@ -418,9 +419,11 @@ const Hero = () => {
         name: bookingSuggestion.clientName,
         phone: normalizePhone(bookingSuggestion.clientPhone),
         note: bookingSuggestion.note,
+        ...loadAnketaFields(),
       });
 
       if (bookingResponse.code === 200) {
+        clearAnketa();
         const successMessage: Message = {
           id: `booking-success-${Date.now()}`,
           text: `Запись успешно создана! ID бронирования: ${bookingResponse.message.bookingId}. Мы свяжемся с вами для подтверждения.`,

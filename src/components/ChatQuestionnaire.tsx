@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect, ReactNode } from 'react';
+import { saveAnketa } from '../lib/anketaBridge';
 import {
   ClipboardText, Sparkle, User, UsersThree, Laptop, Buildings,
   Envelope, WhatsappLogo, TelegramLogo, ChatCircleDots, GlobeHemisphereEast,
@@ -172,6 +173,17 @@ export default function ChatQuestionnaire({ onBack }: ChatQuestionnaireProps) {
         const result = await response.json().catch(() => null);
         throw new Error(result?.error || 'Ошибка отправки');
       }
+      // Сохраняем анкету, чтобы подмешать её в бронь, если клиент забронирует в этой же сессии.
+      saveAnketa({
+        age: data.age,
+        gender: data.gender,
+        topics: data.topics,
+        topicOther: data.topicOther,
+        previousTherapy: data.previousTherapy,
+        format: data.format,
+        consultType: data.consultType,
+        language: data.language,
+      });
       setSubmitted(true);
     } catch (error) {
       setErrorMessage(error instanceof Error ? error.message : 'Не удалось отправить заявку');
