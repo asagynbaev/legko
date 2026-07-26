@@ -53,7 +53,9 @@ const Footer = () => {
             <div className="footer-column">
               <h4>Информация</h4>
               <ul>
-                <li><Link href={isHome ? '#benefits' : '/#benefits'}>О нас</Link></li>
+                <li><Link href="/o-nas">О нас</Link></li>
+                <li><Link href="/specialisty">Чем отличаются специалисты</Link></li>
+                <li><Link href="/pomosh-kg">Помощь в Кыргызстане</Link></li>
                 <li>
                   <a
                     href="#"
