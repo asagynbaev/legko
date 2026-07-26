@@ -14,10 +14,23 @@
  *   src/data/certificates.ts                         (перегенерируется)
  */
 import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 import sharp from 'sharp';
+
+/** Растеризует PDF постранично в PNG (poppler `pdftoppm`). Возвращает временную папку и пути страниц. */
+function rasterizePdf(pdfPath) {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'cert-pdf-'));
+  execFileSync('pdftoppm', ['-png', '-r', '200', pdfPath, path.join(dir, 'p')], { stdio: 'ignore' });
+  const pages = fs
+    .readdirSync(dir)
+    .filter((f) => f.toLowerCase().endsWith('.png'))
+    .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }))
+    .map((f) => path.join(dir, f));
+  return { dir, pages };
+}
 
 /** Конвертирует изображение в webp заданного размера/качества.
  *  HEIC и прочее, что не читает sharp, сначала прогоняем через macOS `sips` в PNG. */
@@ -100,6 +113,7 @@ const dirs = fs.readdirSync(RAW, { withFileTypes: true })
   .sort();
 
 const mapping = {};
+const counts = {};        // число исходных документов (файлов), а не слайдов-страниц
 let totalFiles = 0;
 
 for (const psych of dirs) {
@@ -124,23 +138,32 @@ for (const psych of dirs) {
 
   const entries = [];
   let n = 0;
-  for (const f of files) {
+  // Один слайд-картинка: полное webp + превью, запись в маппинг.
+  const addImage = async (imgPath, title) => {
     n += 1;
+    await convert(imgPath, path.join(outDir, `${n}.webp`), 1600, 82);   // полное
+    await convert(imgPath, path.join(outDir, `${n}t.webp`), 240, 62);   // превью
+    entries.push({ src: `/certificates/${slug}/${n}.webp`, thumb: `/certificates/${slug}/${n}t.webp`, title });
+  };
+
+  for (const f of files) {
     const title = titleFrom(f, name);
     if (detectKind(f) === 'pdf') {
-      const dest = `${n}.pdf`;
-      fs.copyFileSync(path.join(srcDir, f), path.join(outDir, dest));
-      entries.push({ src: `/certificates/${slug}/${dest}`, title });
+      // PDF растеризуем постранично — каждая страница отдельным слайдом-картинкой.
+      const { dir, pages } = rasterizePdf(path.join(srcDir, f));
+      for (let pi = 0; pi < pages.length; pi++) {
+        const t = pages.length > 1 && title ? `${title} · стр. ${pi + 1}` : title;
+        await addImage(pages[pi], t);
+      }
+      fs.rmSync(dir, { recursive: true, force: true });
     } else {
-      const src = path.join(srcDir, f);
-      await convert(src, path.join(outDir, `${n}.webp`), 1600, 82);   // полное
-      await convert(src, path.join(outDir, `${n}t.webp`), 240, 62);   // превью
-      entries.push({ src: `/certificates/${slug}/${n}.webp`, thumb: `/certificates/${slug}/${n}t.webp`, title });
+      await addImage(path.join(srcDir, f), title);
     }
     totalFiles += 1;
   }
   mapping[name] = entries;
-  console.log(`✓ ${name} (${slug}): ${entries.length} док.`);
+  counts[name] = files.length;
+  console.log(`✓ ${name} (${slug}): ${files.length} док. / ${entries.length} слайдов`);
 }
 
 /* --- генерируем certificates.ts --- */
@@ -152,6 +175,8 @@ const body = Object.entries(mapping).map(([name, docs]) => {
   }).join('\n');
   return `  ${JSON.stringify(name)}: [\n${items}\n  ],`;
 }).join('\n');
+
+const countsBody = Object.entries(counts).map(([name, c]) => `  ${JSON.stringify(name)}: ${c},`).join('\n');
 
 const ts = `/**
  * Документы (дипломы, сертификаты) психологов, захостенные на сайте.
@@ -182,6 +207,18 @@ for (const [k, v] of Object.entries(CERTIFICATES_BY_NAME)) _byCanon.set(canon(k)
 export function getCertificates(name: string | undefined | null): CertificateDoc[] {
   if (!name) return [];
   return CERTIFICATES_BY_NAME[name] || _byCanon.get(canon(name)) || [];
+}
+
+// Число исходных документов (не слайдов): многостраничный PDF = 1 документ.
+export const CERT_COUNT_BY_NAME: Record<string, number> = {
+${countsBody}
+};
+const _countByCanon = new Map<string, number>();
+for (const [k, v] of Object.entries(CERT_COUNT_BY_NAME)) _countByCanon.set(canon(k), v);
+
+export function getCertCount(name: string | undefined | null): number {
+  if (!name) return 0;
+  return CERT_COUNT_BY_NAME[name] ?? _countByCanon.get(canon(name)) ?? 0;
 }
 `;
 

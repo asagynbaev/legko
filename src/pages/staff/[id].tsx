@@ -13,7 +13,7 @@ import { config } from '../../config/env';
 import StaffHeader from '../../components/StaffHeader';
 import Footer from '../../components/Footer';
 import CertificatesGallery from '../../components/CertificatesGallery';
-import { getCertificates } from '../../data/certificates';
+import { getCertificates, getCertCount } from '../../data/certificates';
 import {
   Mail,
   Tag,
@@ -489,9 +489,11 @@ export default function StaffProfilePage({ master }: StaffProfilePageProps) {
   const certItems = timelineItems.filter((t) => t.type === 'cert').sort((a, b) => b.sortYear - a.sortYear);
   const timeline = [...eduItems, ...certItems];
 
-  // Документы (дипломы/сертификаты), захостенные на сайте
+  // Документы (дипломы/сертификаты), захостенные на сайте.
+  // certDocs — слайды галереи (многостраничный PDF = несколько слайдов),
+  // certCount — число исходных документов (для бейджа «N сертификатов»).
   const certDocs = getCertificates(master.name);
-  const certCount = certDocs.length || certItems.length;
+  const certCount = getCertCount(master.name) || certItems.length;
   const cityName = master.address?.addressLine?.split(',')[0]?.trim() || 'Бишкек';
   const whatsappUrl = 'https://wa.me/996700595393';
   const bookingUrl = `${config.bookingBaseUrl}/master/${master.id}`;
