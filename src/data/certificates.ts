@@ -14,10 +14,12 @@ export interface CertificateDoc {
 
 export const CERTIFICATES_BY_NAME: Record<string, CertificateDoc[]> = {
   "Адинай Жапаралиева": [
-    { src: "/certificates/adinai-zhaparalieva/1.pdf", title: "Диплом скан" },
-    { src: "/certificates/adinai-zhaparalieva/2.pdf" },
-    { src: "/certificates/adinai-zhaparalieva/3.pdf", title: "Сертификат Жапаралиева А" },
-    { src: "/certificates/adinai-zhaparalieva/4.pdf", title: "Судебно психолого - психиатрическая экспертиза" },
+    { src: "/certificates/adinai-zhaparalieva/1.webp", thumb: "/certificates/adinai-zhaparalieva/1t.webp", title: "Диплом скан · стр. 1" },
+    { src: "/certificates/adinai-zhaparalieva/2.webp", thumb: "/certificates/adinai-zhaparalieva/2t.webp", title: "Диплом скан · стр. 2" },
+    { src: "/certificates/adinai-zhaparalieva/3.webp", thumb: "/certificates/adinai-zhaparalieva/3t.webp", title: "Диплом скан · стр. 3" },
+    { src: "/certificates/adinai-zhaparalieva/4.webp", thumb: "/certificates/adinai-zhaparalieva/4t.webp" },
+    { src: "/certificates/adinai-zhaparalieva/5.webp", thumb: "/certificates/adinai-zhaparalieva/5t.webp", title: "Сертификат Жапаралиева А" },
+    { src: "/certificates/adinai-zhaparalieva/6.webp", thumb: "/certificates/adinai-zhaparalieva/6t.webp", title: "Судебно психолого - психиатрическая экспертиза" },
   ],
   "Айдана Мадишова": [
     { src: "/certificates/aidana-madishova/1.webp", thumb: "/certificates/aidana-madishova/1t.webp", title: "Диплом о окончании бакалавра" },
@@ -32,18 +34,21 @@ export const CERTIFICATES_BY_NAME: Record<string, CertificateDoc[]> = {
     { src: "/certificates/aidana-madishova/10.webp", thumb: "/certificates/aidana-madishova/10t.webp", title: "Тема курса" },
   ],
   "Айдина Ажибаева": [
-    { src: "/certificates/aidina-azhibaeva/1.pdf", title: "Диплом РЭУ" },
-    { src: "/certificates/aidina-azhibaeva/2.webp", thumb: "/certificates/aidina-azhibaeva/2t.webp", title: "Психологическая работа с тревогой Лэнгле" },
-    { src: "/certificates/aidina-azhibaeva/3.webp", thumb: "/certificates/aidina-azhibaeva/3t.webp", title: "Сертификат МАК" },
-    { src: "/certificates/aidina-azhibaeva/4.webp", thumb: "/certificates/aidina-azhibaeva/4t.webp", title: "Сертификат особенности работы в зоне конфликта" },
-    { src: "/certificates/aidina-azhibaeva/5.webp", thumb: "/certificates/aidina-azhibaeva/5t.webp", title: "Терапевтические отношения" },
-    { src: "/certificates/aidina-azhibaeva/6.webp", thumb: "/certificates/aidina-azhibaeva/6t.webp" },
-    { src: "/certificates/aidina-azhibaeva/7.pdf" },
-    { src: "/certificates/aidina-azhibaeva/8.pdf" },
+    { src: "/certificates/aidina-azhibaeva/1.webp", thumb: "/certificates/aidina-azhibaeva/1t.webp", title: "Диплом РЭУ · стр. 1" },
+    { src: "/certificates/aidina-azhibaeva/2.webp", thumb: "/certificates/aidina-azhibaeva/2t.webp", title: "Диплом РЭУ · стр. 2" },
+    { src: "/certificates/aidina-azhibaeva/3.webp", thumb: "/certificates/aidina-azhibaeva/3t.webp", title: "Диплом РЭУ · стр. 3" },
+    { src: "/certificates/aidina-azhibaeva/4.webp", thumb: "/certificates/aidina-azhibaeva/4t.webp", title: "Психологическая работа с тревогой Лэнгле" },
+    { src: "/certificates/aidina-azhibaeva/5.webp", thumb: "/certificates/aidina-azhibaeva/5t.webp", title: "Сертификат МАК" },
+    { src: "/certificates/aidina-azhibaeva/6.webp", thumb: "/certificates/aidina-azhibaeva/6t.webp", title: "Сертификат особенности работы в зоне конфликта" },
+    { src: "/certificates/aidina-azhibaeva/7.webp", thumb: "/certificates/aidina-azhibaeva/7t.webp", title: "Терапевтические отношения" },
+    { src: "/certificates/aidina-azhibaeva/8.webp", thumb: "/certificates/aidina-azhibaeva/8t.webp" },
+    { src: "/certificates/aidina-azhibaeva/9.webp", thumb: "/certificates/aidina-azhibaeva/9t.webp" },
+    { src: "/certificates/aidina-azhibaeva/10.webp", thumb: "/certificates/aidina-azhibaeva/10t.webp" },
+    { src: "/certificates/aidina-azhibaeva/11.webp", thumb: "/certificates/aidina-azhibaeva/11t.webp" },
   ],
   "Акылай Шамкеева": [
-    { src: "/certificates/akylai-shamkeeva/1.pdf", title: "Сертификат Nº47" },
-    { src: "/certificates/akylai-shamkeeva/2.pdf" },
+    { src: "/certificates/akylai-shamkeeva/1.webp", thumb: "/certificates/akylai-shamkeeva/1t.webp", title: "Сертификат Nº47" },
+    { src: "/certificates/akylai-shamkeeva/2.webp", thumb: "/certificates/akylai-shamkeeva/2t.webp" },
     { src: "/certificates/akylai-shamkeeva/3.webp", thumb: "/certificates/akylai-shamkeeva/3t.webp" },
     { src: "/certificates/akylai-shamkeeva/4.webp", thumb: "/certificates/akylai-shamkeeva/4t.webp" },
     { src: "/certificates/akylai-shamkeeva/5.webp", thumb: "/certificates/akylai-shamkeeva/5t.webp" },
@@ -65,7 +70,7 @@ export const CERTIFICATES_BY_NAME: Record<string, CertificateDoc[]> = {
     { src: "/certificates/anna-anastasiadi/4.webp", thumb: "/certificates/anna-anastasiadi/4t.webp" },
     { src: "/certificates/anna-anastasiadi/5.webp", thumb: "/certificates/anna-anastasiadi/5t.webp" },
     { src: "/certificates/anna-anastasiadi/6.webp", thumb: "/certificates/anna-anastasiadi/6t.webp" },
-    { src: "/certificates/anna-anastasiadi/7.pdf" },
+    { src: "/certificates/anna-anastasiadi/7.webp", thumb: "/certificates/anna-anastasiadi/7t.webp" },
     { src: "/certificates/anna-anastasiadi/8.webp", thumb: "/certificates/anna-anastasiadi/8t.webp" },
     { src: "/certificates/anna-anastasiadi/9.webp", thumb: "/certificates/anna-anastasiadi/9t.webp" },
   ],
@@ -94,24 +99,31 @@ export const CERTIFICATES_BY_NAME: Record<string, CertificateDoc[]> = {
     { src: "/certificates/viktor-tolmasov/4.webp", thumb: "/certificates/viktor-tolmasov/4t.webp" },
   ],
   "Джамиля Абилдаева": [
-    { src: "/certificates/dzhamilya-abildaeva/1.pdf" },
-    { src: "/certificates/dzhamilya-abildaeva/2.pdf" },
-    { src: "/certificates/dzhamilya-abildaeva/3.webp", thumb: "/certificates/dzhamilya-abildaeva/3t.webp", title: "Сертификат Тревога, беспокойство и панические атаки" },
-    { src: "/certificates/dzhamilya-abildaeva/4.webp", thumb: "/certificates/dzhamilya-abildaeva/4t.webp", title: "Сертификат Кризис время возможностей" },
-    { src: "/certificates/dzhamilya-abildaeva/5.webp", thumb: "/certificates/dzhamilya-abildaeva/5t.webp", title: "Сертификат Страх нового и перемен" },
+    { src: "/certificates/dzhamilya-abildaeva/1.webp", thumb: "/certificates/dzhamilya-abildaeva/1t.webp" },
+    { src: "/certificates/dzhamilya-abildaeva/2.webp", thumb: "/certificates/dzhamilya-abildaeva/2t.webp" },
+    { src: "/certificates/dzhamilya-abildaeva/3.webp", thumb: "/certificates/dzhamilya-abildaeva/3t.webp" },
+    { src: "/certificates/dzhamilya-abildaeva/4.webp", thumb: "/certificates/dzhamilya-abildaeva/4t.webp" },
+    { src: "/certificates/dzhamilya-abildaeva/5.webp", thumb: "/certificates/dzhamilya-abildaeva/5t.webp" },
     { src: "/certificates/dzhamilya-abildaeva/6.webp", thumb: "/certificates/dzhamilya-abildaeva/6t.webp" },
     { src: "/certificates/dzhamilya-abildaeva/7.webp", thumb: "/certificates/dzhamilya-abildaeva/7t.webp" },
-    { src: "/certificates/dzhamilya-abildaeva/8.webp", thumb: "/certificates/dzhamilya-abildaeva/8t.webp" },
-    { src: "/certificates/dzhamilya-abildaeva/9.webp", thumb: "/certificates/dzhamilya-abildaeva/9t.webp" },
-    { src: "/certificates/dzhamilya-abildaeva/10.pdf" },
+    { src: "/certificates/dzhamilya-abildaeva/8.webp", thumb: "/certificates/dzhamilya-abildaeva/8t.webp", title: "Сертификат Тревога, беспокойство и панические атаки" },
+    { src: "/certificates/dzhamilya-abildaeva/9.webp", thumb: "/certificates/dzhamilya-abildaeva/9t.webp", title: "Сертификат Кризис время возможностей" },
+    { src: "/certificates/dzhamilya-abildaeva/10.webp", thumb: "/certificates/dzhamilya-abildaeva/10t.webp", title: "Сертификат Страх нового и перемен" },
+    { src: "/certificates/dzhamilya-abildaeva/11.webp", thumb: "/certificates/dzhamilya-abildaeva/11t.webp" },
+    { src: "/certificates/dzhamilya-abildaeva/12.webp", thumb: "/certificates/dzhamilya-abildaeva/12t.webp" },
+    { src: "/certificates/dzhamilya-abildaeva/13.webp", thumb: "/certificates/dzhamilya-abildaeva/13t.webp" },
+    { src: "/certificates/dzhamilya-abildaeva/14.webp", thumb: "/certificates/dzhamilya-abildaeva/14t.webp" },
+    { src: "/certificates/dzhamilya-abildaeva/15.webp", thumb: "/certificates/dzhamilya-abildaeva/15t.webp" },
+    { src: "/certificates/dzhamilya-abildaeva/16.webp", thumb: "/certificates/dzhamilya-abildaeva/16t.webp" },
   ],
   "Жылдыз Мади": [
-    { src: "/certificates/zhyldyz-madi/1.pdf", title: "Диплом о высшем" },
-    { src: "/certificates/zhyldyz-madi/2.webp", thumb: "/certificates/zhyldyz-madi/2t.webp", title: "Вебинар Работа с детьми" },
-    { src: "/certificates/zhyldyz-madi/3.webp", thumb: "/certificates/zhyldyz-madi/3t.webp", title: "Гештальт-интенсив" },
+    { src: "/certificates/zhyldyz-madi/1.webp", thumb: "/certificates/zhyldyz-madi/1t.webp", title: "Диплом о высшем · стр. 1" },
+    { src: "/certificates/zhyldyz-madi/2.webp", thumb: "/certificates/zhyldyz-madi/2t.webp", title: "Диплом о высшем · стр. 2" },
+    { src: "/certificates/zhyldyz-madi/3.webp", thumb: "/certificates/zhyldyz-madi/3t.webp", title: "Вебинар Работа с детьми" },
     { src: "/certificates/zhyldyz-madi/4.webp", thumb: "/certificates/zhyldyz-madi/4t.webp", title: "Гештальт-интенсив" },
-    { src: "/certificates/zhyldyz-madi/5.webp", thumb: "/certificates/zhyldyz-madi/5t.webp", title: "Псих. помощь в криз сит" },
-    { src: "/certificates/zhyldyz-madi/6.webp", thumb: "/certificates/zhyldyz-madi/6t.webp", title: "Супервизионная группа" },
+    { src: "/certificates/zhyldyz-madi/5.webp", thumb: "/certificates/zhyldyz-madi/5t.webp", title: "Гештальт-интенсив" },
+    { src: "/certificates/zhyldyz-madi/6.webp", thumb: "/certificates/zhyldyz-madi/6t.webp", title: "Псих. помощь в криз сит" },
+    { src: "/certificates/zhyldyz-madi/7.webp", thumb: "/certificates/zhyldyz-madi/7t.webp", title: "Супервизионная группа" },
   ],
   "Наталья Джунковская": [
     { src: "/certificates/natalya-dzhunkovskaya/1.webp", thumb: "/certificates/natalya-dzhunkovskaya/1t.webp" },
@@ -133,8 +145,8 @@ export const CERTIFICATES_BY_NAME: Record<string, CertificateDoc[]> = {
     { src: "/certificates/natalya-dzhunkovskaya/17.webp", thumb: "/certificates/natalya-dzhunkovskaya/17t.webp" },
   ],
   "Руфина Мажитова": [
-    { src: "/certificates/rufina-mazhitova/1.pdf", title: "Сертификат II конференции Мажитова Руфина" },
-    { src: "/certificates/rufina-mazhitova/2.pdf" },
+    { src: "/certificates/rufina-mazhitova/1.webp", thumb: "/certificates/rufina-mazhitova/1t.webp", title: "Сертификат II конференции Мажитова Руфина" },
+    { src: "/certificates/rufina-mazhitova/2.webp", thumb: "/certificates/rufina-mazhitova/2t.webp" },
     { src: "/certificates/rufina-mazhitova/3.webp", thumb: "/certificates/rufina-mazhitova/3t.webp" },
     { src: "/certificates/rufina-mazhitova/4.webp", thumb: "/certificates/rufina-mazhitova/4t.webp" },
     { src: "/certificates/rufina-mazhitova/5.webp", thumb: "/certificates/rufina-mazhitova/5t.webp" },
@@ -172,4 +184,30 @@ for (const [k, v] of Object.entries(CERTIFICATES_BY_NAME)) _byCanon.set(canon(k)
 export function getCertificates(name: string | undefined | null): CertificateDoc[] {
   if (!name) return [];
   return CERTIFICATES_BY_NAME[name] || _byCanon.get(canon(name)) || [];
+}
+
+// Число исходных документов (не слайдов): многостраничный PDF = 1 документ.
+export const CERT_COUNT_BY_NAME: Record<string, number> = {
+  "Адинай Жапаралиева": 4,
+  "Айдана Мадишова": 10,
+  "Айдина Ажибаева": 8,
+  "Акылай Шамкеева": 6,
+  "Александр Клеваков": 7,
+  "Анна Анастасиади": 9,
+  "Астра Исаева": 2,
+  "Вера Романенко": 12,
+  "Виктор Толмасов": 4,
+  "Джамиля Абилдаева": 10,
+  "Жылдыз Мади": 6,
+  "Наталья Джунковская": 17,
+  "Руфина Мажитова": 6,
+  "Сасаза Алина": 8,
+  "Чолпон Кадралиева": 7,
+};
+const _countByCanon = new Map<string, number>();
+for (const [k, v] of Object.entries(CERT_COUNT_BY_NAME)) _countByCanon.set(canon(k), v);
+
+export function getCertCount(name: string | undefined | null): number {
+  if (!name) return 0;
+  return CERT_COUNT_BY_NAME[name] ?? _countByCanon.get(canon(name)) ?? 0;
 }
