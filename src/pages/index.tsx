@@ -10,6 +10,7 @@ const HowItWorks = dynamic(() => import('../components/HowItWorks'));
 const Benefits = dynamic(() => import('../components/Benefits'));
 const Specialists = dynamic(() => import('../components/Specialists'));
 const Testimonials = dynamic(() => import('../components/Testimonials'));
+const UsefulInfo = dynamic(() => import('../components/UsefulInfo'));
 const FAQ = dynamic(() => import('../components/FAQ'));
 const CTABottom = dynamic(() => import('../components/CTABottom'));
 
@@ -122,6 +123,7 @@ export default function Home() {
             <Benefits />
             <Specialists />
             <Testimonials />
+            <UsefulInfo />
             <FAQ />
             <CTABottom />
             <Footer />
