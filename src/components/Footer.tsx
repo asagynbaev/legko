@@ -82,6 +82,19 @@ const Footer = () => {
                     Условия использования
                   </a>
                 </li>
+                <li>
+                  <a
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (typeof window !== 'undefined') {
+                        window.dispatchEvent(new CustomEvent('openOfferModal'));
+                      }
+                    }}
+                  >
+                    Публичная оферта
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
