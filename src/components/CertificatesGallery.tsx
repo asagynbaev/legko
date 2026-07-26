@@ -61,7 +61,12 @@ export default function CertificatesGallery({ images, startIndex = 0, title, onC
 
           <div className="cert-gallery__viewer">
             {isPdf(current.src) ? (
-              <iframe className="cert-gallery__pdf" src={current.src} title={current.title || `Документ ${index + 1}`} />
+              <div className="cert-gallery__pdf-wrap">
+                <iframe className="cert-gallery__pdf" src={current.src} title={current.title || `Документ ${index + 1}`} />
+                <a className="cert-gallery__pdf-open" href={current.src} target="_blank" rel="noopener noreferrer">
+                  Открыть PDF в новой вкладке ↗
+                </a>
+              </div>
             ) : (
               // eslint-disable-next-line @next/next/no-img-element
               <img className="cert-gallery__img" src={current.src} alt={current.title || `Документ ${index + 1}`} decoding="async" />
