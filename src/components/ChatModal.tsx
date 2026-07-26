@@ -13,6 +13,7 @@ import {
   normalizePhone
 } from '../api/psychologistMatchApi';
 import { createPartnerBooking, getPartnerMasterSlots } from '../api/partnerApi';
+import { loadAnketaFields, clearAnketa } from '../lib/anketaBridge';
 
 interface Message {
   id: string;
@@ -338,9 +339,11 @@ const ChatModal = ({ open, onClose }: ChatModalProps) => {
         clientName: bs.clientName,
         clientPhone: normalizePhone(bs.clientPhone),
         note: bs.note,
+        ...loadAnketaFields(),
       });
 
       if (res.code === 200) {
+        clearAnketa();
         const d = res.data;
         let confirmText = `Запись подтверждена! Вы записаны к ${d.masterName} на ${d.appointmentDate} в ${d.startTime}.`;
         if (d.address) confirmText += `\n\nАдрес: ${d.address}`;

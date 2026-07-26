@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 import ChatQuestionnaire from './ChatQuestionnaire';
+import { loadAnketaFields, clearAnketa } from '../lib/anketaBridge';
 import { signalRService } from '../api/signalRService';
 import {
   startMatching,
@@ -417,11 +418,11 @@ const Hero = () => {
         name: bookingSuggestion.clientName,
         phone: normalizePhone(bookingSuggestion.clientPhone),
         note: bookingSuggestion.note,
+        ...loadAnketaFields(),
       });
 
       if (bookingResponse.code === 200) {
-        // Показываем клиенту чистое подтверждение. Внутренний id брони (bookingResponse.data?.bookingId)
-        // клиенту не нужен — раньше здесь выводился message.bookingId, которого в ответе нет ("undefined").
+        clearAnketa();
         const successMessage: Message = {
           id: `booking-success-${Date.now()}`,
           text: '✅ Запись успешно создана! Мы свяжемся с вами для подтверждения.',
