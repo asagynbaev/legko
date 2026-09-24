@@ -8,11 +8,11 @@ import Head from 'next/head';
 import StaffHeader from '../../components/StaffHeader';
 import Footer from '../../components/Footer';
 import StaffProfileModal from '../../components/StaffProfileModal';
+import { useStaffPrices } from '../../hooks/useStaffPrices';
 import {
   STAFF_ABOUT_MAP,
   STAFF_EXPERIENCE_MAP,
   STAFF_FORMAT_MAP,
-  STAFF_PRICE_MAP,
   STAFF_SORT_ORDER,
   STAFF_SPECIALITY_MAP,
 } from '../../constants/staffContent';
@@ -39,6 +39,7 @@ const LOAD_MORE_COUNT = 6;
 
 const StaffPage = () => {
   const router = useRouter();
+  const getPrice = useStaffPrices();
   const { psychologist } = router.query;
   const [staff, setStaff] = useState<Staff[]>([]);
   const [loading, setLoading] = useState(true);
@@ -267,7 +268,7 @@ const StaffPage = () => {
                     <div className="staff-card__details-block">
                       <div className="staff-card__detail-row">
                         <span className="staff-card__detail-label">Стоимость консультации</span>
-                        <span className="staff-card__detail-value">{STAFF_PRICE_MAP[specialist.name] || 'от 1500 с'}</span>
+                        <span className="staff-card__detail-value">{getPrice(specialist.id, specialist.name)}</span>
                       </div>
                       <div className="staff-card__detail-row">
                         <span className="staff-card__detail-label">Формат приёма</span>

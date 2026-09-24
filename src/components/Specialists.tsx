@@ -2,10 +2,10 @@ import { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
 import SpecialistCard from './SpecialistCard';
 import { getStaffByBusinessId } from '../api/api';
+import { useStaffPrices } from '../hooks/useStaffPrices';
 import {
   STAFF_EXPERIENCE_MAP,
   STAFF_FORMAT_MAP,
-  STAFF_PRICE_MAP,
   STAFF_SORT_ORDER,
   STAFF_SPECIALITY_MAP,
 } from '../constants/staffContent';
@@ -22,6 +22,7 @@ type StaffItem = {
 };
 
 const Specialists = () => {
+  const getPrice = useStaffPrices();
   const [staff, setStaff] = useState<StaffItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -153,7 +154,7 @@ const Specialists = () => {
                         experienceLabel={STAFF_EXPERIENCE_MAP[item.name]}
                         experience={item.experience}
                         numberOfClients={item.numberOfClients}
-                        priceFrom={STAFF_PRICE_MAP[item.name] || 'от 1500 с'}
+                        priceFrom={getPrice(item.id, item.name)}
                         location={STAFF_FORMAT_MAP[item.name] || (item.address && item.address.trim() ? item.address : 'Онлайн')}
                         approach={(STAFF_SPECIALITY_MAP[item.name] || item.speciality)?.split(/[,\.\/]/)[0]?.trim() || undefined}
                       />
