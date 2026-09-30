@@ -18,6 +18,7 @@ export const STAFF_SORT_ORDER = [
   'Алина Сасаза',
   'Вера Романенко',
   'Айдина Ажибаева',
+  'Асылгуль Мусаева',
 ];
 
 export const STAFF_PRICE_MAP: Record<string, string> = {
@@ -106,6 +107,7 @@ export const STAFF_EXPERIENCE_MAP: Record<string, string> = {
   'Вера Романенко': 'Опыт работы с 2017 года',
   'Айдана Мадишова': '',
   'Айдина Ажибаева': '',
+  'Асылгуль Мусаева': 'Опыт работы с 2016 года',
 };
 
 export const STAFF_ABOUT_MAP: Record<string, string> = {
