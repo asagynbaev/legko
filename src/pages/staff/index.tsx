@@ -15,6 +15,7 @@ import {
   STAFF_FORMAT_MAP,
   STAFF_SORT_ORDER,
   STAFF_SPECIALITY_MAP,
+  getStaffAddressLine,
 } from '../../constants/staffContent';
 
 interface Staff {
@@ -23,7 +24,7 @@ interface Staff {
   phone: string;
   speciality: string;
   aboutMe: string;
-  address: string | null;
+  address: string | { addressLine?: string | null } | null;
   isFeatured: boolean;
   photo: string;
   experience: number;
@@ -251,7 +252,7 @@ const StaffPage = () => {
                       <div className="staff-card__detail-row">
                         <span className="staff-card__detail-label">Формат приёма</span>
                         <span className="staff-card__detail-value">
-                          {STAFF_FORMAT_MAP[specialist.name] || specialist.address?.trim() || 'Онлайн'}
+                          {STAFF_FORMAT_MAP[specialist.name] || getStaffAddressLine(specialist.address) || 'Онлайн'}
                         </span>
                       </div>
                     </div>

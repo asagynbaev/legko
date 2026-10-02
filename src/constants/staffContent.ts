@@ -131,3 +131,16 @@ export const STAFF_ABOUT_MAP: Record<string, string> = {
   'Айдана Мадишова': '',
   'Айдина Ажибаева': '',
 };
+
+/**
+ * Booka API возвращает address либо строкой, либо объектом { addressLine, ... }.
+ * Возвращает строку адреса или пустую строку.
+ */
+export const getStaffAddressLine = (address: unknown): string => {
+  if (typeof address === 'string') return address.trim();
+  if (address && typeof address === 'object') {
+    const line = (address as { addressLine?: unknown }).addressLine;
+    if (typeof line === 'string') return line.trim();
+  }
+  return '';
+};
