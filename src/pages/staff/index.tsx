@@ -34,9 +34,6 @@ interface Staff {
   branchId: string;
 }
 
-const INITIAL_VISIBLE = 6;
-const LOAD_MORE_COUNT = 6;
-
 const StaffPage = () => {
   const router = useRouter();
   const getPrice = useStaffPrices();
@@ -44,7 +41,6 @@ const StaffPage = () => {
   const [staff, setStaff] = useState<Staff[]>([]);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState(false);
-  const [visibleCount, setVisibleCount] = useState(INITIAL_VISIBLE);
   const [imageErrors, setImageErrors] = useState<Set<string>>(new Set());
   const [profileModal, setProfileModal] = useState<{
     open: boolean;
@@ -91,24 +87,6 @@ const StaffPage = () => {
     };
   }, []);
 
-  const visibleStaff = staff.slice(0, visibleCount);
-  const hasMore = visibleCount < staff.length;
-  const showLoadMore = !loading && hasMore;
-
-  const handleLoadMore = () => {
-    setVisibleCount((prev) => Math.min(prev + LOAD_MORE_COUNT, staff.length));
-  };
-
-  // При переходе по ссылке ?psychologist=id показываем достаточно карточек, чтобы эта была в списке
-  useEffect(() => {
-    if (psychologist && typeof psychologist === 'string' && !loading && staff.length > 0) {
-      const index = staff.findIndex((s) => s.id === psychologist);
-      if (index >= 0) {
-        setVisibleCount((prev) => Math.max(prev, index + 1));
-      }
-    }
-  }, [psychologist, loading, staff]);
-
   useEffect(() => {
     if (psychologist && typeof psychologist === 'string' && !loading && staff.length > 0) {
       let highlightTimer: ReturnType<typeof setTimeout>;
@@ -127,7 +105,7 @@ const StaffPage = () => {
         clearTimeout(highlightTimer);
       };
     }
-  }, [psychologist, loading, staff, visibleCount]);
+  }, [psychologist, loading, staff]);
 
   const getInitials = (name: string) => {
     const words = name.trim().split(' ');
@@ -229,7 +207,7 @@ const StaffPage = () => {
             ) : (
               <>
               <div className="staff-grid">
-                {visibleStaff.map((specialist) => (
+                {staff.map((specialist) => (
                   <div
                     key={specialist.id}
                     className={`staff-card staff-card--alter ${psychologist === specialist.id ? 'staff-card--highlighted' : ''}`}
@@ -310,20 +288,6 @@ const StaffPage = () => {
                 ))}
               </div>
 
-              {showLoadMore && (
-                <div className="staff-load-more">
-                  <button
-                    type="button"
-                    className="btn btn--primary btn--large staff-load-more__btn"
-                    onClick={handleLoadMore}
-                  >
-                    Показать ещё
-                  </button>
-                  <p className="staff-load-more__hint">
-                    Показано {visibleStaff.length} из {staff.length}
-                  </p>
-                </div>
-              )}
               </>
             )}
 
