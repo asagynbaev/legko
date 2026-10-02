@@ -8,6 +8,7 @@ import {
   STAFF_FORMAT_MAP,
   STAFF_SORT_ORDER,
   STAFF_SPECIALITY_MAP,
+  getStaffAddressLine,
 } from '../constants/staffContent';
 
 type StaffItem = {
@@ -18,7 +19,7 @@ type StaffItem = {
   rating?: number;
   experience?: number;
   numberOfClients?: number;
-  address?: string | null;
+  address?: string | { addressLine?: string | null } | null;
 };
 
 const Specialists = () => {
@@ -155,7 +156,7 @@ const Specialists = () => {
                         experience={item.experience}
                         numberOfClients={item.numberOfClients}
                         priceFrom={getPrice(item.id, item.name)}
-                        location={STAFF_FORMAT_MAP[item.name] || (item.address && item.address.trim() ? item.address : 'Онлайн')}
+                        location={STAFF_FORMAT_MAP[item.name] || getStaffAddressLine(item.address) || 'Онлайн'}
                         approach={(STAFF_SPECIALITY_MAP[item.name] || item.speciality)?.split(/[,\.\/]/)[0]?.trim() || undefined}
                       />
                     ))
