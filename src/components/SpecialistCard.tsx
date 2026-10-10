@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import { config } from '@/config/env';
+import { SESSION_FORMAT } from '@/constants/staffContent';
 
 interface SpecialistCardProps {
   avatar: string;
@@ -14,7 +15,7 @@ interface SpecialistCardProps {
   numberOfClients?: number;
   /** Цена, например "От 1500 с" */
   priceFrom?: string;
-  /** Где ведёт приём, например "Бишкек / Онлайн" */
+  /** Формат приёма, например "Онлайн" */
   location?: string;
   /** Подход: КПТ, Гештальт, ЭФТ и т.д. — показывается бейджем на фото */
   approach?: string;
@@ -30,7 +31,7 @@ const SpecialistCard = ({
   experienceLabel,
   numberOfClients,
   priceFrom = 'От 1500 с',
-  location = 'Онлайн',
+  location = SESSION_FORMAT,
   approach,
 }: SpecialistCardProps) => {
   const [imageError, setImageError] = useState(false);
@@ -113,7 +114,7 @@ const SpecialistCard = ({
           <span className="specialist-card-alter__value">{priceFrom}</span>
         </div>
         <div className="specialist-card-alter__row">
-          <span className="specialist-card-alter__label">Где ведёт приём</span>
+          <span className="specialist-card-alter__label">Формат приёма</span>
           <span className="specialist-card-alter__value">{location}</span>
         </div>
       </div>

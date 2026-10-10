@@ -5,10 +5,9 @@ import { getStaffByBusinessId } from '../api/api';
 import { useStaffPrices } from '../hooks/useStaffPrices';
 import {
   STAFF_EXPERIENCE_MAP,
-  STAFF_FORMAT_MAP,
   STAFF_SORT_ORDER,
   STAFF_SPECIALITY_MAP,
-  getStaffAddressLine,
+  SESSION_FORMAT,
 } from '../constants/staffContent';
 
 type StaffItem = {
@@ -19,7 +18,6 @@ type StaffItem = {
   rating?: number;
   experience?: number;
   numberOfClients?: number;
-  address?: string | { addressLine?: string | null } | null;
 };
 
 const Specialists = () => {
@@ -156,7 +154,7 @@ const Specialists = () => {
                         experience={item.experience}
                         numberOfClients={item.numberOfClients}
                         priceFrom={getPrice(item.id, item.name)}
-                        location={STAFF_FORMAT_MAP[item.name] || getStaffAddressLine(item.address) || 'Онлайн'}
+                        location={SESSION_FORMAT}
                         approach={(STAFF_SPECIALITY_MAP[item.name] || item.speciality)?.split(/[,\.\/]/)[0]?.trim() || undefined}
                       />
                     ))
@@ -172,7 +170,7 @@ const Specialists = () => {
                         title={item.title}
                         rating={5}
                         priceFrom="От 1500 с"
-                        location="Онлайн"
+                        location={SESSION_FORMAT}
                       />
                     ))}
               </div>

@@ -12,10 +12,9 @@ import { useStaffPrices } from '../../hooks/useStaffPrices';
 import {
   STAFF_ABOUT_MAP,
   STAFF_EXPERIENCE_MAP,
-  STAFF_FORMAT_MAP,
   STAFF_SORT_ORDER,
   STAFF_SPECIALITY_MAP,
-  getStaffAddressLine,
+  SESSION_FORMAT,
 } from '../../constants/staffContent';
 
 interface Staff {
@@ -24,7 +23,6 @@ interface Staff {
   phone: string;
   speciality: string;
   aboutMe: string;
-  address: string | { addressLine?: string | null } | null;
   isFeatured: boolean;
   photo: string;
   experience: number;
@@ -252,7 +250,7 @@ const StaffPage = () => {
                       <div className="staff-card__detail-row">
                         <span className="staff-card__detail-label">Формат приёма</span>
                         <span className="staff-card__detail-value">
-                          {STAFF_FORMAT_MAP[specialist.name] || getStaffAddressLine(specialist.address) || 'Онлайн'}
+                          {SESSION_FORMAT}
                         </span>
                       </div>
                     </div>

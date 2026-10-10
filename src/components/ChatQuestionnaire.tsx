@@ -1,7 +1,8 @@
 import { useRef, useState, useEffect, ReactNode } from 'react';
 import { saveAnketa } from '../lib/anketaBridge';
+import { SESSION_FORMAT } from '../constants/staffContent';
 import {
-  ClipboardText, Sparkle, User, UsersThree, Laptop, Buildings,
+  ClipboardText, Sparkle, User, UsersThree,
   Envelope, WhatsappLogo, TelegramLogo, ChatCircleDots, GlobeHemisphereEast,
   CheckCircle, CaretLeft, CaretRight, Check, ArrowLeft,
   Waveform, ShieldWarning, Users, Star, ForkKnife, Wallet, Prohibit,
@@ -31,7 +32,7 @@ const SOURCES = ['Instagram', 'От основателей', 'Через дру�
 
 const STEPS: { key: string; title: string; desc: string; icon: ReactNode }[] = [
   { key: 'request', title: 'Ваш запрос', desc: 'Что вас беспокоит', icon: <ClipboardText size={20} /> },
-  { key: 'format', title: 'Опыт и формат', desc: 'Как вам удобнее', icon: <Sparkle size={20} /> },
+  { key: 'format', title: 'Опыт и тип консультации', desc: 'Индивидуально или в паре', icon: <Sparkle size={20} /> },
   { key: 'about', title: 'О вас', desc: 'Немного о себе', icon: <User size={20} /> },
   { key: 'contacts', title: 'Контакты', desc: 'Как с вами связаться', icon: <ChatCircleDots size={20} /> },
   { key: 'final', title: 'Финал', desc: 'Последние детали', icon: <GlobeHemisphereEast size={20} /> },
@@ -108,7 +109,6 @@ export default function ChatQuestionnaire({ onBack }: ChatQuestionnaireProps) {
     topics: [] as string[],
     topicOther: '',
     previousTherapy: '',
-    format: '',
     consultType: '',
     name: '',
     age: '',
@@ -129,7 +129,7 @@ export default function ChatQuestionnaire({ onBack }: ChatQuestionnaireProps) {
 
   const canNext = () => {
     if (step === 0) return data.topics.length > 0 && (!hasOther || data.topicOther.trim().length > 0);
-    if (step === 1) return data.previousTherapy && data.format && data.consultType;
+    if (step === 1) return data.previousTherapy && data.consultType;
     if (step === 2) return data.name.trim().length > 0 && data.age.trim().length > 0 && data.gender;
     if (step === 3) {
       const phoneOk = data.phone.replace(/\D/g, '').length >= 9;
@@ -149,7 +149,7 @@ export default function ChatQuestionnaire({ onBack }: ChatQuestionnaireProps) {
       topics: data.topics.join(', '),
       topicOther: data.topicOther,
       previousTherapy: data.previousTherapy,
-      format: data.format,
+      format: SESSION_FORMAT,
       consultType: data.consultType,
       name: data.name,
       age: data.age,
@@ -180,7 +180,7 @@ export default function ChatQuestionnaire({ onBack }: ChatQuestionnaireProps) {
         topics: data.topics,
         topicOther: data.topicOther,
         previousTherapy: data.previousTherapy,
-        format: data.format,
+        format: SESSION_FORMAT,
         consultType: data.consultType,
         language: data.language,
       });
@@ -249,7 +249,7 @@ export default function ChatQuestionnaire({ onBack }: ChatQuestionnaireProps) {
               </div>
             )}
 
-            {/* Шаг 2 — опыт и формат */}
+            {/* Шаг 2 — опыт и тип консультации */}
             {step === 1 && (
               <div className="fp-fields">
                 <Field full label="Обращались ли вы к психологу раньше?" required>
@@ -262,17 +262,6 @@ export default function ChatQuestionnaire({ onBack }: ChatQuestionnaireProps) {
                     ]}
                     value={data.previousTherapy}
                     onChange={v => update({ previousTherapy: v })}
-                  />
-                </Field>
-                <Field full label="Какой формат консультации вам подходит?" required>
-                  <RadioCards
-                    cols={2}
-                    options={[
-                      { value: 'Онлайн', icon: <Laptop size={22} />, title: 'Онлайн', desc: 'Из дома, по видео' },
-                      { value: 'Оффлайн', icon: <Buildings size={22} />, title: 'Оффлайн', desc: 'Личная встреча' },
-                    ]}
-                    value={data.format}
-                    onChange={v => update({ format: v })}
                   />
                 </Field>
                 <Field full label="Тип консультации" required>

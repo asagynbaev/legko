@@ -5,6 +5,7 @@ import {
   MasterWorkSchedule,
   MasterEducation,
 } from '../api/api';
+import { SESSION_FORMAT } from '../constants/staffContent';
 
 const DAY_NAMES = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
 
@@ -93,7 +94,6 @@ export default function StaffProfileModal({
 
   if (!master) return null;
 
-  const addressLine = master.address?.addressLine || 'Онлайн';
   const scheduleText = formatSchedule(master.workSchedules);
   const educationsFiltered = (master.educations || []).map(formatEducation).filter(Boolean);
 
@@ -149,8 +149,8 @@ export default function StaffProfileModal({
 
           <div className="staff-profile-grid">
             <section className="staff-profile-section">
-              <h4 className="staff-profile-section__title">Где ведёт приём</h4>
-              <p className="staff-profile-section__text">{addressLine}</p>
+              <h4 className="staff-profile-section__title">Формат приёма</h4>
+              <p className="staff-profile-section__text">{SESSION_FORMAT}</p>
             </section>
             <section className="staff-profile-section">
               <h4 className="staff-profile-section__title">Расписание</h4>
