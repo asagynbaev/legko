@@ -456,7 +456,7 @@ const Hero = () => {
       <div className="hero__top container">
         <div className="hero__badge">
           <span className="hero__badge-dot"></span>
-          Онлайн и офлайн консультации с проверенными психологами
+          Онлайн-консультации с проверенными психологами
         </div>
         <h1 className="hero__title">
           Найти своего психолога <span className="hero__title-accent">Легко</span>

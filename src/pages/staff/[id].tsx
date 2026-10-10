@@ -10,6 +10,7 @@ import {
   MasterQualification,
 } from '../../api/api';
 import { config } from '../../config/env';
+import { SESSION_FORMAT } from '../../constants/staffContent';
 import StaffHeader from '../../components/StaffHeader';
 import Footer from '../../components/Footer';
 import CertificatesGallery from '../../components/CertificatesGallery';
@@ -506,7 +507,6 @@ export default function StaffProfilePage({ master }: StaffProfilePageProps) {
   // certCount — число исходных документов (для бейджа «N сертификатов»).
   const certDocs = getCertificates(master.name);
   const certCount = getCertCount(master.name) || certItems.length;
-  const cityName = master.address?.addressLine?.split(',')[0]?.trim() || 'Бишкек';
   const whatsappUrl = 'https://wa.me/996700595393';
   const bookingUrl = `${config.bookingBaseUrl}/master/${master.id}`;
 
@@ -780,8 +780,8 @@ export default function StaffProfilePage({ master }: StaffProfilePageProps) {
                       </span>
                     )}
                     <span className="sp-hero__chip">
-                      <i className="fas fa-map-marker-alt" aria-hidden />
-                      {cityName}
+                      <i className="fas fa-video" aria-hidden />
+                      {SESSION_FORMAT}
                     </span>
                     {master.numberOfClients > 0 && (
                       <span className="sp-hero__chip">

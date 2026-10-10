@@ -346,8 +346,9 @@ const ChatModal = ({ open, onClose }: ChatModalProps) => {
         clearAnketa();
         const d = res.data;
         let confirmText = `Запись подтверждена! Вы записаны к ${d.masterName} на ${d.appointmentDate} в ${d.startTime}.`;
-        if (d.address) confirmText += `\n\nАдрес: ${d.address}`;
-        if (d.meetingLink) confirmText += `\n\nСсылка на встречу: ${d.meetingLink}`;
+        confirmText += d.meetingLink
+          ? `\n\nСессия пройдёт онлайн. Ссылка на встречу: ${d.meetingLink}`
+          : '\n\nСессия пройдёт онлайн, по видеосвязи.';
         confirmText += '\n\nДля подтверждения записи необходимо внести оплату:\nНомер счета: 1030120001878394\nПолучатель: ОсОО «Живи Легко»\n\nПри отмене менее чем за сутки оплата не возвращается.';
 
         setMessages(prev => [...prev, {

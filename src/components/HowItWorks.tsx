@@ -62,7 +62,6 @@ const HowItWorks = () => (
               <p className="step-description">
                 Выберите дату и время сессии, и произведите оплату
               </p>
-              <p className="step-description">или приходите офлайн по указанному в сообщении адресу</p>
               <p className="step-description">Мы вышлем вам чек-лист перед первой консультацией</p>
             </div>
           </div>
