@@ -19,6 +19,7 @@ export const STAFF_SORT_ORDER = [
   'Вера Романенко',
   'Айдина Ажибаева',
   'Асылгуль Мусаева',
+  'Олег Ерёмин',
 ];
 
 export const STAFF_PRICE_MAP: Record<string, string> = {
@@ -41,6 +42,7 @@ export const STAFF_PRICE_MAP: Record<string, string> = {
   'Вера Романенко': 'от 3400 с',
   'Айдана Мадишова': 'от 3000 с',
   'Айдина Ажибаева': 'от 2000 с',
+  'Олег Ерёмин': 'от 4000 с',
 };
 
 /** Все сессии Легко проходят онлайн — очных приёмов нет. */
@@ -89,6 +91,7 @@ export const STAFF_EXPERIENCE_MAP: Record<string, string> = {
   'Айдана Мадишова': '',
   'Айдина Ажибаева': '',
   'Асылгуль Мусаева': 'Опыт работы с 2016 года',
+  'Олег Ерёмин': 'Опыт работы с 2022 года',
 };
 
 export const STAFF_ABOUT_MAP: Record<string, string> = {

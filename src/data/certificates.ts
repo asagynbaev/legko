@@ -202,6 +202,13 @@ export const CERTIFICATES_BY_NAME: Record<string, CertificateDoc[]> = {
     { src: "/certificates/natalya-dzhunkovskaya/16.webp", thumb: "/certificates/natalya-dzhunkovskaya/16t.webp" },
     { src: "/certificates/natalya-dzhunkovskaya/17.webp", thumb: "/certificates/natalya-dzhunkovskaya/17t.webp" },
   ],
+  "Олег Ерёмин": [
+    { src: "/certificates/oleg-eremin/1.webp", thumb: "/certificates/oleg-eremin/1t.webp", title: "Диплом магистра с отличием — Psychodynamic Counselling and Psychotherapy (Goldsmiths, University of London)" },
+    { src: "/certificates/oleg-eremin/2.webp", thumb: "/certificates/oleg-eremin/2t.webp", title: "Диплом магистра с отличием — Psychoanalytic Studies (Birkbeck, University of London)" },
+    { src: "/certificates/oleg-eremin/3.webp", thumb: "/certificates/oleg-eremin/3t.webp", title: "Диплом бакалавра психологии с отличием (First Class Honours), King's College London, University of London" },
+    { src: "/certificates/oleg-eremin/4.webp", thumb: "/certificates/oleg-eremin/4t.webp", title: "Диплом о профессиональной переподготовке «Клинико-психологическая диагностика и психотерапия», Московский институт психоанализа, 1200 ч" },
+    { src: "/certificates/oleg-eremin/5.webp", thumb: "/certificates/oleg-eremin/5t.webp", title: "Свидетельство действительного члена Общероссийской профессиональной психотерапевтической лиги (ОППЛ)" },
+  ],
   "Руфина Мажитова": [
     { src: "/certificates/rufina-mazhitova/1.webp", thumb: "/certificates/rufina-mazhitova/1t.webp", title: "Сертификат II конференции Мажитова Руфина" },
     { src: "/certificates/rufina-mazhitova/2.webp", thumb: "/certificates/rufina-mazhitova/2t.webp" },
@@ -262,6 +269,7 @@ export const CERT_COUNT_BY_NAME: Record<string, number> = {
   "Заира Рамзанова": 6,
   "Ксения Антонова": 14,
   "Наталья Джунковская": 17,
+  "Олег Ерёмин": 5,
   "Руфина Мажитова": 6,
   "Сасаза Алина": 8,
   "Чолпон Кадралиева": 7,
