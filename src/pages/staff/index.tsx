@@ -1,7 +1,9 @@
 import { useEffect, useState, useRef } from 'react';
+import type { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { getStaffByBusinessId, getMasterById, MasterProfile } from '../../api/api';
+import { MasterProfile } from '../../api/api';
+import { getStaffListBasic, getStaffStaticProps, staffPath, StaffListItem } from '../../api/staffDirectory';
 import { config } from '@/config/env';
 import Image from 'next/image';
 import Head from 'next/head';
@@ -12,33 +14,20 @@ import { useStaffPrices } from '../../hooks/useStaffPrices';
 import {
   STAFF_ABOUT_MAP,
   STAFF_EXPERIENCE_MAP,
-  STAFF_SORT_ORDER,
   STAFF_SPECIALITY_MAP,
   SESSION_FORMAT,
 } from '../../constants/staffContent';
 
-interface Staff {
-  id: string;
-  name: string;
-  phone: string;
-  speciality: string;
-  aboutMe: string;
-  isFeatured: boolean;
-  photo: string;
-  experience: number;
-  numberOfClients: number;
-  rating: number;
-  interval: number;
-  isAutoApproved: boolean;
-  branchId: string;
+interface StaffPageProps {
+  initialStaff: StaffListItem[];
 }
 
-const StaffPage = () => {
+const StaffPage = ({ initialStaff }: StaffPageProps) => {
   const router = useRouter();
   const getPrice = useStaffPrices();
   const { psychologist } = router.query;
-  const [staff, setStaff] = useState<Staff[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [staff, setStaff] = useState<StaffListItem[]>(initialStaff);
+  const [loading, setLoading] = useState(initialStaff.length === 0);
   const [loadError, setLoadError] = useState(false);
   const [imageErrors, setImageErrors] = useState<Set<string>>(new Set());
   const [profileModal, setProfileModal] = useState<{
@@ -49,28 +38,16 @@ const StaffPage = () => {
   }>({ open: false, loading: false, error: null, master: null });
   const specialistRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
 
+  // Список приходит из getStaticProps; в браузере догружаем, только если сервер его не получил.
   useEffect(() => {
+    if (initialStaff.length > 0) return;
     const controller = new AbortController();
     let mounted = true;
 
-    getStaffByBusinessId(controller.signal)
-      .then((res) => {
+    getStaffListBasic(controller.signal)
+      .then((list) => {
         if (!mounted) return;
-        if (res && Array.isArray(res.message)) {
-          const normalize = (s: string) => s.replace(/\s+/g, ' ').trim();
-          const normalized = res.message.map((item: Staff) => ({
-            ...item,
-            name: normalize(item.name),
-          }));
-          const sorted = [...normalized].sort((a, b) => {
-            const idxA = STAFF_SORT_ORDER.indexOf(a.name);
-            const idxB = STAFF_SORT_ORDER.indexOf(b.name);
-            const orderA = idxA >= 0 ? idxA : STAFF_SORT_ORDER.length;
-            const orderB = idxB >= 0 ? idxB : STAFF_SORT_ORDER.length;
-            return orderA - orderB;
-          });
-          setStaff(sorted);
-        }
+        setStaff(list);
         setLoading(false);
       })
       .catch((err) => {
@@ -84,7 +61,7 @@ const StaffPage = () => {
       mounted = false;
       controller.abort();
     };
-  }, []);
+  }, [initialStaff]);
 
   useEffect(() => {
     if (psychologist && typeof psychologist === 'string' && !loading && staff.length > 0) {
@@ -120,8 +97,8 @@ const StaffPage = () => {
     window.open(`${config.bookingBaseUrl}/master/${specialistId}`, '_blank');
   };
 
-  const handleOpenProfile = (masterId: string) => {
-    router.push(`/staff/${masterId}`);
+  const handleOpenProfile = (specialist: StaffListItem) => {
+    router.push(staffPath(specialist));
   };
 
   const handleCloseProfile = () => {
@@ -259,7 +236,7 @@ const StaffPage = () => {
                         {STAFF_ABOUT_MAP[specialist.name] || specialist.aboutMe}
                       </p>
                       <Link
-                        href={`/staff/${specialist.id}`}
+                        href={staffPath(specialist)}
                         className="staff-card__more-link"
                       >
                         ещё...
@@ -269,7 +246,7 @@ const StaffPage = () => {
                       <button
                         type="button"
                         className="staff-card__cta staff-card__cta--secondary"
-                        onClick={() => handleOpenProfile(specialist.id)}
+                        onClick={() => handleOpenProfile(specialist)}
                       >
                         <i className="fas fa-user-circle" aria-hidden></i>
                         Посмотреть анкету
@@ -361,5 +338,7 @@ const StaffPage = () => {
     </>
   );
 };
+
+export const getStaticProps: GetStaticProps<StaffPageProps> = () => getStaffStaticProps();
 
 export default StaffPage;

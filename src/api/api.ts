@@ -60,6 +60,9 @@ export interface MasterQualification {
 
 export interface MasterProfile {
   id: string;
+  /** Slug мастера в Booka — публичный адрес профиля /staff/<slug> */
+  slug: string | null;
+  businessId: string;
   name: string;
   phone: string;
   speciality: string;
@@ -90,6 +93,24 @@ export async function getMasterById(masterId: string, signal?: AbortSignal): Pro
     const res = await apiGet(endpoint, signal);
     return res as GetMasterByIdResponse;
 }
+
+/**
+ * Get full master (psychologist) profile by Booka slug
+ */
+export async function getMasterBySlug(slug: string, signal?: AbortSignal): Promise<GetMasterByIdResponse> {
+    const endpoint = `/Masters/get-by-slug?slug=${encodeURIComponent(slug)}`;
+    const res = await apiGet(endpoint, signal);
+    return res as GetMasterByIdResponse;
+}
+
+/** Ошибка ответа API со статусом — чтобы отличать «не найдено» (404) от сбоя */
+export class ApiError extends Error {
+    constructor(message: string, public readonly status: number) {
+        super(message);
+        this.name = 'ApiError';
+    }
+}
+
 const isServer = typeof window === 'undefined';
 const BASE_URL = isServer ? config.apiBaseUrl : "/api/proxy";
 
@@ -103,7 +124,7 @@ export async function apiGet(endpoint: string, signal?: AbortSignal) {
         signal,
     });
     if (!response.ok) {
-        throw new Error(`GET ${endpoint} failed: ${response.status}`);
+        throw new ApiError(`GET ${endpoint} failed: ${response.status}`, response.status);
     }
     return response.json();
 }
