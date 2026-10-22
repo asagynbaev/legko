@@ -4,11 +4,14 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
+  ApiError,
   getMasterById,
+  getMasterBySlug,
   MasterProfile,
   MasterEducation,
   MasterQualification,
 } from '../../api/api';
+import { isOwnMaster, SITE_URL, staffPath } from '../../api/staffDirectory';
 import { config } from '../../config/env';
 import { SESSION_FORMAT } from '../../constants/staffContent';
 import StaffHeader from '../../components/StaffHeader';
@@ -516,6 +519,8 @@ export default function StaffProfilePage({ master }: StaffProfilePageProps) {
   const certCount = getCertCount(master.name) || certItems.length;
   const whatsappUrl = 'https://wa.me/996700595393';
   const bookingUrl = `${config.bookingBaseUrl}/master/${master.id}`;
+  const profileUrl = `${SITE_URL}${staffPath(master)}`;
+  const pageTitle = `${master.name} — психолог онлайн | Legko`;
 
   // Extended fields that may come from API
   const ext = master as MasterProfile & {
@@ -707,22 +712,22 @@ export default function StaffProfilePage({ master }: StaffProfilePageProps) {
   return (
     <>
       <Head>
-        <title>{master.name} — психолог | Legko</title>
+        <title>{pageTitle}</title>
         <meta
           name="description"
           content={`${master.name} — ${STAFF_SPECIALITY_MAP[master.name] || master.speciality}. ${STAFF_EXPERIENCE_YEAR_MAP[master.name] ? `Опыт работы с ${STAFF_EXPERIENCE_YEAR_MAP[master.name]} года` : `Опыт ${master.experience} лет`}. Запишитесь на консультацию на Legko.live`}
         />
-        <link rel="canonical" href={`https://legko.live/staff/${master.id}`} />
+        <link rel="canonical" href={profileUrl} />
 
         <meta property="og:type" content="profile" />
-        <meta property="og:title" content={`${master.name} — психолог | Legko`} />
+        <meta property="og:title" content={pageTitle} />
         <meta property="og:description" content={`${STAFF_SPECIALITY_MAP[master.name] || master.speciality}. Запишитесь на консультацию.`} />
-        <meta property="og:url" content={`https://legko.live/staff/${master.id}`} />
+        <meta property="og:url" content={profileUrl} />
         {master.photo && <meta property="og:image" content={master.photo} />}
         <meta property="og:locale" content="ru_RU" />
 
         <meta name="twitter:card" content="summary" />
-        <meta name="twitter:title" content={`${master.name} — психолог | Legko`} />
+        <meta name="twitter:title" content={pageTitle} />
         <meta name="twitter:description" content={`${STAFF_SPECIALITY_MAP[master.name] || master.speciality}. Запишитесь на консультацию.`} />
         {master.photo && <meta name="twitter:image" content={master.photo} />}
 
@@ -735,9 +740,20 @@ export default function StaffProfilePage({ master }: StaffProfilePageProps) {
             jobTitle: STAFF_SPECIALITY_MAP[master.name] || master.speciality,
             image: master.photo || undefined,
             description: master.aboutMe || undefined,
-            url: `https://legko.live/staff/${master.id}`,
-            worksFor: { '@type': 'Organization', name: 'Legko', url: 'https://legko.live' },
-            ...(master.rating ? { aggregateRating: { '@type': 'AggregateRating', ratingValue: master.rating, bestRating: 5, ratingCount: master.numberOfClients || 1 } } : {}),
+            url: profileUrl,
+            worksFor: { '@type': 'Organization', name: 'Legko', url: SITE_URL },
+          }).replace(/</g, '\\u003c') }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: 'Главная', item: `${SITE_URL}/` },
+              { '@type': 'ListItem', position: 2, name: 'Специалисты', item: `${SITE_URL}/staff` },
+              { '@type': 'ListItem', position: 3, name: master.name, item: profileUrl },
+            ],
           }).replace(/</g, '\\u003c') }}
         />
       </Head>
@@ -808,7 +824,7 @@ export default function StaffProfilePage({ master }: StaffProfilePageProps) {
                     )}
                   </div>
 
-                  <a href={bookingUrl} className="sp-hero__cta" target="_blank" rel="noopener noreferrer">
+                  <a href={bookingUrl} className="sp-hero__cta" target="_blank" rel="nofollow noopener noreferrer">
                     <CalendarDays width={20} height={20} color="currentColor" aria-hidden />
                     Записаться
                   </a>
@@ -1038,7 +1054,7 @@ ref={(el) => { sectionRefs.current.lgbt = el; }}
             {/* Inline CTA after letter */}
             <div className="sp-inline-cta">
               <p className="sp-inline-cta__text">Готовы начать? Запишитесь на первую консультацию</p>
-              <a href={bookingUrl} className="sp-inline-cta__btn" target="_blank" rel="noopener noreferrer">
+              <a href={bookingUrl} className="sp-inline-cta__btn" target="_blank" rel="nofollow noopener noreferrer">
                 <CalendarDays width={18} height={18} color="currentColor" aria-hidden />
                 Записаться
               </a>
@@ -1062,7 +1078,7 @@ ref={(el) => { sectionRefs.current.lgbt = el; }}
                       <span className="sp-service-tile__price">
                         {s.price.toLocaleString('ru-RU')} {s.currencySymbol}
                       </span>
-                      <a href={bookingUrl} className="sp-service-tile__btn" target="_blank" rel="noopener noreferrer">
+                      <a href={bookingUrl} className="sp-service-tile__btn" target="_blank" rel="nofollow noopener noreferrer">
                         <CalendarDays width={14} height={14} color="currentColor" aria-hidden />
                         Записаться
                       </a>
@@ -1132,7 +1148,7 @@ ref={(el) => { sectionRefs.current.lgbt = el; }}
                   <p className="sp-cta__text">
                     Запишитесь на первую консультацию — это начало перемен к лучшему
                   </p>
-                  <a href={bookingUrl} className="sp-cta__btn" target="_blank" rel="noopener noreferrer">
+                  <a href={bookingUrl} className="sp-cta__btn" target="_blank" rel="nofollow noopener noreferrer">
                     <CalendarDays width={20} height={20} color="currentColor" aria-hidden />
                     Записаться
                   </a>
@@ -1178,7 +1194,7 @@ ref={(el) => { sectionRefs.current.lgbt = el; }}
 
       {/* Sticky mobile CTA */}
       <div className="sp-sticky-cta">
-        <a href={bookingUrl} className="sp-sticky-cta__btn" target="_blank" rel="noopener noreferrer">
+        <a href={bookingUrl} className="sp-sticky-cta__btn" target="_blank" rel="nofollow noopener noreferrer">
           <CalendarDays width={20} height={20} color="currentColor" aria-hidden />
           Записаться
         </a>
@@ -1197,18 +1213,40 @@ ref={(el) => { sectionRefs.current.lgbt = el; }}
   );
 }
 
+const GUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+/**
+ * /staff/<slug> — основной адрес (slug мастера из Booka, на него же ставит canonical booka.life).
+ * /staff/<GUID> — старый адрес: 301 на slug; мастер без slug остаётся на GUID.
+ * Мастер чужого бизнеса Booka — 404.
+ */
 export const getServerSideProps: GetServerSideProps<StaffProfilePageProps> = async (context) => {
   const { id } = context.params as { id: string };
   try {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 10000);
-    const res = await getMasterById(id, controller.signal);
+    const res = GUID_RE.test(id)
+      ? await getMasterById(id, controller.signal)
+      : await getMasterBySlug(id, controller.signal);
     clearTimeout(timeout);
-    if (res?.code === 200 && res.message) {
-      return { props: { master: res.message } };
+    const master = res?.code === 200 ? res.message : null;
+    if (!master || !isOwnMaster(master)) {
+      return { notFound: true };
     }
-    return { notFound: true };
-  } catch {
-    return { notFound: true };
+    if ((master.slug || master.id) !== id) {
+      // Сохраняем utm и прочие параметры старых ссылок
+      const query = new URLSearchParams();
+      for (const [key, value] of Object.entries(context.query)) {
+        if (key === 'id') continue;
+        for (const v of Array.isArray(value) ? value : [value ?? '']) query.append(key, v);
+      }
+      const search = query.toString();
+      return { redirect: { destination: `${staffPath(master)}${search ? `?${search}` : ''}`, statusCode: 301 } };
+    }
+    return { props: { master } };
+  } catch (error) {
+    // 404 — только если Booka не знает мастера; сбой/таймаут → 500, чтобы поисковик не счёл профиль удалённым
+    if (error instanceof ApiError && error.status === 404) return { notFound: true };
+    throw error;
   }
 };

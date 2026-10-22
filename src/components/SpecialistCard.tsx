@@ -9,7 +9,8 @@ interface SpecialistCardProps {
   name: string;
   title: string;
   rating?: number;
-  id?: string;
+  /** Адрес профиля; без него карточка не кликается */
+  href?: string;
   experience?: number;
   experienceLabel?: string;
   numberOfClients?: number;
@@ -26,7 +27,7 @@ const SpecialistCard = ({
   name,
   title,
   rating = 5,
-  id,
+  href,
   experience,
   experienceLabel,
   numberOfClients,
@@ -121,9 +122,9 @@ const SpecialistCard = ({
     </>
   );
 
-  if (id) {
+  if (href) {
     return (
-      <Link href={`/staff/${id}`} className="specialist-card-alter specialist-card-alter--link">
+      <Link href={href} className="specialist-card-alter specialist-card-alter--link">
         {cardContent}
       </Link>
     );

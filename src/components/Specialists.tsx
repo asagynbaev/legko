@@ -1,58 +1,39 @@
 import { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
 import SpecialistCard from './SpecialistCard';
-import { getStaffByBusinessId } from '../api/api';
+import { getStaffListBasic, staffPath, StaffListItem } from '../api/staffDirectory';
 import { useStaffPrices } from '../hooks/useStaffPrices';
 import {
   STAFF_EXPERIENCE_MAP,
-  STAFF_SORT_ORDER,
   STAFF_SPECIALITY_MAP,
   SESSION_FORMAT,
 } from '../constants/staffContent';
 
-type StaffItem = {
-  id: string;
-  name: string;
-  photo?: string;
-  speciality: string;
-  rating?: number;
-  experience?: number;
-  numberOfClients?: number;
-};
+const NO_STAFF: StaffListItem[] = [];
 
-const Specialists = () => {
+interface SpecialistsProps {
+  /** Список из getStaticProps главной; пустой — догружаем в браузере */
+  initialStaff?: StaffListItem[];
+}
+
+const Specialists = ({ initialStaff = NO_STAFF }: SpecialistsProps) => {
   const getPrice = useStaffPrices();
-  const [staff, setStaff] = useState<StaffItem[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [staff, setStaff] = useState<StaffListItem[]>(initialStaff);
+  const [loading, setLoading] = useState(initialStaff.length === 0);
   const [error, setError] = useState<string | null>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (initialStaff.length > 0) return;
     const controller = new AbortController();
     let mounted = true;
 
     setLoading(true);
     setError(null);
-    getStaffByBusinessId(controller.signal)
-      .then((res) => {
+    getStaffListBasic(controller.signal)
+      .then((list) => {
         if (!mounted) return;
-        if (res && Array.isArray(res.message)) {
-          const normalize = (s: string) => s.replace(/\s+/g, ' ').trim();
-          const normalized = res.message.map((item: StaffItem) => ({
-            ...item,
-            name: normalize(item.name),
-          }));
-          const sorted = [...normalized].sort((a: StaffItem, b: StaffItem) => {
-            const idxA = STAFF_SORT_ORDER.indexOf(a.name);
-            const idxB = STAFF_SORT_ORDER.indexOf(b.name);
-            const orderA = idxA >= 0 ? idxA : STAFF_SORT_ORDER.length;
-            const orderB = idxB >= 0 ? idxB : STAFF_SORT_ORDER.length;
-            return orderA - orderB;
-          });
-          setStaff(sorted);
-        } else {
-          setError('Не удалось загрузить данные');
-        }
+        setStaff(list);
       })
       .catch((err) => {
         if (!mounted) return;
@@ -69,7 +50,7 @@ const Specialists = () => {
       mounted = false;
       controller.abort();
     };
-  }, []);
+  }, [initialStaff]);
 
   const scrollCarousel = (dir: 'prev' | 'next') => {
     const el = carouselRef.current;
@@ -145,7 +126,7 @@ const Specialists = () => {
                   ? displayList.map((item) => (
                       <SpecialistCard
                         key={item.id}
-                        id={item.id}
+                        href={staffPath(item)}
                         avatar={item.photo || '/images/пушистик обьятия.webp'}
                         name={item.name}
                         title={STAFF_SPECIALITY_MAP[item.name] || item.speciality}

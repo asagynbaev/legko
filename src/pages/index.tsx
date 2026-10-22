@@ -1,5 +1,7 @@
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
+import type { GetStaticProps } from 'next';
+import { getStaffStaticProps, StaffListItem } from '../api/staffDirectory';
 import Hero from '../components/Hero';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -14,7 +16,11 @@ const UsefulInfo = dynamic(() => import('../components/UsefulInfo'));
 const FAQ = dynamic(() => import('../components/FAQ'));
 const CTABottom = dynamic(() => import('../components/CTABottom'));
 
-export default function Home() {
+interface HomeProps {
+    initialStaff: StaffListItem[];
+}
+
+export default function Home({ initialStaff }: HomeProps) {
     return (
         <>
             <Head>
@@ -43,14 +49,28 @@ export default function Home() {
                     dangerouslySetInnerHTML={{
                         __html: JSON.stringify({
                             "@context": "https://schema.org",
+                            "@type": "WebSite",
+                            "name": "Legko",
+                            "alternateName": ["Легко", "legko.live"],
+                            "url": "https://legko.live/"
+                        })
+                    }}
+                />
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify({
+                            "@context": "https://schema.org",
                             "@type": "Organization",
                             "name": "Legko",
+                            "alternateName": "Легко",
                             "url": "https://legko.live",
                             "logo": "https://legko.live/images/Group_12_3.png.webp",
                             "description": "Быстрый и удобный поиск психологов онлайн",
                             "sameAs": [
                                 "https://t.me/legko_psychology",
-                                "https://wa.me/996509339333"
+                                "https://wa.me/996509339333",
+                                "https://booka.life/business/legko_live"
                             ],
                             "contactPoint": {
                                 "@type": "ContactPoint",
@@ -121,7 +141,7 @@ export default function Home() {
             <Problems />
             <HowItWorks />
             <Benefits />
-            <Specialists />
+            <Specialists initialStaff={initialStaff} />
             <Testimonials />
             <UsefulInfo />
             <FAQ />
@@ -130,3 +150,5 @@ export default function Home() {
         </>
     );
 }
+
+export const getStaticProps: GetStaticProps<HomeProps> = () => getStaffStaticProps(6);
