@@ -15,6 +15,7 @@
 | `NEXT_PUBLIC_SIGNALR_HUB_URL` | `https://api.booka.life/hubs/psychologist-match` |
 | `NEXT_PUBLIC_BOOKING_BASE_URL` | `https://booka.life` |
 | `NEXT_PUBLIC_IMAGE_HOST` | `img.booka.life` |
+| `NEXT_PUBLIC_ASSISTANT_WIDGET_URL` | `https://booka.life/widget/assistant.js` (опционально, пилот /elli-2) |
 | `NEXT_PUBLIC_USE_REST_ONLY` | `false` (опционально) |
 
 После сохранения сделай **Redeploy** последнего деплоя (Deployments → ⋮ → Redeploy), чтобы сборка прошла уже с новыми переменными.
