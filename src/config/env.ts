@@ -8,4 +8,6 @@ export const config = {
   signalrHubUrl: process.env.NEXT_PUBLIC_SIGNALR_HUB_URL ?? 'https://api.booka.life/hubs/psychologist-match',
   bookingBaseUrl: process.env.NEXT_PUBLIC_BOOKING_BASE_URL ?? 'https://booka.life',
   imageHost: process.env.NEXT_PUBLIC_IMAGE_HOST ?? 'img.booka.life',
+  // Виджет ассистента Booka («Вижн») — пилот /elli-2
+  assistantWidgetUrl: process.env.NEXT_PUBLIC_ASSISTANT_WIDGET_URL || 'https://booka.life/widget/assistant.js',
 } as const;

@@ -8092,3 +8092,63 @@ select:focus-visible {
   .cert-gallery__thumb { width: 46px; height: 46px; }
   .cert-gallery__title { font-size: 13px; }
 }
+
+/* === PAGE: elli-2 (пилот Элли на ассистенте Booka) === */
+/* Виджет Booka виден только при классе от useBookaAssistant — не протекает на другие страницы */
+body:not(.booka-assistant-visible) booka-assistant {
+  display: none;
+}
+.elli2 {
+  /* место под пузырь виджета (56px + отступ) — нижний контент не прячется под ним */
+  padding-bottom: 88px;
+}
+.elli2__card:not(.hero__chat--form) {
+  height: auto;
+}
+.elli2__body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+}
+.elli2__cta {
+  width: 100%;
+  min-height: 52px;
+  font-size: 16px;
+  gap: 10px;
+}
+.elli2__cta[aria-disabled='true'] {
+  opacity: 0.75;
+  cursor: progress;
+}
+.elli2__lead {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.elli2__hint {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+.elli2__consent {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+.elli2__consent a {
+  color: var(--primary);
+  text-decoration: underline;
+}
+.elli2__unavailable {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.elli2__whatsapp {
+  align-self: flex-start;
+}
+@media (max-width: 768px) {
+  .elli2__body {
+    padding: 20px 16px;
+  }
+}
