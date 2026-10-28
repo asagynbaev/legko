@@ -69,12 +69,12 @@ export default function Home({ initialStaff }: HomeProps) {
                             "description": "Быстрый и удобный поиск психологов онлайн",
                             "sameAs": [
                                 "https://t.me/legko_psychology",
-                                "https://wa.me/996509339333",
+                                "https://wa.me/996700595393",
                                 "https://booka.life/business/legko_live"
                             ],
                             "contactPoint": {
                                 "@type": "ContactPoint",
-                                "telephone": "+996-509-339-333",
+                                "telephone": "+996-700-595-393",
                                 "contactType": "customer service",
                                 "availableLanguage": "Russian"
                             }

@@ -1158,7 +1158,7 @@ ref={(el) => { sectionRefs.current.lgbt = el; }}
                     </p>
                     <div className="sp-cta__buttons">
                       <a
-                        href="https://wa.me/996509339333"
+                        href={whatsappUrl}
                         className="btn btn--cta-primary"
                         target="_blank"
                         rel="noopener noreferrer"
