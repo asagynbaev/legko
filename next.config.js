@@ -18,13 +18,24 @@ module.exports = {
       },
     ];
   },
+  // Прокси только для путей, которые зовёт браузер (src/api/*: BASE_URL = /api/proxy).
+  // Весь Booka API под нашим доменом не открываем — в нём есть телефоны и брони мастеров.
+  // Только точные пути: в :path* проходит «..», и Booka сама нормализует его в любой путь.
   async rewrites() {
-    return [
-      {
-        source: '/api/proxy/:path*',
-        destination: 'https://api.booka.life/api/v1/:path*',
-      },
+    // То же значение по умолчанию, что в src/config/env.ts
+    const businessId = process.env.NEXT_PUBLIC_BUSINESS_ID ?? '9369c165-4672-4ca7-90d7-d3efdafccbd6';
+    const paths = [
+      // Старая Элли на главной
+      'PsychologistMatch/start',
+      'PsychologistMatch/message',
+      'PsychologistMatch/create-booking',
+      // Запасная загрузка списка психологов, если SSR вернул пустой список
+      `Business/staff/get-staff-by-business-id/${businessId}`,
     ];
+    return paths.map((p) => ({
+      source: `/api/proxy/${p}`,
+      destination: `https://api.booka.life/api/v1/${p}`,
+    }));
   },
   images: {
     remotePatterns: [
