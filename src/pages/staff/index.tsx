@@ -301,7 +301,7 @@ const StaffPage = ({ initialStaff }: StaffPageProps) => {
               </p>
               <div className="staff-cta__buttons">
                 <a
-                  href="https://wa.me/996509339333"
+                  href="https://wa.me/996700595393"
                   className="btn btn--primary btn--large"
                   target="_blank"
                   rel="noopener noreferrer"
