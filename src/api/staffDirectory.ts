@@ -1,6 +1,13 @@
 import { PHASE_PRODUCTION_BUILD } from 'next/constants';
 import { config } from '@/config/env';
-import { getStaffByBusinessId, getMasterById, MasterProfile } from './api';
+import {
+  getStaffByBusinessId,
+  getMasterById,
+  MasterEducation,
+  MasterProfile,
+  MasterQualification,
+  MasterService,
+} from './api';
 import { STAFF_SORT_ORDER } from '../constants/staffContent';
 
 export const SITE_URL = 'https://legko.live';
@@ -19,6 +26,47 @@ export interface StaffListItem {
   experience: number;
   numberOfClients: number;
   rating: number;
+}
+
+/**
+ * Профиль /staff/<slug> — только поля, которые показывает страница. Ответ Booka целиком
+ * в HTML не отдаём: в нём телефон мастера, брони, адрес и отзывы с id клиентов.
+ */
+export interface StaffProfile extends StaffListItem {
+  services: Pick<MasterService, 'id' | 'name' | 'duration' | 'price' | 'currencySymbol'>[];
+  educations: Pick<MasterEducation, 'institution' | 'degree' | 'fieldOfStudy' | 'startDate' | 'endDate' | 'description'>[];
+  qualifications: Pick<MasterQualification, 'title' | 'issuingOrganization' | 'issueDate' | 'documentUrl' | 'certificateNumber'>[];
+  // Booka их пока не отдаёт — тогда страница берёт свои карты по имени
+  topics: string[] | null;
+  languages: string[] | null;
+  lgbtFriendly: boolean | null;
+  workMethod: string | null;
+}
+
+type MasterExtras = Partial<Pick<StaffProfile, 'topics' | 'languages' | 'lgbtFriendly' | 'workMethod'>>;
+
+export function toStaffProfile(m: MasterProfile & MasterExtras): StaffProfile {
+  return {
+    id: m.id,
+    slug: m.slug ?? null,
+    name: m.name, // как в Booka: по нему ищутся карты контента
+    photo: m.photo || null,
+    speciality: m.speciality ?? '',
+    aboutMe: m.aboutMe ?? '',
+    experience: m.experience ?? 0,
+    numberOfClients: m.numberOfClients ?? 0,
+    rating: m.rating ?? 0,
+    services: (m.services ?? []).map(({ id, name, duration, price, currencySymbol }) =>
+      ({ id, name, duration, price, currencySymbol })),
+    educations: (m.educations ?? []).map(({ institution, degree, fieldOfStudy, startDate, endDate, description }) =>
+      ({ institution, degree, fieldOfStudy, startDate, endDate, description })),
+    qualifications: (m.qualifications ?? []).map(({ title, issuingOrganization, issueDate, documentUrl, certificateNumber }) =>
+      ({ title, issuingOrganization, issueDate, documentUrl, certificateNumber })),
+    topics: m.topics ?? null,
+    languages: m.languages ?? null,
+    lgbtFriendly: m.lgbtFriendly ?? null,
+    workMethod: m.workMethod ?? null,
+  };
 }
 
 /** Публичный адрес профиля: по slug из Booka, без slug — по id. */

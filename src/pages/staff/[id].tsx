@@ -3,15 +3,8 @@ import { useState, useEffect, useRef } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import {
-  ApiError,
-  getMasterById,
-  getMasterBySlug,
-  MasterProfile,
-  MasterEducation,
-  MasterQualification,
-} from '../../api/api';
-import { isOwnMaster, SITE_URL, staffPath } from '../../api/staffDirectory';
+import { ApiError, getMasterById, getMasterBySlug } from '../../api/api';
+import { isOwnMaster, SITE_URL, staffPath, StaffProfile, toStaffProfile } from '../../api/staffDirectory';
 import { config } from '../../config/env';
 import { SESSION_FORMAT } from '../../constants/staffContent';
 import StaffHeader from '../../components/StaffHeader';
@@ -37,12 +30,12 @@ import {
 } from 'lucide-react';
 
 interface StaffProfilePageProps {
-  master: MasterProfile | null;
+  master: StaffProfile | null;
 }
 
 /* ---------- helpers ---------- */
 
-function formatEducation(e: MasterEducation) {
+function formatEducation(e: StaffProfile['educations'][number]) {
   const parts = [e.institution, e.degree, e.fieldOfStudy].filter(
     (p) => p && p !== 'string'
   );
@@ -53,7 +46,7 @@ function formatEducation(e: MasterEducation) {
   return { text: parts.join(', '), period, description: e.description };
 }
 
-function formatQualification(q: MasterQualification) {
+function formatQualification(q: StaffProfile['qualifications'][number]) {
   const year = q.issueDate ? q.issueDate.slice(0, 4) : '';
   return {
     title: q.title,
@@ -64,7 +57,7 @@ function formatQualification(q: MasterQualification) {
   };
 }
 
-function getMinPrice(services: MasterProfile['services']) {
+function getMinPrice(services: StaffProfile['services']) {
   if (!services || services.length === 0) return null;
   const min = services.reduce((m, s) => (s.price < m.price ? s : m), services[0]);
   return { price: min.price, symbol: min.currencySymbol };
@@ -522,14 +515,6 @@ export default function StaffProfilePage({ master }: StaffProfilePageProps) {
   const profileUrl = `${SITE_URL}${staffPath(master)}`;
   const pageTitle = `${master.name} — психолог онлайн | Legko`;
 
-  // Extended fields that may come from API
-  const ext = master as MasterProfile & {
-    topics?: string[];
-    languages?: string[];
-    lgbtFriendly?: boolean;
-    workMethod?: string;
-  };
-
   // Letters from psychologists to their clients, keyed by name
   const PSYCHOLOGIST_LETTERS: Record<string, string> = {
     'Чолпон Кадралиева': `Я клинический психолог и травматерапевт. В своей работе опираюсь не на идею «собери себя и живи правильно», а на понимание, что у каждой реакции есть своя история. Обычно человек приходит не потому, что он что-то делает не так, а потому что психика научилась когда-то так для выживания.
@@ -699,10 +684,10 @@ export default function StaffProfilePage({ master }: StaffProfilePageProps) {
   };
 
   const letterText = master.aboutMe ? getLetterText(master.name, master.aboutMe) : '';
-  const topics = ext.topics && ext.topics.length > 0 ? ext.topics : STAFF_TOPICS_MAP[master.name];
-  const workMethod = ext.workMethod || STAFF_WORK_METHOD_MAP[master.name];
-  const isLgbtFriendly = typeof ext.lgbtFriendly === 'boolean'
-    ? ext.lgbtFriendly
+  const topics = master.topics && master.topics.length > 0 ? master.topics : STAFF_TOPICS_MAP[master.name];
+  const workMethod = master.workMethod || STAFF_WORK_METHOD_MAP[master.name];
+  const isLgbtFriendly = typeof master.lgbtFriendly === 'boolean'
+    ? master.lgbtFriendly
     : STAFF_LGBT_FRIENDLY_NAMES.has(master.name);
 
   const scrollTo = (id: string) => {
@@ -967,14 +952,14 @@ ref={(el) => { sectionRefs.current.lgbt = el; }}
             )}
 
             {/* 4. Языки работы */}
-            {ext.languages && ext.languages.length > 0 && (
+            {master.languages && master.languages.length > 0 && (
               <section className="sp-section sp-section--divided">
                 <div className="sp-section__header">
                   <Globe width={20} height={20} color="#6C5CE7" aria-hidden />
                   <h2 className="sp-section__title">Языки работы</h2>
                 </div>
                 <div className="sp-languages">
-                  {ext.languages.map((lang, i) => (
+                  {master.languages.map((lang, i) => (
                     <span key={i} className="sp-language-chip">
                       <Globe width={16} height={16} color="currentColor" aria-hidden />
                       {lang}
@@ -1243,7 +1228,7 @@ export const getServerSideProps: GetServerSideProps<StaffProfilePageProps> = asy
       const search = query.toString();
       return { redirect: { destination: `${staffPath(master)}${search ? `?${search}` : ''}`, statusCode: 301 } };
     }
-    return { props: { master } };
+    return { props: { master: toStaffProfile(master) } };
   } catch (error) {
     // 404 — только если Booka не знает мастера; сбой/таймаут → 500, чтобы поисковик не счёл профиль удалённым
     if (error instanceof ApiError && error.status === 404) return { notFound: true };
