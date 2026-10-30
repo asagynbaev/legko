@@ -241,7 +241,6 @@ const ChatModal = ({ open, onClose }: ChatModalProps) => {
   const validateInput = (text: string): string | null => {
     const trimmed = text.trim();
     if (trimmed.length === 0) return 'Пожалуйста, введите сообщение';
-    if (trimmed.length < 3) return 'Сообщение слишком короткое (минимум 3 символа)';
     if (trimmed.length > 1000) return 'Сообщение слишком длинное (максимум 1000 символов)';
     return null;
   };
